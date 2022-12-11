@@ -145,7 +145,7 @@
 							<div class="card-deck">
 								@foreach($item['photo'] as $kb)
 									<div class="card">
-										<img class="img-fluid card-img-top" src="{{config('app.url')}}/storage/{{$kb->pic_front}}" alt="Card image cap">
+										<img class="img-fluid card-img-top" src="{{config('app.url')}}/uploads/{{$kb->pic_front}}" alt="Card image cap">
 										<div class="card-body">
 											<h5 class="card-title"><center>{{$kb->memberp->member_name}}</center></h5>
 										</div>
