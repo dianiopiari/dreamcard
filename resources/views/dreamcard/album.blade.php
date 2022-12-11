@@ -146,9 +146,9 @@
 								@foreach($item['photo'] as $kb)
                                     <div class="col-sm-1">
 										<img class="img-fluid card-img-top" src="{{config('app.url')}}/uploads/{{$kb->pic_front}}" alt="Card image cap">
-										<div class="card-body">
-											<h5 class="card-title"><center>{{$kb->memberp->member_name}}</center></h5>
-										</div>
+										<!--<div class="card-body">
+											<h5 class="card-title"><center></center></h5>
+										</div>-->
 									</div>
 								@endforeach
 							</div>
