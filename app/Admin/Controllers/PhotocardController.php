@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Helpers\Counter;
+use App\Models\MAlbum;
 use App\Models\MChannel;
 use App\Models\MGroup;
 use App\Models\MMember;
@@ -87,6 +88,9 @@ class PhotocardController extends AdminController
         );
         $form->select('member_id', 'Member')->options(
             MMember::select('id', 'member_name')->get()->pluck('member_name','id')
+        );
+        $form->select('album_id', 'Album')->options(
+            MAlbum::select('id', 'album')->get()->pluck('album','id')
         );
         $form->select('channel_id', 'Event')->options(
             MChannel::select('id', 'channel')->get()->pluck('channel','id')
