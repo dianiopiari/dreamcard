@@ -54,9 +54,9 @@
 						<ul class="pcoded-submenu">
 							@foreach($albums as $al)
 								@if ($slug==$al->slug)
-									<li class="active"><a href="/{{$group->slug}}/{{$al->slug}}">{{$al->album}}</a></li>
+									<li class="active"><a href="{{config('app.url')}}/{{$group->slug}}/{{$al->slug}}">{{$al->album}}</a></li>
 								@else
-									<li><a href="/{{$group->slug}}/{{$al->slug}}">{{$al->album}}</a></li>
+									<li><a href="{{config('app.url')}}/{{$group->slug}}/{{$al->slug}}">{{$al->album}}</a></li>
 								@endif
 							@endforeach
 						</ul>
@@ -107,12 +107,12 @@
 							<h5 class="m-b-10">Album</h5>
 						</div>
 						<ul class="breadcrumb">
-							<li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
-							<li class="breadcrumb-item"><a href="/{{$group->slug}}" @if ($style2==1) style="background: white;color: #fd6e29;padding: 2px;" @endif>{{$group->group_name}}</a></li>
-							<li class="breadcrumb-item"><a href="/{{$group->slug}}/{{$album->slug}}" @if ($style3==1) style="background: white;color: #fd6e29;padding: 2px;" @endif>{{$album->album}}</a></li>
-							<li class="breadcrumb-item"><a href="/{{$group->slug}}/{{$album->slug}}/album" @if ($style4==1) style="background: white;color: #fd6e29;padding: 2px;" @endif>Album Inclusions</a></li>
-							<li class="breadcrumb-item"><a href="/{{$group->slug}}/{{$album->slug}}/fansign" @if ($style5==1) style="background: white;color: #fd6e29;padding: 2px;" @endif >Fansign/POB</a></li>
-							<li class="breadcrumb-item"><a href="/{{$group->slug}}/{{$album->slug}}/other" @if ($style6==1) style="background: white;color: #fd6e29;padding: 2px;" @endif>Other</a></li>
+							<li class="breadcrumb-item"><a href="{{config('app.url')}}"><i class="feather icon-home"></i></a></li>
+							<li class="breadcrumb-item"><a href="{{config('app.url')}}/{{$group->slug}}" @if ($style2==1) style="background: white;color: #fd6e29;padding: 2px;" @endif>{{$group->group_name}}</a></li>
+							<li class="breadcrumb-item"><a href="{{config('app.url')}}/{{$group->slug}}/{{$album->slug}}" @if ($style3==1) style="background: white;color: #fd6e29;padding: 2px;" @endif>{{$album->album}}</a></li>
+							<li class="breadcrumb-item"><a href="{{config('app.url')}}/{{$group->slug}}/{{$album->slug}}/album" @if ($style4==1) style="background: white;color: #fd6e29;padding: 2px;" @endif>Album Inclusions</a></li>
+							<li class="breadcrumb-item"><a href="{{config('app.url')}}/{{$group->slug}}/{{$album->slug}}/fansign" @if ($style5==1) style="background: white;color: #fd6e29;padding: 2px;" @endif >Fansign/POB</a></li>
+							<li class="breadcrumb-item"><a href="{{config('app.url')}}/{{$group->slug}}/{{$album->slug}}/other" @if ($style6==1) style="background: white;color: #fd6e29;padding: 2px;" @endif>Other</a></li>
 						</ul>
 						{{-- <ul class="breadcrumb float-right">
 							<li class="breadcrumb-item"><a href="/">All</a></li>
@@ -137,7 +137,7 @@
 							<div class="card-deck">
 								@foreach($item['photo'] as $kb)
 									<div class="card">
-										<img class="img-fluid card-img-top" src="/storage/{{$kb->pic_front}}" alt="Card image cap">
+										<img class="img-fluid card-img-top" src="{{config('app.url')}}/storage/{{$kb->pic_front}}" alt="Card image cap">
 										<div class="card-body">
 											<h5 class="card-title"><center>{{$kb->memberp->member_name}}</center></h5>
 										</div>
@@ -154,7 +154,7 @@
 				<div class="col-sm-12">
 					<div class="card-body">
 						<center>
-							<a href="/{{$group->slug}}/{{$album->slug}}/all"  type="button" class="btn btn-warning"><i class="feather mr-2 icon-check-circle"></i>ALL PHOTO CARD</a>
+							<a href="{{config('app.url')}}/{{$group->slug}}/{{$album->slug}}/all"  type="button" class="btn btn-warning"><i class="feather mr-2 icon-check-circle"></i>ALL PHOTO CARD</a>
 						</center>
 					</div>
 				</div>

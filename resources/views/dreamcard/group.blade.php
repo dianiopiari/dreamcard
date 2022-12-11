@@ -47,9 +47,9 @@
 						<ul class="pcoded-submenu">
 							@foreach($albums as $album)
 								@if ($slug==$album->slug)
-									<li class="active"><a href="/{{$group->slug}}/{{$album->slug}}">{{$album->album}}</a></li>
+									<li class="active"><a href="{{config('app.url')}}/{{$group->slug}}/{{$album->slug}}">{{$album->album}}</a></li>
 								@else
-									<li><a href="/{{$group->slug}}/{{$album->slug}}">{{$album->album}}</a></li>
+									<li><a href="{{config('app.url')}}/{{$group->slug}}/{{$album->slug}}">{{$album->album}}</a></li>
 								@endif
 							@endforeach
 						</ul>
@@ -100,8 +100,8 @@
 							<h5 class="m-b-10">Group</h5>
 						</div>
 						<ul class="breadcrumb">
-							<li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
-							<li class="breadcrumb-item"><a href="/{{$group->slug}}">{{$group->group_name}}</a></li>
+							<li class="breadcrumb-item"><a href="{{config('app.url')}}"><i class="feather icon-home"></i></a></li>
+							<li class="breadcrumb-item"><a href="{{config('app.url')}}/{{$group->slug}}">{{$group->group_name}}</a></li>
 						</ul>
 					</div>
 				</div>
@@ -119,7 +119,7 @@
                         <div class="card-deck">
                             @foreach($members as $member)
                                 <div class="card">
-                                    <img class="img-radius" src="/storage/{{$member->photo}}" alt="Card image cap">
+                                    <img class="img-radius" src="{{config('app.url')}}/storage/{{$member->photo}}" alt="Card image cap">
                                     <div class="card-body">
                                         <h5 class="card-title"><center>{{$member->member_name}}</center></h5>
 										<center><p>{{$member->position}}</p></center>
@@ -141,7 +141,7 @@
                         <div class="row">
                             @foreach($albumsThum as $albs)
 								<div class="col-sm-3">
-                                    <a href="/{{$group->slug}}/{{$albs->slug}}"><img class="img-fluid card-img-top" src="/storage/{{$albs->photo}}" alt="Card image cap"></a>
+                                    <a href="{{config('app.url')}}/{{$group->slug}}/{{$albs->slug}}"><img class="img-fluid card-img-top" src="{{config('app.url')}}/storage/{{$albs->photo}}" alt="Card image cap"></a>
                                     <div class="card-body">
                                         <h5 class="card-title">{{$albs->album}}</h5>
 										<p class="card-text">{{$albs->tahun}}</p>

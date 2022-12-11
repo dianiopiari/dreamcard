@@ -102,11 +102,11 @@
                         <div class="card-columns">
                             @foreach($groups as $kb)
                                 <div class="card">
-                                    <img class="img-fluid card-img-top" src="/storage/{{$kb->logo}}" alt="Card image cap">
+                                    <img class="img-fluid card-img-top" src="{{config('app.url')}}/storage/{{$kb->logo}}" alt="Card image cap">
                                     <div class="card-body">
                                         <h5 class="card-title"><center>{{$kb->group_name}}</center></h5>
                                         {{-- <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> --}}
-                                        <a href="/{{$kb->slug}}" class="btn btn-info" role="button">View Photocard</a>
+                                        <a href="{{config('app.url')."/".$kb->slug }}" class="btn btn-info" role="button">View Photocard</a>
                                         <button class="btn  btn-danger">View Member</button>
                                     </div>
                                 </div>
