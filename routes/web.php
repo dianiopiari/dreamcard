@@ -24,4 +24,7 @@ Route::get('/clear/artisan', function() {
     Artisan::call('view:clear');
     return 'Application cache, route, config & view has been cleared';
 });
+Route::get('/clear/foo', function () {
+    Artisan::call('storage:link');
+});
 
