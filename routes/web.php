@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 //     return 'Hello World';
 // });
 Route::get('/','DreamController@index');
-Route::get('/{slug}','DreamController@listPerGroup');
-Route::get('/{group_slug}/{slug}/{cat?}','DreamController@listAlbumCategori');
+Route::get('/public/{slug}','DreamController@listPerGroup');
+Route::get('/public/{group_slug}/{slug}/{cat?}','DreamController@listAlbumCategori');
 // Route::get('clear/artisan', function() {
 //     Artisan::call('cache:clear');
 //     Artisan::call('route:cache');
