@@ -57,7 +57,7 @@
 								@if ($slug==$album->slug)
 									<li class="active"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}">{{$album->album}}</a></li>
 								@else
-									<li><a href="{{config('app.url')}}/{{$group->slug}}/app/{{$album->slug}}">{{$album->album}}</a></li>
+									<li><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}">{{$album->album}}</a></li>
 								@endif
 							@endforeach
 						</ul>
