@@ -36,18 +36,6 @@
 	<nav class="pcoded-navbar menu-light ">
 		<div class="navbar-wrapper  ">
 			<div class="navbar-content scroll-div " >
-				{{-- <div class="">
-					<div class="main-menu-header">
-						<img class="img-radius" src="{{asset('/theme/ablepro/assets/images/user/avatar-2.png')}}" alt="User-Profile-Image">
-					</div>
-				</div> --}}
-                <div class="card text-center">
-					<div class="card-block">
-						<i class="feather icon-sunset f-40"></i>
-						<h6 class="mt-3">K-DreamCard</h6>
-						<p>Let you track your favorite kpop photocard</p>
-					</div>
-				</div>
 			</div>
 		</div>
 	</nav>
@@ -57,11 +45,8 @@
 				<div class="m-header">
 					<a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
 					<a href="#!" class="b-brand">
-						<!-- ========   change your logo hear   ============ -->
-						{{-- <img src="{{asset('/theme/ablepro/assets/images/logo.png')}}" alt="" class="logo">
-                         --}}
-                        <h4> <font color="#FFFFFF">K-DreamCard</font></h4>
-                    </a>
+						<h4> <font color="#FFFFFF">K-DreamCard</font></h4>
+					</a>
 					<a href="#!" class="mob-toggler">
 						<i class="feather icon-more-vertical"></i>
 					</a>
@@ -87,37 +72,15 @@
 		<!-- [ breadcrumb ] start -->
 		<div class="page-header">
 			<div class="page-block">
-			</div>
-		</div>
-		<!-- [ breadcrumb ] end -->
-		<!-- [ Main Content ] start -->
-		<div class="row">
-			<!-- [ basic-alert ] start -->
-			<div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-						<h5>Group</h5>
+				<div class="row align-items-center">
+					<div class="col-md-12">
+						<div class="page-header-title">
+							<h5 class="m-b-10">Not Found</h5>
+						</div>
 					</div>
-                    <div class="card-body">
-                        <div class="card-columns">
-                            @foreach($groups as $kb)
-                                <div class="card">
-                                    <img class="img-fluid card-img-top" src="/storage/{{$kb->logo}}" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h5 class="card-title"><center>{{$kb->group_name}}</center></h5>
-                                        {{-- <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> --}}
-                                        <a href="/{{$kb->slug}}" class="btn btn-info" role="button">View Photocard</a>
-                                        <button class="btn  btn-danger">View Member</button>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
+				</div>
 			</div>
-			<!-- [ additional-alert ] end -->
 		</div>
-		<!-- [ Main Content ] end -->
 	</div>
 </div>
     <!-- Required Js -->
