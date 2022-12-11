@@ -82,7 +82,6 @@ class PhotocardController extends AdminController
     protected function form()
     {
         $form = new Form(new MPhotocard());
-        $form->select('cat_id', 'Kategori')->options([0 => 'Album Inclusions', 1 => 'Fansign/POB', '2' => 'Other Photocard']);
         $form->select('group_id', 'Group')->options(
             MGroup::select('id', 'group_name')->get()->pluck('group_name','id')
         );

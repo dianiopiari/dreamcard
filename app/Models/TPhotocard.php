@@ -12,7 +12,7 @@ class TPhotocard extends Model
           'id',
           'photocard_id',
           'user_id',
-          'STATUS',
+          'status',
           'created_at',
           'updated_at'
       ];
