@@ -55,9 +55,9 @@
 						<ul class="pcoded-submenu">
 							@foreach($albums as $album)
 								@if ($slug==$album->slug)
-									<li class="active"><a href="{{config('app.url')}}/{{$group->slug}}/{{$album->slug}}">{{$album->album}}</a></li>
+									<li class="active"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}">{{$album->album}}</a></li>
 								@else
-									<li><a href="{{config('app.url')}}/{{$group->slug}}/{{$album->slug}}">{{$album->album}}</a></li>
+									<li><a href="{{config('app.url')}}/{{$group->slug}}/app/{{$album->slug}}">{{$album->album}}</a></li>
 								@endif
 							@endforeach
 						</ul>
@@ -109,7 +109,7 @@
 						</div>
 						<ul class="breadcrumb">
 							<li class="breadcrumb-item"><a href="{{config('app.url')}}"><i class="feather icon-home"></i></a></li>
-							<li class="breadcrumb-item"><a href="{{config('app.url')}}/{{$group->slug}}">{{$group->group_name}}</a></li>
+							<li class="breadcrumb-item"><a href="{{config('app.url')}}/app/{{$group->slug}}">{{$group->group_name}}</a></li>
 						</ul>
 					</div>
 				</div>
@@ -149,7 +149,7 @@
                         <div class="row">
                             @foreach($albumsThum as $albs)
 								<div class="col-sm-3">
-                                    <a href="{{config('app.url')}}/{{$group->slug}}/{{$albs->slug}}"><img class="img-fluid card-img-top" src="{{config('app.url')}}/storage/{{$albs->photo}}" alt="Card image cap"></a>
+                                    <a href="{{config('app.url')}}/app/{{$group->slug}}/{{$albs->slug}}"><img class="img-fluid card-img-top" src="{{config('app.url')}}/storage/{{$albs->photo}}" alt="Card image cap"></a>
                                     <div class="card-body">
                                         <h5 class="card-title">{{$albs->album}}</h5>
 										<p class="card-text">{{$albs->tahun}}</p>
