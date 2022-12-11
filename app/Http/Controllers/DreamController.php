@@ -128,11 +128,13 @@ class DreamController extends Controller
                 $photocards = MPhotocard::where('group_id','=',$group->id)
                             ->where('album_id','=',$album->id)
                             ->where('channel_id','=',$channel->id)->get();
-                if (! array_key_exists($key,$channel) ) {
-                    $vipot_columns[$key] = [
-                        'channel'=> $channel->channel,
-                        'photo'=>$photocards
-                    ];
+                if($channel!=null){
+                    if (!array_key_exists($key,$channel) ) {
+                        $vipot_columns[$key] = [
+                            'channel'=> $channel->channel,
+                            'photo'=>$photocards
+                        ];
+                    }
                 }
             }
         }else{
