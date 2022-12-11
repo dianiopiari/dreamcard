@@ -142,7 +142,7 @@
 							<h5>{{$item['channel']}}</h5>
 						</div>
 						<div class="card-body">
-							<div class="row">
+							<div class="row seven-cols" >
 								@foreach($item['photo'] as $kb)
                                     <div class="col-md-1">
 										<img class="img-fluid card-img-top" src="{{config('app.url')}}/uploads/{{$kb->pic_front}}" alt="Card image cap">
