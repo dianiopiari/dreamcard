@@ -91,7 +91,7 @@ class DreamController extends Controller
                 break;
             case 'album':
                     # code...
-                    $categori_id=-1;
+                    $categori_id=1;
                     $style4="1";
                     $limit=0;
                     break;
