@@ -5077,8 +5077,8 @@ input[type="button"].btn-block {
 
 .card-img,
 .card-img-top {
-    border-top-left-radius: calc(0.25rem - 0px);
-    border-top-right-radius: calc(0.25rem - 0px);
+    border-top-left-radius: calc(0.1rem - 0px);
+    border-top-right-radius: calc(0.1rem - 0px);
 }
 
 .card-img,
