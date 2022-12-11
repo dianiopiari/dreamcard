@@ -18,11 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/','DreamController@index');
 Route::get('/app/{slug}','DreamController@listPerGroup');
 Route::get('/app/{group_slug}/{slug}/{cat?}','DreamController@listAlbumCategori');
-// Route::get('clear/artisan', function() {
-//     Artisan::call('cache:clear');
-//     Artisan::call('route:cache');
-//     Artisan::call('config:cache');
-//     Artisan::call('view:clear');
-//     return 'Application cache, route, config & view has been cleared';
-// });
+Route::get('/clear/artisan', function() {
+    Artisan::call('cache:clear');
+    Artisan::call('config:cache');
+    Artisan::call('view:clear');
+    return 'Application cache, route, config & view has been cleared';
+});
 
