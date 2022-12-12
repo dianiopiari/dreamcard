@@ -141,7 +141,10 @@
 						<div class="card-header">
 							<h5>{{$item['channel']}}</h5>
 						</div>
-						<div class="card-body">
+						<div class="card-body" style="padding-top: 20px;
+                        padding-left: 40px;
+                        padding-right: 4-;
+                        padding-right: 40px;">
 							<div class="row" >
 								@foreach($item['photo'] as $kb)
                                     <div class="col-sm-1">
