@@ -103,9 +103,9 @@ class DreamController extends Controller
                 break;
             default:
                 # code...
-                $categori_id=-1;
-                $style3="1";
-                $limit=1;
+                $categori_id=0;
+                $style4="1";
+                $limit=0;
                 break;
         }
         //dd($limit);
@@ -139,4 +139,33 @@ class DreamController extends Controller
         }
         return view('dreamcard.album',compact('vipot_columns','albums','group','slug','album','style1','style2','style3','style4','style5','style6','limit'));
     }
+
+
+    public function listMember($group_slug,$slug)
+    {
+        $group= MGroup::where('slug','=',$group_slug)->first();
+        $member = MMember::where('slug','=',$slug)->first();
+        $members = MMember::where('group_id','=',$group->id)->get();
+        if($group!=null){
+            $albums= MAlbum::where('group_id','=',$group->id)->get();
+            $photocards = MPhotocard::where('group_id','=',$group->id)
+                                    ->where('member_id','=',$member->id);
+            $vipot_columns=[];
+            foreach ($albums as $key => $album) {
+                $photocards = MPhotocard::where('group_id','=',$group->id)
+                            ->where('album_id','=',$album->id)
+                            ->where('member_id','=',$member->id)->get();
+
+                    $vipot_columns[$key] = [
+                        'album'=> $album->album,
+                        'photo'=>$photocards
+                    ];
+            }
+            // dd($vipot_columns);
+        }else{
+            return view('dreamcard.notfound');
+        }
+        return view('dreamcard.member',compact('vipot_columns','members','group','slug'));
+    }
+
 }

@@ -124,12 +124,14 @@
 						<h5>Member</h5>
 					</div>
 					<div class="card-body">
-                        <div class="card-deck">
+                        <div class="row">
                             @foreach($members as $member)
-                                <div class="card">
-                                    <img class="img-radius" src="{{config('app.url')}}/{{config('app.str')}}/{{$member->photo}}" alt="Card image cap">
+                                <div class="col-sm-1">
+                                    <a href="{{config('app.url')}}/member/{{$group->slug}}/{{$member->slug}}">
+                                        <img  class="rounded-circle img-fluid card-img-top"  src="{{config('app.url')}}/{{config('app.str')}}/{{$member->photo}}" alt="Card image cap">
+                                    </a>
                                     <div class="card-body">
-                                        <h5 class="card-title"><center>{{$member->member_name}}</center></h5>
+                                        <a href="{{config('app.url')}}/member/{{$group->slug}}/{{$member->slug}}"><h5 class="card-title"><center>{{$member->member_name}}</center></h5></a>
 										<center><p>{{$member->position}}</p></center>
                                     </div>
                                 </div>
@@ -148,7 +150,7 @@
 					<div class="card-body">
                         <div class="row">
                             @foreach($albumsThum as $albs)
-								<div class="col-sm-3">
+								<div class="col-sm-2">
                                     <a href="{{config('app.url')}}/app/{{$group->slug}}/{{$albs->slug}}"><img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$albs->photo}}" alt="Card image cap"></a>
                                     <div class="card-body">
                                         <h5 class="card-title">{{$albs->album}}</h5>

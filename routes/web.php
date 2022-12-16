@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/','DreamController@index');
 Route::get('/app/{slug}','DreamController@listPerGroup');
 Route::get('/app/{group_slug}/{slug}/{cat?}','DreamController@listAlbumCategori');
+Route::get('/member/{group_slug}/{vmember}','DreamController@listMember');
 Route::get('/clear/artisan', function() {
     Artisan::call('cache:clear');
     Artisan::call('config:cache');

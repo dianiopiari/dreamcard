@@ -14,6 +14,7 @@ class MMember extends Model
           'member_name',
           'photo',
           'position',
+          'slug',
           'created_at',
           'updated_at'
       ];
