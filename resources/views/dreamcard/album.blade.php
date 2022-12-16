@@ -148,7 +148,7 @@
 							<div class="row" >
 								@foreach($item['photo'] as $kb)
                                     <div class="col-sm-1">
-										<img class="img-fluid card-img-top" src="{{config('app.url')}}/uploads/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%;">
+										<img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%;">
 										<!--<div class="card-body">
 											<h5 class="card-title"><center></center></h5>
 										</div>-->
