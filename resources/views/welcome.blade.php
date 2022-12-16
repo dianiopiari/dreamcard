@@ -114,8 +114,8 @@
                                     <div class="card-body">
                                         <h5 class="card-title"><center>{{$kb->group_name}}</center></h5>
                                         {{-- <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> --}}
-                                        <a href="{{config('app.url')."/app/".$kb->slug }}" class="btn btn-info" role="button">View Photocard</a>
-                                        <button class="btn  btn-danger">View Member</button>
+                                        <a href="{{config('app.url')."/app/".$kb->slug }}" class="btn btn-info" role="button">View Album</a>
+                                        <a href="{{config('app.url')."/member/".$kb->slug }}" class="btn btn-danger" role="button">View Member</a>
                                     </div>
                                 </div>
                             @endforeach
