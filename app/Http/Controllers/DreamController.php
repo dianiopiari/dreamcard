@@ -141,10 +141,14 @@ class DreamController extends Controller
     }
 
 
-    public function listMember($group_slug,$slug)
+    public function listMember($group_slug,$slug=null)
     {
         $group= MGroup::where('slug','=',$group_slug)->first();
-        $member = MMember::where('slug','=',$slug)->first();
+        if($slug!=null){
+            $member = MMember::where('slug','=',$slug)->first();
+        }else{
+            $member = MMember::first();
+        }
         $members = MMember::where('group_id','=',$group->id)->get();
         if($group!=null){
             $albums= MAlbum::where('group_id','=',$group->id)->get();
