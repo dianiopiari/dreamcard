@@ -128,17 +128,27 @@
 						<div class="card-header">
 							<h5>{{$item['album']}}</h5>
 						</div>
-						<div class="card-body" style="padding-top: 20px;
-                        padding-left: 40px;
-                        padding-right: 4-;
-                        padding-right: 40px;">
-							<div class="row" >
-								@foreach($item['photo'] as $kb)
-                                    <div class="col-sm-1">
-										<img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%;">
-									</div>
-								@endforeach
-							</div>
+						<div class="card-body" style="padding-top: 20px; padding-left: 40px;padding-right: 4-;padding-right: 40px;">
+                            @foreach($item['photo'] as $cat)
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5>{{$cat['cat']->channel}}</h5>
+                                            </div>
+                                            <div class="card-body" style="padding-top: 20px; padding-left: 40px;padding-right: 4-;padding-right: 40px;">
+                                                <div class="row" >
+                                                    @foreach($cat['photo'] as $kb)
+                                                        <div class="col-sm-1">
+                                                            <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%;">
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
 						</div>
 					</div>
 				</div>

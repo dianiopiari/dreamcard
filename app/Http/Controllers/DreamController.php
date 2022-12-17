@@ -7,6 +7,7 @@ use App\Models\MChannel;
 use App\Models\MGroup;
 use App\Models\MMember;
 use App\Models\MPhotocard;
+use Illuminate\Support\Facades\DB;
 
 class DreamController extends Controller
 {
@@ -151,21 +152,31 @@ class DreamController extends Controller
         }
         $members = MMember::where('group_id','=',$group->id)->get();
         if($group!=null){
-            $albums= MAlbum::where('group_id','=',$group->id)->get();
+            $albums= MAlbum::where('group_id','=',$group->id)->orderBy('order','desc')->get();
             $photocards = MPhotocard::where('group_id','=',$group->id)
                                     ->where('member_id','=',$member->id);
             $vipot_columns=[];
             foreach ($albums as $key => $album) {
-                $photocards = MPhotocard::where('group_id','=',$group->id)
-                            ->where('album_id','=',$album->id)
-                            ->where('member_id','=',$member->id)->get();
-
-                    $vipot_columns[$key] = [
-                        'album'=> $album->album,
-                        'photo'=>$photocards
-                    ];
+                $channels = MChannel::where('album_id','=',$album->id)
+                                    ->select('kategori_id',DB::raw('if(kategori_id=0,"Album Inclusions",if(kategori_id=1,"Fansign/POB","Other Photocard")) as channel'))
+                                    ->groupBy('m_channel.kategori_id')->get();
+                $vipot_cat_photo=[];
+                foreach ($channels as $keyc => $channel) {
+                    $photocards = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
+                            ->where('m_photocard.group_id','=',$group->id)
+                            ->where('m_photocard.album_id','=',$album->id)
+                            ->where('m_channel.kategori_id','=',$channel->kategori_id)
+                            ->where('m_photocard.member_id','=',$member->id)->get();
+                            $vipot_cat_photo[$keyc]=[
+                                "cat" => $channel,
+                                "photo"=>  $photocards
+                            ];
+                }
+                $vipot_columns[$key] = [
+                    'album'=> $album->album,
+                    'photo'=>$vipot_cat_photo
+                ];
             }
-            // dd($vipot_columns);
         }else{
             return view('dreamcard.notfound');
         }
