@@ -163,6 +163,7 @@ class DreamController extends Controller
                 $vipot_cat_photo=[];
                 foreach ($channels as $keyc => $channel) {
                     $photocards = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
+                            ->select("m_photocard.*")
                             ->where('m_photocard.group_id','=',$group->id)
                             ->where('m_photocard.album_id','=',$album->id)
                             ->where('m_channel.kategori_id','=',$channel->kategori_id)
@@ -183,4 +184,38 @@ class DreamController extends Controller
         return view('dreamcard.member',compact('vipot_columns','members','group','slug'));
     }
 
+    public function detailPhotocard($photocard_id=null)
+    {
+        if($photocard_id!=null){
+            $photord = MPhotocard::where('id','=',$photocard_id)->first();
+            if($photord!=null){
+                $pic_front="";
+                $pic_back="";
+                if($photord->hd!=null){
+                    $pic_front=config('app.url')."/".config('app.str')."/".$photord->hd;
+                }else{
+                    $pic_front=config('app.url')."/".config('app.str')."/".$photord->pic_front;
+                }
+                if($photord->pic_back!=null){
+                    $pic_back=config('app.url')."/".config('app.str')."/".$photord->pic_back;
+                }else{
+                    $pic_back=config('app.url')."/".config('app.str')."/images/default_back.jpg";
+                }
+                $photocard_detail ="<div class='carousel-item active'>";
+                $photocard_detail .= "<img class='img-fluid card-img-top' src='".$pic_front."' style='height: 100%;'>";
+                $photocard_detail .="</div>";
+                $photocard_detail .="<div class='carousel-item'>";
+                $photocard_detail .= "<img class='img-fluid card-img-top' src='".$pic_back."' style='height: 100%;'>";
+                $photocard_detail .="</div>";
+                $info=$photord->credit;
+            }else{
+                $photocard_detail ="";
+                $info="-";
+            }
+        }else{
+            $photocard_detail ="";
+            $info="-";
+        }
+        return response()->json(["photocard_detail"=>$photocard_detail,"info"=>$info]);
+    }
 }

@@ -16,6 +16,8 @@ class MPhotocard extends Model
           'album_id',
           'pic_front',
           'pic_back',
+          'pic_hd',
+          'credit',
           'created_at',
           'updated_at'
       ];
