@@ -149,12 +149,11 @@
 								@foreach($item['photo'] as $kb)
                                     <div class="col-sm-1">
 										<img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%;">
-										<!--<div class="card-body">
-											<h5 class="card-title"><center></center></h5>
-										</div>-->
-                                        <div class="middle">
-                                            <a href="#"  type="button" class="btn btn-warning text" onClick="Data.getPhotocard('{{$kb->id}}')"><i class="feather mr-2 icon-search"></i>Detail</a>
-                                        </div>
+                                        @if ($kb->pic_hd!=null)
+                                            <div class="middle">
+                                                <a href="#"  type="button" class="btn btn-warning text" onClick="Data.getPhotocard('{{$kb->id}}')"><i class="feather mr-2 icon-search"></i>Detail</a>
+                                            </div>
+                                        @endif
 									</div>
 								@endforeach
 							</div>
