@@ -192,7 +192,7 @@ class DreamController extends Controller
                 $pic_front="";
                 $pic_back="";
                 if($photord->pic_hd!=null){
-                    $pic_front=config('app.url')."/".config('app.str')."/".$photord->hd;
+                    $pic_front=config('app.url')."/".config('app.str')."/".$photord->pic_hd;
                 }else{
                     $pic_front=config('app.url')."/".config('app.str')."/".$photord->pic_front;
                 }
