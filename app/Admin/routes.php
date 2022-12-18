@@ -18,4 +18,8 @@ Route::group([
     $router->resource('m-photocards', PhotocardController::class);
     $router->resource('m-members', MemberController::class);
     $router->resource('t-photocards', TPhotocardController::class);
+
+    $router->get('/ajax/member', "TPhotocardController@member");
+    $router->get('/ajax/album', "TPhotocardController@album");
+    $router->get('/ajax/channel', "TPhotocardController@channel");
 });

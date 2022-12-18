@@ -2,11 +2,16 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\MAlbum;
+use App\Models\MChannel;
+use App\Models\MMember;
 use App\Models\TPhotocard;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TPhotocardController extends AdminController
 {
@@ -70,5 +75,22 @@ class TPhotocardController extends AdminController
         $form->number('status', __('Status'));
 
         return $form;
+    }
+
+    public function member(Request $request)
+    {
+        $group_id = $request->get('q');
+        return MMember::where('group_id', $group_id)->get(['id', DB::raw('member_name as text')]);
+    }
+    public function album(Request $request)
+    {
+        $member_id = $request->get('q');
+        $member = MMember::where("id",'=',$member_id)->first();
+        return MAlbum::where('group_id', $member->group_id)->get(['id', DB::raw('album as text')]);
+    }
+    public function channel(Request $request)
+    {
+        $album_id = $request->get('q');
+        return MChannel::where('album_id', $album_id)->get(['id', DB::raw('channel as text')]);
     }
 }

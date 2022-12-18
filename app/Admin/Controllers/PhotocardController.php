@@ -31,7 +31,6 @@ class PhotocardController extends AdminController
     {
         $grid = new Grid(new MPhotocard());
         $grid->disableRowSelector();
-        $grid->disableTools();
         $grid->disableExport();
         $grid->actions(function (Grid\Displayers\Actions $actions) {
             $actions->disableView();
@@ -40,6 +39,26 @@ class PhotocardController extends AdminController
         $grid->tools(function ($tools) {
             $tools->disableRefreshButton();
         });
+
+        $grid->filter(function($filter){
+            $filter->disableIdFilter();
+            $filter->equal('group_id',"Group")->select(
+                MGroup::all()->pluck('group_name','id')
+            )->load('member_id', '/admin/ajax/member');
+
+            $filter->equal('member_id',"Member")->select(
+                MMember::all()->pluck('member_name','id')
+            )->load('album_id', '/admin/ajax/album');
+
+            $filter->equal('album_id',"Album")->select(
+                MAlbum::all()->pluck('album','id')
+            )->load('channel_id', '/admin/ajax/channel');
+
+            $filter->equal('channel_id',"Channel")->select(
+                MChannel::all()->pluck('channel','id')
+            );
+        });
+
         $grid->id('No', __('No'))->display(function() use ($counter) {
             return $counter->plus();
         });
@@ -84,19 +103,25 @@ class PhotocardController extends AdminController
     {
         $form = new Form(new MPhotocard());
         $form->select('group_id', 'Group')->options(
-            MGroup::select('id', 'group_name')->get()->pluck('group_name','id')
-        );
+            MGroup::select('id', 'group_name')->get()->pluck('group_name','id')->toArray()
+        )->load('member_id', '/admin/ajax/member');
         $form->select('member_id', 'Member')->options(
             MMember::select('id', 'member_name')->get()->pluck('member_name','id')
-        );
+        )->load('album_id', '/admin/ajax/album')->default("");
         $form->select('album_id', 'Album')->options(
             MAlbum::select('id', 'album')->get()->pluck('album','id')
-        );
+        )->load('channel_id', '/admin/ajax/channel')->default("");
         $form->select('channel_id', 'Event')->options(
             MChannel::select('id', 'channel')->get()->pluck('channel','id')
         );
         $form->image('pic_front', __('Image Depan'));
+        $form->image('pic_hd', __('Image Depan HD'));
         $form->image('pic_back', __('Image Belakang'));
+        $form->ckeditor('credit', __('Info'));
+
+        $form->disableEditingCheck();
+        $form->disableCreatingCheck();
+        $form->disableViewCheck();
         return $form;
     }
 }
