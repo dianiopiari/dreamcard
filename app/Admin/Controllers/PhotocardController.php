@@ -44,15 +44,15 @@ class PhotocardController extends AdminController
             $filter->disableIdFilter();
             $filter->equal('group_id',"Group")->select(
                 MGroup::all()->pluck('group_name','id')
-            )->load('member_id', '/admin/ajax/member');
+            )->load('member_id', config('app.url').'/admin/ajax/member');
 
             $filter->equal('member_id',"Member")->select(
                 MMember::all()->pluck('member_name','id')
-            )->load('album_id', '/admin/ajax/album');
+            )->load('album_id', config('app.url').'/admin/ajax/album');
 
             $filter->equal('album_id',"Album")->select(
                 MAlbum::all()->pluck('album','id')
-            )->load('channel_id', '/admin/ajax/channel');
+            )->load('channel_id', config('app.url').'/admin/ajax/channel');
 
             $filter->equal('channel_id',"Channel")->select(
                 MChannel::all()->pluck('channel','id')
@@ -104,13 +104,13 @@ class PhotocardController extends AdminController
         $form = new Form(new MPhotocard());
         $form->select('group_id', 'Group')->options(
             MGroup::select('id', 'group_name')->get()->pluck('group_name','id')->toArray()
-        )->load('member_id', '/admin/ajax/member');
+        )->load('member_id', config('app.url').'/admin/ajax/member');
         $form->select('member_id', 'Member')->options(
             MMember::select('id', 'member_name')->get()->pluck('member_name','id')
-        )->load('album_id', '/admin/ajax/album')->default("");
+        )->load('album_id', config('app.url').'/admin/ajax/album')->default("");
         $form->select('album_id', 'Album')->options(
             MAlbum::select('id', 'album')->get()->pluck('album','id')
-        )->load('channel_id', '/admin/ajax/channel')->default("");
+        )->load('channel_id', config('app.url').'/admin/ajax/channel')->default("");
         $form->select('channel_id', 'Event')->options(
             MChannel::select('id', 'channel')->get()->pluck('channel','id')
         );
