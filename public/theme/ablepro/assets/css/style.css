@@ -24242,5 +24242,11 @@ div.dtk-focus-alt table.dataTable tbody th.focus {
     background-color: #ff5252;
     color: white;
     font-size: 16px;
-    padding: 5px 10px;
+    padding: 0px 0px 0px 7px;
+  }
+  .textadd {
+    background-color: #00acc1;
+    color: white;
+    font-size: 16px;
+    padding: 0px 0px 0px 7px;
   }

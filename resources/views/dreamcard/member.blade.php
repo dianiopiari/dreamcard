@@ -143,7 +143,12 @@
                                                                 <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%;">
                                                                 @if ($kb->pic_hd!=null)
                                                                     <div class="middle">
-                                                                        <a href="#"  type="button" class="btn btn-warning text" onClick="Data.getPhotocard('{{$kb->id}}')"><i class="feather mr-2 icon-search"></i>Detail</a>
+                                                                        <a href="#"  type="button" class="btn btn-default text" onClick="Data.getPhotocard('{{$kb->id}}')"><i class="feather mr-2 icon-search"></i></a>
+                                                                        <a href="#"  type="button" class="btn btn-default textadd" onClick="Data.addPhotocard('{{$kb->id}}')"><i class="feather mr-2 icon-plus-circle"></i></a>
+                                                                    </div>
+                                                                @else
+                                                                    <div class="middle">
+                                                                        <a href="#"  type="button" class="btn btn-default textadd " onClick="Data.addPhotocard('{{$kb->id}}')"><i class="feather mr-2 icon-plus-circle"></i></a>
                                                                     </div>
                                                                 @endif
                                                             </div>
@@ -234,6 +239,12 @@
                 $("#myModal .carousel-inner").html(response.photocard_detail);
                 $("#myModal .info").html(response.info);
                 $("#myModal").modal('show');
+            });
+        },
+        "addPhotocard" : function(photocard_id){
+            alert("add");
+            $.ajax({
+            }).done(function(response){
             });
         }
     };
