@@ -238,7 +238,9 @@ class DreamController extends Controller
         }
 
         session()->put('cart', $cart);
-        return redirect()->back()->with('success', 'Product added to cart successfully!');
+        $countphoto=count((array) session('cart'));
+        return response()->json(["countphoto"=>$countphoto]);
+        //return redirect()->back()->with('success', 'Product added to cart successfully!');
     }
 
     public function remove(Request $request)

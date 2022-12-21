@@ -22,14 +22,14 @@
 	<link rel="stylesheet" href="{{asset('/theme/ablepro/assets/css/style.css')}}">
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1VQDNKKF6L"></script>
+    {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-1VQDNKKF6L"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
         gtag('config', 'G-1VQDNKKF6L');
-    </script>
+    </script> --}}
 
 </head>
 <body class="">
@@ -44,18 +44,6 @@
 	<nav class="pcoded-navbar menu-light ">
 		<div class="navbar-wrapper  ">
 			<div class="navbar-content scroll-div " >
-				{{-- <div class="">
-					<div class="main-menu-header">
-						<img class="img-radius" src="{{asset('/theme/ablepro/assets/images/user/avatar-2.jpg')}}" alt="User-Profile-Image">
-					</div>
-				</div> --}}
-				{{-- <ul class="nav pcoded-inner-navbar ">
-					@foreach($albums as $album)
-						<li class="nav-item">
-							<a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">{{$album->album}}</span></a>
-						</li>
-					@endforeach
-				</ul> --}}
 				<ul class="nav pcoded-inner-navbar ">
 					<li class="nav-item pcoded-hasmenu active pcoded-trigger">
 						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Member {{$group->group_name}}</span></a>
@@ -122,9 +110,10 @@
 		<!-- [ breadcrumb ] end -->
 		<!-- [ Main Content ] start -->
         <div class="pull align">
-
-                <a href="{{ route('cart') }}" class="btn btn-primary btn-block"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span class="badge badge-pill badge-danger">{{count((array) session('cart')) }}</span></a>
-
+                <a href="{{ route('cart') }}" class="btn btn-primary btn-block">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"> </i> Cart
+                    <span class="badge badge-pill badge-danger" id="countphoto">{{count((array) session('cart')) }}
+                </span></a>
         </div>
 		@foreach ($vipot_columns as $item)
 			<div class="row">
@@ -153,7 +142,7 @@
                                                                     </div>
                                                                 @else
                                                                     <div class="middle">
-                                                                        <a href="{{ route('add.to.cart', $kb->id) }}"  type="button" class="btn btn-default textadd " ><i class="feather mr-2 icon-plus-circle"></i></a>
+                                                                        <a href="#"  onClick="Data.addPhotocard('{{$kb->id}}')" type="button" class="btn btn-default textadd " ><i class="feather mr-2 icon-plus-circle"></i></a>
                                                                     </div>
                                                                 @endif
                                                             </div>
@@ -247,10 +236,20 @@
             });
         },
         "addPhotocard" : function(photocard_id){
-            alert("add");
+            alert("add "+photocard_id);
             $.ajax({
+                url:"{{config('app.url')}}/tmp/add-to-cart" + '/' + photocard_id,
+                type:  'get',
+                dataType: "json",
+                beforeSend: function() {
+                    $("#loading-image").show();
+                },
+                success: function(response) {
+                    $('span#countphoto').html(response.countphoto);
+                }
             }).done(function(response){
-            });
+
+            })
         }
     };
 </script>
