@@ -121,6 +121,11 @@
 		</div>
 		<!-- [ breadcrumb ] end -->
 		<!-- [ Main Content ] start -->
+        <div class="pull align">
+
+                <a href="{{ route('cart') }}" class="btn btn-primary btn-block"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span class="badge badge-pill badge-danger">{{count((array) session('cart')) }}</span></a>
+
+        </div>
 		@foreach ($vipot_columns as $item)
 			<div class="row">
 				<div class="col-md-12">
@@ -144,11 +149,11 @@
                                                                 @if ($kb->pic_hd!=null)
                                                                     <div class="middle">
                                                                         <a href="#"  type="button" class="btn btn-default text" onClick="Data.getPhotocard('{{$kb->id}}')"><i class="feather mr-2 icon-search"></i></a>
-                                                                        <a href="#"  type="button" class="btn btn-default textadd" onClick="Data.addPhotocard('{{$kb->id}}')"><i class="feather mr-2 icon-plus-circle"></i></a>
+                                                                        <a href="{{ route('add.to.cart', $kb->id) }}"  type="button" class="btn btn-default textadd" ><i class="feather mr-2 icon-plus-circle"></i></a>
                                                                     </div>
                                                                 @else
                                                                     <div class="middle">
-                                                                        <a href="#"  type="button" class="btn btn-default textadd " onClick="Data.addPhotocard('{{$kb->id}}')"><i class="feather mr-2 icon-plus-circle"></i></a>
+                                                                        <a href="{{ route('add.to.cart', $kb->id) }}"  type="button" class="btn btn-default textadd " ><i class="feather mr-2 icon-plus-circle"></i></a>
                                                                     </div>
                                                                 @endif
                                                             </div>

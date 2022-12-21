@@ -7,6 +7,7 @@ use App\Models\MChannel;
 use App\Models\MGroup;
 use App\Models\MMember;
 use App\Models\MPhotocard;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DreamController extends Controller
@@ -218,4 +219,43 @@ class DreamController extends Controller
         }
         return response()->json(["photocard_detail"=>$photocard_detail,"info"=>$info]);
     }
+
+    public function addToCart($id)
+    {
+        $photocard = MPhotocard::findOrFail($id);
+
+        $cart = session()->get('cart', []);
+
+        if(isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        } else {
+            $cart[$id] = [
+                "quantity" => 1,
+                "name"=>$photocard->memberp->member_name,
+                "pic_front" => $photocard->pic_front,
+                "pic_back" => $photocard->pic_back
+            ];
+        }
+
+        session()->put('cart', $cart);
+        return redirect()->back()->with('success', 'Product added to cart successfully!');
+    }
+
+    public function remove(Request $request)
+    {
+        if($request->id) {
+            $cart = session()->get('cart');
+            if(isset($cart[$request->id])) {
+                unset($cart[$request->id]);
+                session()->put('cart', $cart);
+            }
+            session()->flash('success', 'Product removed successfully');
+        }
+    }
+
+    public function cart()
+    {
+        return view('dreamcard.tphotocard');
+    }
+
 }
