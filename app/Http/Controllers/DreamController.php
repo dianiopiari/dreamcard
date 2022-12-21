@@ -209,15 +209,21 @@ class DreamController extends Controller
                 $photocard_detail .= "<img class='img-fluid card-img-top' src='".$pic_back."' style='height: 100%;'>";
                 $photocard_detail .="</div>";
                 $info=$photord->credit;
+                $wts ="<a href='#' onClick='Data.addPhotocard(".$photord->id.")' type='button' class='btn btn-info'><i class='fa fa-shopping-cart' aria-hidden='true'></i>&nbsp; WTS &nbsp; </a>&nbsp;&nbsp;";
+                $wts .="<a href='#' onClick='Data.addPhotocardwtb(".$photord->id.")' type='button' class='btn btn-warning'><i class='feather mr-2 icon-camera'></i>WTB</a>&nbsp;&nbsp;<br>";
+                $trade ="<a href='#' onClick='' type='button' class='btn btn-success'><i class='fa fa-shopping-cart' aria-hidden='true'></i>&nbsp; Trade Have</a>&nbsp;&nbsp;";
+                $trade .="<a href='#' onClick='' type='button' class='btn btn-danger'><i class='feather mr-2 icon-camera'></i>Trade Want</a>&nbsp;&nbsp;";
             }else{
                 $photocard_detail ="";
                 $info="-";
+                $wts="";
+                $trade="";
             }
         }else{
             $photocard_detail ="";
             $info="-";
         }
-        return response()->json(["photocard_detail"=>$photocard_detail,"info"=>$info]);
+        return response()->json(["photocard_detail"=>$photocard_detail,"info"=>$info,"wts"=>$wts,"trade"=>$trade]);
     }
 
     public function addToCart($id)
@@ -258,6 +264,34 @@ class DreamController extends Controller
     public function cart()
     {
         return view('dreamcard.tphotocard');
+    }
+
+
+    public function addToCartWtb($id)
+    {
+        $photocard = MPhotocard::findOrFail($id);
+
+        $cart = session()->get('cartwtb', []);
+
+        if(isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        } else {
+            $cart[$id] = [
+                "quantity" => 1,
+                "name"=>$photocard->memberp->member_name,
+                "pic_front" => $photocard->pic_front,
+                "pic_back" => $photocard->pic_back
+            ];
+        }
+
+        session()->put('cartwtb', $cart);
+        $countphoto=count((array) session('cartwtb'));
+        return response()->json(["countphoto"=>$countphoto]);
+    }
+
+    public function cartwtb()
+    {
+        return view('dreamcard.tphotocardwtb');
     }
 
 }

@@ -97,7 +97,7 @@
 				<div class="row align-items-center">
 					<div class="col-md-12">
 						<div class="page-header-title">
-							{{-- <h5 class="m-b-10">{{$album->album}}</h5> --}}
+							{{-- <a href="{{ route('cart') }}" class="btn btn-primary"> --}}
 						</div>
 						<ul class="breadcrumb">
 							<li class="breadcrumb-item"><a href="{{config('app.url')}}"><i class="feather icon-home"></i></a></li>
@@ -109,11 +109,19 @@
 		</div>
 		<!-- [ breadcrumb ] end -->
 		<!-- [ Main Content ] start -->
-        <div class="pull align">
-                <a href="{{ route('cart') }}" class="btn btn-primary btn-block">
-                    <i class="fa fa-shopping-cart" aria-hidden="true"> </i> Cart
-                    <span class="badge badge-pill badge-danger" id="countphoto">{{count((array) session('cart')) }}
-                </span></a>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Make a Custome Template</h5>
+                        <div class="float-right">
+                            <a href="{{ route('cart') }}" type="button" class="btn btn-info"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp; WTS &nbsp; <span class="badge badge-pill badge-danger" id="countphoto">{{count((array) session('cart')) }}</span></a>
+                            <a href="{{ route('cartwtb') }}" type="button" class="btn btn-warning"><i class="feather mr-2 icon-camera" aria-hidden="true"></i>&nbsp; WTB &nbsp; <span class="badge badge-pill badge-danger" id="countphotowtb">{{count((array) session('cartwtb')) }}</span></a>
+                            <button type="button" class="btn btn-success"><i class="feather mr-2 icon-check-circle"></i>Trade</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 		@foreach ($vipot_columns as $item)
 			<div class="row">
@@ -135,16 +143,9 @@
                                                     @foreach($cat['photo'] as $kb)
                                                             <div class="col-sm-1">
                                                                 <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%;">
-                                                                @if ($kb->pic_hd!=null)
-                                                                    <div class="middle">
-                                                                        <a href="#"  type="button" class="btn btn-default text" onClick="Data.getPhotocard('{{$kb->id}}')"><i class="feather mr-2 icon-search"></i></a>
-                                                                        <a href="{{ route('add.to.cart', $kb->id) }}"  type="button" class="btn btn-default textadd" ><i class="feather mr-2 icon-plus-circle"></i></a>
-                                                                    </div>
-                                                                @else
-                                                                    <div class="middle">
-                                                                        <a href="#"  onClick="Data.addPhotocard('{{$kb->id}}')" type="button" class="btn btn-default textadd " ><i class="feather mr-2 icon-plus-circle"></i></a>
-                                                                    </div>
-                                                                @endif
+                                                                <div class="middle">
+                                                                    <a href="#"  type="button" class="btn btn-default text" onClick="Data.getPhotocard('{{$kb->id}}')"><i class="feather mr-2 icon-search"></i></a>
+                                                                </div>
                                                             </div>
                                                     @endforeach
                                                 </div>
@@ -191,22 +192,21 @@
                                         <li class="nav-item">
                                             <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Info</a>
                                         </li>
-                                        {{-- <li class="nav-item">
-                                            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Discuss</a>
-                                        </li> --}}
                                     </ul>
                                     <div class="tab-content" id="pills-tabContent">
                                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                                             <p class="mb-0 info">
                                             </p>
                                         </div>
-                                        {{-- <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                                            <p class="mb-0">
-                                                Est quis nulla laborum officia ad nisi ex nostrud culpa Lorem excepteur aliquip dolor aliqua irure ex. Nulla ut duis ipsum nisi elit fugiat commodo sunt reprehenderit laborum veniam eu
-                                                veniam. Eiusmod
-                                                minim exercitation fugiat irure ex labore incididunt do fugiat commodo aliquip sit id deserunt reprehenderit aliquip nostrud. Amet ex cupidatat excepteur aute veniam incididunt mollit cupidatat esse
-                                                irure officia elit do ipsum ullamco Lorem.consequat non.</p>
-                                        </div> --}}
+                                    </div>
+                                    <div class="tab-content" id="pills-tabContent">
+                                        <div class="float-left wts">
+                                         </div>
+                                    </div>
+                                    <div style="padding-top: 1opx;padding-top: 50px;"></div>
+                                    <div class="tab-content" id="pills-tabContent">
+                                        <div class="float-left trade">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -232,11 +232,12 @@
                 $("#myModal").modal('hide');
                 $("#myModal .carousel-inner").html(response.photocard_detail);
                 $("#myModal .info").html(response.info);
+                $("#myModal .wts").html(response.wts);
+                $("#myModal .trade").html(response.trade);
                 $("#myModal").modal('show');
             });
         },
         "addPhotocard" : function(photocard_id){
-            alert("add "+photocard_id);
             $.ajax({
                 url:"{{config('app.url')}}/tmp/add-to-cart" + '/' + photocard_id,
                 type:  'get',
@@ -246,9 +247,24 @@
                 },
                 success: function(response) {
                     $('span#countphoto').html(response.countphoto);
+                    $("#myModal").modal('hide');
                 }
             }).done(function(response){
-
+            })
+        },
+        "addPhotocardwtb" : function(photocard_id){
+            $.ajax({
+                url:"{{config('app.url')}}/tmp/add-to-cart-wtb" + '/' + photocard_id,
+                type:  'get',
+                dataType: "json",
+                beforeSend: function() {
+                    $("#loading-image").show();
+                },
+                success: function(response) {
+                    $('span#countphotowtb').html(response.countphoto);
+                    $("#myModal").modal('hide');
+                }
+            }).done(function(response){
             })
         }
     };

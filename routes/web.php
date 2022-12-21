@@ -35,3 +35,6 @@ Route::get('/temp/cart', [DreamController::class, 'cart'])->name('cart');
 Route::get('/tmp/add-to-cart/{id}', [DreamController::class, 'addToCart'])->name('add.to.cart');
 Route::delete('/tmp/remove-from-cart', [DreamController::class, 'remove'])->name('remove.from.cart');
 
+Route::get('/temp/cart-wtb', [DreamController::class, 'cartwtb'])->name('cartwtb');
+Route::get('/tmp/add-to-cart-wtb/{id}', [DreamController::class, 'addToCartWtb'])->name('add.to.cart.wtb');
+
