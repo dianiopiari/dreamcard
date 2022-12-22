@@ -109,23 +109,51 @@
 				<div class="card">
 					<div class="card-header">
 						<h5 class="mt-4"><b>Custome Template</b></h5>
-
+                        <a href="#" onClick="Data.clear()" type="button" class="btn btn-warning"><i class="feather mr-2 icon-trash"></i>Clear All</a>
+                        <a href="{{config('app.url')}}/member/{{$namagroup}}" type="button" class="btn btn-danger"><i class="feather mr-2 icon-corner-down-left"></i>Back</a>
+                        <a id="btn-Convert-Html2Image" href="#" type="button" class="btn btn-secondary"><i class="feather mr-2 icon-camera"></i>Download</a>
+                        <a id="btn-Convert-Html2Image-without" href="#" type="button" class="btn btn-info"><i class="feather mr-2 icon-camera"></i>Download Without Background</a>
                     </div>
-					<div class="card-body" id="html-content-holder">
-                        <div class="row">
-                            @if(session('cartwtb'))
-                                @foreach(session('cartwtb') as $id => $details)
-                                    <div class="col-sm-2">
-                                        <a href="#"><img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{ $details['pic_front'] }}" alt="Card image cap"></a>
+                    <div class="card-body" id="html-content-holder">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-12">
+                                <div class="card p-3 py-4" id="html-content-holder">
+                                    <div class="p-3 py-4" id="html-without-background">
+                                        <div class="text-center mt-3">
+                                            <div class="card-body">
+                                                <h1><b>My Whistlist</b></h1>
+                                                <h5 class="mt-2 mb-0">&nbsp;</h5>
+                                                @if($hastag)
+                                                    <span class="badge badge-primary">{{$hastag['tipe']}}</span>&nbsp;
+                                                    <span class="badge badge-secondary">{{$hastag['photo']}}</span>&nbsp;
+                                                    @foreach($hastag['group'] as $id => $groups)
+                                                        <span class="badge badge-success">{{$groups['group']}}</span>
+                                                    @endforeach
+                                                    @foreach($hastag['album'] as $id => $albums)
+                                                        <span class="badge badge-info">{{$albums['album']}}</span>
+                                                    @endforeach
+                                                    @foreach($hastag['member'] as $id => $members)
+                                                        <span class="badge badge-danger">{{$members['member']}}</span>
+                                                    @endforeach
+                                                    <h5 class="mt-2 mb-0">&nbsp;</h5>
+                                                @endif
+                                            </div>
+                                            <div class="row">
+                                                @if(session('cartwtb'))
+                                                    @foreach(session('cartwtb') as $id => $details)
+                                                        <div class="col-sm-2">
+                                                            <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{ $details['pic_front'] }}" alt="Card image cap">
+                                                            <div class="middle" style="justify-content: left">
+                                                                <a href="#"  type="button" class="btn btn-default text" onClick="Data.deletePhotocard('{{ $details['id'] }}')"><i class="feather mr-2 icon-trash"></i>Delete&nbsp;</a>
+                                                            </div>
+                                                            <h5 style="padding-top: 10px">({{ $details['channel'] }})</h6>
+                                                        </div>
+                                                    @endforeach
+                                                @endif
+                                            </div>
+                                        </div>
                                     </div>
-                                @endforeach
-                            @endif
-                        </div>
-                        <div class="row">
-                            <div class="float-center">
-                                <button id="btn-Preview-Image"  type="button" class="btn btn-primary"><i class="feather mr-2 icon-thumbs-up"></i>WTS</button>
-                                <a id="btn-Convert-Html2Image" href="#" type="button" class="btn btn-secondary"><i class="feather mr-2 icon-camera"></i>WTB</a>
-                                <a id="download-image"  href="#" type="button" class="btn btn-success"><i class="feather mr-2 icon-check-circle"></i>Trade</a>
+                                </div>
                             </div>
                         </div>
 					</div>
@@ -147,21 +175,43 @@
     <script src="{{asset('/theme/ablepro/assets/js/pcoded.min.js')}}"></script>
 
     <script>
+        var Data = {
+            "deletePhotocard" : function(photocard_id){
+                if(confirm("Are you sure want to remove?")) {
+                    $.ajax({
+                        url: '{{ route('remove.from.cart.wtb') }}',
+                        method: "DELETE",
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            id: photocard_id
+                        },
+                        success: function (response) {
+                            window.location.reload();
+                        }
+                    });
+                }
+            },
+            "clear" : function(photocard_id){
+                if(confirm("Are you sure want to clear all photocard selected?")) {
+                    $.ajax({
+                        url: '{{ route('remove.all.from.cart.wtb') }}',
+                        method: "DELETE",
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function (response) {
+                            window.location.reload();
+                        }
+                    });
+                }
+            }
+        };
         $(document).ready(function() {
-
             // Global variable
             var element = $("#html-content-holder");
-
+            var elementwithout = $("#html-without-background");
             // Global variable
             var getCanvas;
-            $("#btn-Preview-Image").on('click', function() {
-                html2canvas(element, {
-                onrendered: function(canvas) {
-                        $("#previewImage").append(canvas);
-                        getCanvas = canvas;
-                    }
-                });
-            });
             $("#btn-Convert-Html2Image").on('click', function() {
                 html2canvas(element, {
                 onrendered: function(canvas) {
@@ -171,17 +221,19 @@
 
             });
 
-            $("#download-image").on('click', function() {
-                ///alert("asa");
-                html2canvas(element, {
-                    onrendered: function(canvas) {
-                    // document.body.appendChild(canvas);
-                        return Canvas2Image.saveAsPNG(canvas);
+            $("#btn-Convert-Html2Image-without").on('click', function() {
+                html2canvas(elementwithout, {
+                onrendered: function(canvas) {
+                    return Canvas2Image.saveAsPNG(canvas);
                     }
                 });
+
             });
 
         });
+
+
     </script>
+
 </body>
 </html>

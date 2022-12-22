@@ -106,7 +106,7 @@
 					<div class="card-header">
 						<h5 class="mt-4"><b>Custome Template</b></h5>
                         <a href="#" onClick="Data.clear()" type="button" class="btn btn-warning"><i class="feather mr-2 icon-trash"></i>Clear All</a>
-                        <a href="{{config('app.url')}}" type="button" class="btn btn-danger"><i class="feather mr-2 icon-home"></i>Home</a>
+                        <a href="{{config('app.url')}}/member/{{$namagroup}}" type="button" class="btn btn-danger"><i class="feather mr-2 icon-corner-down-left"></i>Back</a>
                         <a id="btn-Convert-Html2Image" href="#" type="button" class="btn btn-secondary"><i class="feather mr-2 icon-camera"></i>Download</a>
                         <a id="btn-Convert-Html2Image-without" href="#" type="button" class="btn btn-info"><i class="feather mr-2 icon-camera"></i>Download Without Background</a>
                     </div>
@@ -133,20 +133,13 @@
                                                 @endif
                                             </div>
                                             <div class="row">
-                                                {{-- @php
-                                                    dd(session('cart'));
-                                                @endphp --}}
                                                 @if(session('cart'))
                                                     @foreach(session('cart') as $id => $details)
                                                         <div class="col-sm-2">
-                                                            {{-- <div class="middle" style="justify-content: left">
-                                                                {{ $details['channel'] }}
-                                                            </div> --}}
                                                             <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{ $details['pic_front'] }}" alt="Card image cap">
                                                             <div class="middle" style="justify-content: left">
                                                                 <a href="#"  type="button" class="btn btn-default text" onClick="Data.deletePhotocard('{{ $details['id'] }}')"><i class="feather mr-2 icon-trash"></i>Delete&nbsp;</a>
                                                             </div>
-                                                            {{-- <h6>{{ $details['album'] }}</h6> --}}
                                                             <h5 style="padding-top: 10px">({{ $details['channel'] }})</h6>
                                                         </div>
                                                     @endforeach
@@ -157,34 +150,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="row">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-body">
-
-                                        <div class="row">
-                                            @if(session('cart'))
-                                                @foreach(session('cart') as $id => $details)
-                                                    <div class="col-sm-1">
-                                                        <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{ $details['pic_front'] }}" alt="Card image cap">
-                                                        <div class="middle">
-                                                            <a href="#"  type="button" class="btn btn-default text" onClick="Data.deletePhotocard('{{ $details['id'] }}')"><i class="feather mr-2 icon-trash"></i>Delete&nbsp;</a>
-                                                        </div>
-                                                    </div>
-                                                @endforeach
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
-                        {{-- <div class="row">
-                            <div class="float-center">
-                                <button id="btn-Preview-Image"  type="button" class="btn btn-primary"><i class="feather mr-2 icon-thumbs-up"></i>WTS</button>
-
-                                <a id="download-image"  href="#" type="button" class="btn btn-success"><i class="feather mr-2 icon-check-circle"></i>Trade</a>
-                            </div>
-                        </div> --}}
 					</div>
 				</div>
 			</div>

@@ -182,7 +182,7 @@ class DreamController extends Controller
         }else{
             return view('dreamcard.notfound');
         }
-        return view('dreamcard.member',compact('vipot_columns','members','group','slug'));
+        return view('dreamcard.member',compact('vipot_columns','members','group','slug','group_slug'));
     }
 
     public function detailPhotocard($photocard_id=null)
@@ -254,11 +254,6 @@ class DreamController extends Controller
                 "pic_back" => $photocard->pic_back
             ];
         }
-        //$result = $cart.group((item) => item.type);
-        // $group = array();
-        // foreach ( $cart as $value ) {
-        //     $group[$value['id']][] = $value;
-        // }
 
         session()->put('cart', $cart);
         //dd(session('cart'));
@@ -285,7 +280,7 @@ class DreamController extends Controller
         session()->flash('success', 'Product removed successfully');
     }
 
-    public function cart()
+    public function cart($namagroup=null)
     {
 
         //session()->flush();
@@ -320,20 +315,30 @@ class DreamController extends Controller
         ];
         //dd($hastag);
         //return view('dreamcard.tphotocard');
-        return view('dreamcard.tphotocard',compact('hastag'));
+        return view('dreamcard.tphotocard',compact('hastag','namagroup'));
     }
 
 
     public function addToCartWtb($id)
     {
         $photocard = MPhotocard::findOrFail($id);
-
+        $channel = MChannel::findOrFail($photocard->channel_id);
+        $album = MAlbum::findOrFail($photocard->album_id);
+        $group = MGroup::findOrFail($photocard->group_id);
+        $member = MMember::findOrFail($photocard->member_id);
         $cart = session()->get('cartwtb', []);
 
         if(isset($cart[$id])) {
             $cart[$id]['quantity']++;
         } else {
             $cart[$id] = [
+                "group_id"=>$group->id,
+                "group"=>$group->group_name,
+                "channel"=>$channel->channel,
+                "album_id"=>$album->id,
+                "album"=>$album->album,
+                "member_id"=>$member->id,
+                "member"=>$member->member_name,
                 "quantity" => 1,
                 "id"=>$photocard->id,
                 "name"=>$photocard->memberp->member_name,
@@ -347,9 +352,55 @@ class DreamController extends Controller
         return response()->json(["countphoto"=>$countphoto]);
     }
 
-    public function cartwtb()
+    public function cartwtb($namagroup=null)
     {
-        return view('dreamcard.tphotocardwtb');
+        $hastag=[];
+        $album=[];
+        $member=[];
+        $group=[];
+        $cart = session()->get('cartwtb', []);
+        foreach ($cart  as $key => $value) {
+            $album[$value['album_id']]=[
+                "album" => $value['album']
+            ];
+        }
+        foreach ($cart  as $key => $members) {
+            $member[$members['member_id']]=[
+                "member" => $members['member']
+            ];
+        }
+        foreach ($cart  as $key => $groups) {
+            $group[$groups['group_id']]=[
+                "group" => $groups['group']
+            ];
+        }
+        $hastag=[
+            "tipe" =>"#WTB",
+            "photo" =>"#Photocard",
+            "group" =>$group,
+            "album" =>$album,
+            "member"=>$member
+        ];
+        //return view('dreamcard.tphotocardwtb');
+        return view('dreamcard.tphotocardwtb',compact('hastag','namagroup'));
+    }
+
+    public function removewtb(Request $request)
+    {
+        if($request->id) {
+            $cart = session()->get('cartwtb');
+            if(isset($cart[$request->id])) {
+                unset($cart[$request->id]);
+                session()->put('cartwtb', $cart);
+            }
+            session()->flash('success', 'Product removed successfully');
+        }
+    }
+
+    public function removeallwtb(Request $request)
+    {
+        $request->session()->forget('cartwtb');
+        session()->flash('success', 'Product removed successfully');
     }
 
     public function addToCartTrhave($id)

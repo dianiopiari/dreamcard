@@ -31,13 +31,16 @@ Route::get('/clear/foo', function () {
     Artisan::call('storage:link');
 });
 
-Route::get('/temp/cart', [DreamController::class, 'cart'])->name('cart');
+Route::get('/temp/cart/{group?}', [DreamController::class, 'cart'])->name('cart');
 Route::get('/tmp/add-to-cart/{id}', [DreamController::class, 'addToCart'])->name('add.to.cart');
 Route::delete('/tmp/remove-from-cart', [DreamController::class, 'remove'])->name('remove.from.cart');
 Route::delete('/tmp/remove-all-from-cart', [DreamController::class, 'removeall'])->name('remove.all.from.cart');
 
-Route::get('/temp/cart-wtb', [DreamController::class, 'cartwtb'])->name('cartwtb');
+Route::get('/temp/cart-wtb/{group?}', [DreamController::class, 'cartwtb'])->name('cartwtb');
 Route::get('/tmp/add-to-cart-wtb/{id}', [DreamController::class, 'addToCartWtb'])->name('add.to.cart.wtb');
+Route::delete('/tmp/remove-from-cart-wtb', [DreamController::class, 'removewtb'])->name('remove.from.cart.wtb');
+Route::delete('/tmp/remove-all-from-cart-wtb', [DreamController::class, 'removeallwtb'])->name('remove.all.from.cart.wtb');
+
 
 Route::get('/temp/cart-tr', [DreamController::class, 'carttr'])->name('carttr');
 Route::get('/tmp/add-to-cart-trhave/{id}', [DreamController::class, 'addToCartTrhave'])->name('add.to.cart.trhave');
