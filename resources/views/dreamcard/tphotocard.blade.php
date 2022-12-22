@@ -116,10 +116,22 @@
                                 <div class="card p-3 py-4" id="html-content-holder">
                                     <div class="p-3 py-4" id="html-without-background">
                                         <div class="text-center mt-3">
-                                            <span class="bg-danger p-1 px-4 rounded text-white">#WTS</span>&nbsp;
-                                            <span class="bg-danger p-1 px-4 rounded text-white">#Dreamcatcher</span>&nbsp;
-                                            <span class="bg-danger p-1 px-4 rounded text-white">#Photocard</span>
-                                            <h5 class="mt-2 mb-0">&nbsp;</h5>
+                                            <div class="card-body">
+                                                @if($hastag)
+                                                    <span class="badge badge-primary">{{$hastag['tipe']}}</span>&nbsp;
+                                                    <span class="badge badge-secondary">{{$hastag['photo']}}</span>&nbsp;
+                                                    @foreach($hastag['group'] as $id => $groups)
+                                                        <span class="badge badge-success">{{$groups['group']}}</span>
+                                                    @endforeach
+                                                    @foreach($hastag['member'] as $id => $members)
+                                                        <span class="badge badge-danger">{{$members['member']}}</span>
+                                                    @endforeach
+                                                    @foreach($hastag['album'] as $id => $albums)
+                                                        <span class="badge badge-info">{{$albums['album']}}</span>
+                                                    @endforeach
+                                                    <h5 class="mt-2 mb-0">&nbsp;</h5>
+                                                @endif
+                                            </div>
                                             <div class="row">
                                                 {{-- @php
                                                     dd(session('cart'));
@@ -135,7 +147,7 @@
                                                                 <a href="#"  type="button" class="btn btn-default text" onClick="Data.deletePhotocard('{{ $details['id'] }}')"><i class="feather mr-2 icon-trash"></i>Delete&nbsp;</a>
                                                             </div>
                                                             {{-- <h6>{{ $details['album'] }}</h6> --}}
-                                                            <h5 style="padding-top: 5px">({{ $details['channel'] }})</h6>
+                                                            <h5 style="padding-top: 10px">({{ $details['channel'] }})</h6>
                                                         </div>
                                                     @endforeach
                                                 @endif

@@ -298,28 +298,29 @@ class DreamController extends Controller
         $cart = session()->get('cart', []);
         foreach ($cart  as $key => $value) {
             $album[$value['album_id']]=[
-                $key => $value['album']
+                "album" => $value['album']
             ];
         }
         foreach ($cart  as $key => $members) {
             $member[$members['member_id']]=[
-                $key => $members['member']
+                "member" => $members['member']
             ];
         }
         foreach ($cart  as $key => $groups) {
             $group[$groups['group_id']]=[
-                $key => $groups['group']
+                "group" => $groups['group']
             ];
         }
         $hastag=[
-            "tipe" =>"WTS",
-            "photo" =>"Photocard",
+            "tipe" =>"#WTS",
+            "photo" =>"#Photocard",
             "group" =>$group,
             "album" =>$album,
             "member"=>$member
         ];
         //dd($hastag);
-        return view('dreamcard.tphotocard');
+        //return view('dreamcard.tphotocard');
+        return view('dreamcard.tphotocard',compact('hastag'));
     }
 
 
