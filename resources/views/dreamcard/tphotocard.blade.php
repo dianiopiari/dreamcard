@@ -110,13 +110,18 @@
                         <a id="btn-Convert-Html2Image" href="#" type="button" class="btn btn-secondary"><i class="feather mr-2 icon-camera"></i>Download</a>
                         <a id="btn-Convert-Html2Image-without" href="#" type="button" class="btn btn-info"><i class="feather mr-2 icon-camera"></i>Download Without Background</a>
                     </div>
-					<div class="card-body" id="html-content-holder">
+                    <div class="card-body" id="html-content-holder">
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-12">
                                 <div class="card p-3 py-4" id="html-content-holder">
                                     <div class="p-3 py-4" id="html-without-background">
                                         <div class="text-center mt-3">
                                             <div class="card-body">
+                                                <h1><b>My Photocard Collection</b></h1>
+                                                <div class="alert alert-primary" role="alert">
+                                                    Contact me if you interest !
+                                                </div>
+                                                <h5 class="mt-2 mb-0">&nbsp;</h5>
                                                 @if($hastag)
                                                     <span class="badge badge-primary">{{$hastag['tipe']}}</span>&nbsp;
                                                     <span class="badge badge-secondary">{{$hastag['photo']}}</span>&nbsp;
@@ -136,7 +141,7 @@
                                                 @if(session('cart'))
                                                     @foreach(session('cart') as $id => $details)
                                                         <div class="col-sm-2">
-                                                            <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{ $details['pic_front'] }}" alt="Card image cap">
+                                                            <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{ $details['pic_front'] }}" alt="Card image cap"  style="height: 80%">
                                                             <div class="middle" style="justify-content: left">
                                                                 <a href="#"  type="button" class="btn btn-default text" onClick="Data.deletePhotocard('{{ $details['id'] }}')"><i class="feather mr-2 icon-trash"></i>Delete&nbsp;</a>
                                                             </div>
