@@ -96,10 +96,6 @@
 						<div class="page-header-title">
 							<h5 class="m-b-10">Group</h5>
 						</div>
-						{{-- <ul class="breadcrumb">
-							<li class="breadcrumb-item"><a href="{{config('app.url')}}"><i class="feather icon-home"></i></a></li>
-							<li class="breadcrumb-item"><a href="{{config('app.url')}}/app/{{$group->slug}}">{{$group->group_name}}</a></li>
-						</ul> --}}
 					</div>
 				</div>
 			</div>
@@ -109,25 +105,74 @@
 				<div class="card">
 					<div class="card-header">
 						<h5 class="mt-4"><b>Custome Template</b></h5>
-
+                        <a href="#" onClick="Data.clear()" type="button" class="btn btn-warning"><i class="feather mr-2 icon-trash"></i>Clear All</a>
+                        <a href="{{config('app.url')}}" type="button" class="btn btn-danger"><i class="feather mr-2 icon-home"></i>Home</a>
+                        <a id="btn-Convert-Html2Image" href="#" type="button" class="btn btn-secondary"><i class="feather mr-2 icon-camera"></i>Download</a>
+                        <a id="btn-Convert-Html2Image-without" href="#" type="button" class="btn btn-info"><i class="feather mr-2 icon-camera"></i>Download Without Background</a>
                     </div>
 					<div class="card-body" id="html-content-holder">
-                        <div class="row">
-                            @if(session('cart'))
-                                @foreach(session('cart') as $id => $details)
-                                    <div class="col-sm-2">
-                                        <a href="#"><img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{ $details['pic_front'] }}" alt="Card image cap"></a>
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-12">
+                                <div class="card p-3 py-4" id="html-content-holder">
+                                    <div class="p-3 py-4" id="html-without-background">
+                                        <div class="text-center mt-3">
+                                            <span class="bg-danger p-1 px-4 rounded text-white">#WTS</span>&nbsp;
+                                            <span class="bg-danger p-1 px-4 rounded text-white">#Dreamcatcher</span>&nbsp;
+                                            <span class="bg-danger p-1 px-4 rounded text-white">#Photocard</span>
+                                            <h5 class="mt-2 mb-0">&nbsp;</h5>
+                                            <div class="row">
+                                                {{-- @php
+                                                    dd(session('cart'));
+                                                @endphp --}}
+                                                @if(session('cart'))
+                                                    @foreach(session('cart') as $id => $details)
+                                                        <div class="col-sm-2">
+                                                            {{-- <div class="middle" style="justify-content: left">
+                                                                {{ $details['channel'] }}
+                                                            </div> --}}
+                                                            <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{ $details['pic_front'] }}" alt="Card image cap">
+                                                            <div class="middle" style="justify-content: left">
+                                                                <a href="#"  type="button" class="btn btn-default text" onClick="Data.deletePhotocard('{{ $details['id'] }}')"><i class="feather mr-2 icon-trash"></i>Delete&nbsp;</a>
+                                                            </div>
+                                                            {{-- <h6>{{ $details['album'] }}</h6> --}}
+                                                            <h5 style="padding-top: 5px">({{ $details['channel'] }})</h6>
+                                                        </div>
+                                                    @endforeach
+                                                @endif
+                                            </div>
+                                        </div>
                                     </div>
-                                @endforeach
-                            @endif
-                        </div>
-                        <div class="row">
-                            <div class="float-center">
-                                <button id="btn-Preview-Image"  type="button" class="btn btn-primary"><i class="feather mr-2 icon-thumbs-up"></i>WTS</button>
-                                <a id="btn-Convert-Html2Image" href="#" type="button" class="btn btn-secondary"><i class="feather mr-2 icon-camera"></i>WTB</a>
-                                <a id="download-image"  href="#" type="button" class="btn btn-success"><i class="feather mr-2 icon-check-circle"></i>Trade</a>
+                                </div>
                             </div>
                         </div>
+                        {{-- <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <div class="row">
+                                            @if(session('cart'))
+                                                @foreach(session('cart') as $id => $details)
+                                                    <div class="col-sm-1">
+                                                        <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{ $details['pic_front'] }}" alt="Card image cap">
+                                                        <div class="middle">
+                                                            <a href="#"  type="button" class="btn btn-default text" onClick="Data.deletePhotocard('{{ $details['id'] }}')"><i class="feather mr-2 icon-trash"></i>Delete&nbsp;</a>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> --}}
+                        {{-- <div class="row">
+                            <div class="float-center">
+                                <button id="btn-Preview-Image"  type="button" class="btn btn-primary"><i class="feather mr-2 icon-thumbs-up"></i>WTS</button>
+
+                                <a id="download-image"  href="#" type="button" class="btn btn-success"><i class="feather mr-2 icon-check-circle"></i>Trade</a>
+                            </div>
+                        </div> --}}
 					</div>
 				</div>
 			</div>
@@ -147,21 +192,43 @@
     <script src="{{asset('/theme/ablepro/assets/js/pcoded.min.js')}}"></script>
 
     <script>
+        var Data = {
+            "deletePhotocard" : function(photocard_id){
+                if(confirm("Are you sure want to remove?")) {
+                    $.ajax({
+                        url: '{{ route('remove.from.cart') }}',
+                        method: "DELETE",
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            id: photocard_id
+                        },
+                        success: function (response) {
+                            window.location.reload();
+                        }
+                    });
+                }
+            },
+            "clear" : function(photocard_id){
+                if(confirm("Are you sure want to clear all photocard selected?")) {
+                    $.ajax({
+                        url: '{{ route('remove.all.from.cart') }}',
+                        method: "DELETE",
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function (response) {
+                            window.location.reload();
+                        }
+                    });
+                }
+            }
+        };
         $(document).ready(function() {
-
             // Global variable
             var element = $("#html-content-holder");
-
+            var elementwithout = $("#html-without-background");
             // Global variable
             var getCanvas;
-            $("#btn-Preview-Image").on('click', function() {
-                html2canvas(element, {
-                onrendered: function(canvas) {
-                        $("#previewImage").append(canvas);
-                        getCanvas = canvas;
-                    }
-                });
-            });
             $("#btn-Convert-Html2Image").on('click', function() {
                 html2canvas(element, {
                 onrendered: function(canvas) {
@@ -171,17 +238,18 @@
 
             });
 
-            $("#download-image").on('click', function() {
-                ///alert("asa");
-                html2canvas(element, {
-                    onrendered: function(canvas) {
-                    // document.body.appendChild(canvas);
-                        return Canvas2Image.saveAsPNG(canvas);
+            $("#btn-Convert-Html2Image-without").on('click', function() {
+                html2canvas(elementwithout, {
+                onrendered: function(canvas) {
+                    return Canvas2Image.saveAsPNG(canvas);
                     }
                 });
+
             });
 
         });
+
+
     </script>
 </body>
 </html>
