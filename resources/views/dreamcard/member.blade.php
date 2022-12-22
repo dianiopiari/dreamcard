@@ -117,7 +117,8 @@
                         <div class="float-right">
                             <a href="{{ route('cart') }}" type="button" class="btn btn-info"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp; WTS &nbsp; <span class="badge badge-pill badge-danger" id="countphoto">{{count((array) session('cart')) }}</span></a>
                             <a href="{{ route('cartwtb') }}" type="button" class="btn btn-warning"><i class="feather mr-2 icon-camera" aria-hidden="true"></i>&nbsp; WTB &nbsp; <span class="badge badge-pill badge-danger" id="countphotowtb">{{count((array) session('cartwtb')) }}</span></a>
-                            <button type="button" class="btn btn-success"><i class="feather mr-2 icon-check-circle"></i>Trade</button>
+                            {{-- <button type="button" class="btn btn-success"><i class="feather mr-2 icon-check-circle"></i>Trade</button> --}}
+                            <a href="{{ route('carttr') }}" type="button" class="btn btn-success"><i class="feather mr-2 icon-camera" aria-hidden="true"></i>&nbsp; Trade &nbsp;<span class="badge badge-pill badge-danger" id="countphototrhave">{{count((array) session('carttrhave')) }}</span> <span class="badge badge-pill badge-info" id="countphototrwant">{{count((array) session('carttrwant')) }}</span> </a>
                         </div>
                     </div>
                 </div>
@@ -262,6 +263,36 @@
                 },
                 success: function(response) {
                     $('span#countphotowtb').html(response.countphoto);
+                    $("#myModal").modal('hide');
+                }
+            }).done(function(response){
+            })
+        },
+        "addPhotocardtrwant" : function(photocard_id){
+            $.ajax({
+                url:"{{config('app.url')}}/tmp/add-to-cart-trwant" + '/' + photocard_id,
+                type:  'get',
+                dataType: "json",
+                beforeSend: function() {
+                    $("#loading-image").show();
+                },
+                success: function(response) {
+                    $('span#countphototrwant').html(response.countphoto);
+                    $("#myModal").modal('hide');
+                }
+            }).done(function(response){
+            })
+        },
+        "addPhotocardtrhave" : function(photocard_id){
+            $.ajax({
+                url:"{{config('app.url')}}/tmp/add-to-cart-trhave" + '/' + photocard_id,
+                type:  'get',
+                dataType: "json",
+                beforeSend: function() {
+                    $("#loading-image").show();
+                },
+                success: function(response) {
+                    $('span#countphototrhave').html(response.countphoto);
                     $("#myModal").modal('hide');
                 }
             }).done(function(response){

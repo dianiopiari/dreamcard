@@ -38,3 +38,8 @@ Route::delete('/tmp/remove-from-cart', [DreamController::class, 'remove'])->name
 Route::get('/temp/cart-wtb', [DreamController::class, 'cartwtb'])->name('cartwtb');
 Route::get('/tmp/add-to-cart-wtb/{id}', [DreamController::class, 'addToCartWtb'])->name('add.to.cart.wtb');
 
+Route::get('/temp/cart-tr', [DreamController::class, 'carttr'])->name('carttr');
+Route::get('/tmp/add-to-cart-trhave/{id}', [DreamController::class, 'addToCartTrhave'])->name('add.to.cart.trhave');
+Route::get('/tmp/add-to-cart-trwant/{id}', [DreamController::class, 'addToCartTrwant'])->name('add.to.cart.trwant');
+
+
