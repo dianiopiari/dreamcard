@@ -55,6 +55,7 @@ return [
     'url' => env('APP_URL', 'http://localhost'),
     'asset_url' => env('ASSET_URL', null),
     'str' => env('APP_STORAGE', 'public'),
+    'str_adm' => env('APP_STORAGE_ADMIN', 'public'),
 
     /*
     |--------------------------------------------------------------------------

@@ -12,6 +12,9 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Support\Facades\Log;
+use Jenssegers\ImageHash\ImageHash;
+use Jenssegers\ImageHash\Implementations\DifferenceHash;
 
 class PhotocardController extends AdminController
 {
@@ -114,10 +117,32 @@ class PhotocardController extends AdminController
         $form->select('channel_id', 'Event')->options(
             MChannel::select('id', 'channel')->get()->pluck('channel','id')
         );
+        $form->text('hash_img');
         $form->image('pic_front', __('Image Depan'));
         $form->image('pic_hd', __('Image Depan HD'));
         $form->image('pic_back', __('Image Belakang'));
         $form->ckeditor('credit', __('Info'));
+
+        $form->saved(function (Form $form){
+            //...
+            $id = $form->model()->id;
+            if( $id != 0){
+                //set_time_limit(1800);
+                $dataphoto = MPhotocard::findOrFail($id);
+                $path = config('app.str_adm')."\\".$dataphoto->pic_front;
+                if(config('app.str_adm')!="production"){
+                    $path = str_replace("\\","/",$path );
+                }
+                //dd($path);
+                $hasher = new ImageHash(new DifferenceHash());
+                $hash = $hasher->hash($path);
+                //dd($hash);
+                $dataphoto->update([
+                    'hash_img'     => $hash->toHex()
+                ]);
+
+            }
+        });
 
         $form->disableEditingCheck();
         $form->disableCreatingCheck();

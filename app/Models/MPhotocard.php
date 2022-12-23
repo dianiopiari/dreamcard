@@ -17,6 +17,7 @@ class MPhotocard extends Model
           'pic_front',
           'pic_back',
           'pic_hd',
+          'hash_img',
           'credit',
           'created_at',
           'updated_at'
