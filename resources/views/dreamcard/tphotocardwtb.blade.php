@@ -121,7 +121,7 @@
                                     <div class="p-3 py-4" id="html-without-background">
                                         <div class="text-center mt-3">
                                             <div class="card-body">
-                                                <h1><b>My Whistlist</b></h1>
+                                                <h1><b>My Wishlist</b></h1>
                                                 <h5 class="mt-2 mb-0">&nbsp;</h5>
                                                 @if($hastag)
                                                     <span class="badge badge-primary">{{$hastag['tipe']}}</span>&nbsp;
