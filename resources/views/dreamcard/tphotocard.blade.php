@@ -145,7 +145,7 @@
                                                             <div class="middle" style="justify-content: left">
                                                                 <a href="#"  type="button" class="btn btn-default text" onClick="Data.deletePhotocard('{{ $details['id'] }}')"><i class="feather mr-2 icon-trash"></i>Delete&nbsp;</a>
                                                             </div>
-                                                            <h5 style="padding-top: 10px">({{ $details['channel'] }})</h6>
+                                                            <h5 style="padding-top: 10px">({{ $details['channel'] }})</h5>
                                                         </div>
                                                     @endforeach
                                                 @endif

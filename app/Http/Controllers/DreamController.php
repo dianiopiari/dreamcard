@@ -9,6 +9,8 @@ use App\Models\MMember;
 use App\Models\MPhotocard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Jenssegers\ImageHash\ImageHash;
+use Jenssegers\ImageHash\Implementations\DifferenceHash;
 
 class DreamController extends Controller
 {
@@ -453,4 +455,56 @@ class DreamController extends Controller
     {
         return view('dreamcard.tphotocardtr');
     }
+
+    public function searchphotocard()
+    {
+        // return view('dreamcard.search');
+        $distances = [];
+        return view('dreamcard.search',compact('distances'));
+    }
+
+    public function prosesUpload(Request $request){
+        //dd("helllo");
+
+		$this->validate($request, [
+			'file' => 'required',
+		]);
+
+		// menyimpan data file yang diupload ke variabel $file
+		$file = $request->file('file');
+        $tujuan_upload = 'uploads\\data_pencarian';
+	    $file->move($tujuan_upload,$file->getClientOriginalName());
+        $pathfind = config('app.str_adm')."\\"."data_pencarian"."\\".$file->getClientOriginalName();
+        if(config('app.str_adm')!="production"){
+            $pathfind = str_replace("\\","/",$pathfind );
+        }
+        $hasher = new ImageHash(new DifferenceHash());
+        $hashSearch = $hasher->hash($pathfind);
+        //dd($hashSearch->toHex());
+
+        $distances = [];
+        $photocards = MPhotocard::orderBy('id', 'DESC')->get();
+        foreach ($photocards as $key => $photocard) {
+            $bits1 = $hashSearch->toBits();
+            $bits2 = $photocard->hash_img;
+            $length = max(strlen($bits1), strlen($bits2));
+            $bits1 = str_pad($bits1, $length, '0', STR_PAD_LEFT);
+            $bits2 = str_pad($bits2, $length, '0', STR_PAD_LEFT);
+            $count = count(array_diff_assoc(str_split($bits1), str_split($bits2)));
+            if($count<25){
+                $distances[$key] = [
+                    'count'=>$count,
+                    'photo'=> $photocard->pic_front,
+                    'group'=>$photocard->groupp->group_name,
+                    'channel'=> $photocard->channelp->channel,
+                    'member' =>$photocard->memberp->member_name,
+                    'album' =>$photocard->albump->member_name
+                ] ;
+            }
+        }
+        //dd($distances);
+        //return view('dreamcard.search');
+        asort($distances);
+        return view('dreamcard.search',compact('distances'));
+	}
 }

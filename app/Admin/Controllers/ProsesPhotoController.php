@@ -47,7 +47,7 @@ class ProsesPhotoController extends Controller
                     $hash = $hasher->hash($path);
                     //dd($hash);
                     $dataphoto->update([
-                        'hash_img'     => $hash->toHex()
+                        'hash_img'     => $hash->toBits()
                     ]);
                 }
                 //dd($path);

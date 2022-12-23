@@ -37,4 +37,9 @@ class MPhotocard extends Model
       {
           return $this->hasOne(MChannel::class, 'id', 'channel_id');
       }
+
+      public function albump()
+      {
+          return $this->hasOne(MAlbum::class, 'id', 'album_id');
+      }
 }
