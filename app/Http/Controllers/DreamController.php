@@ -211,7 +211,7 @@ class DreamController extends Controller
                 $photocard_detail .="</div>";
                 $info=$photord->credit;
                 $wts ="<a href='#' onClick='Data.addPhotocard(".$photord->id.")' type='button' class='btn btn-info'><i class='fa fa-shopping-cart' aria-hidden='true'></i>&nbsp; WTS &nbsp; </a>&nbsp;&nbsp;";
-                $wts .="<a href='#' onClick='Data.addPhotocardwtb(".$photord->id.")' type='button' class='btn btn-warning'><i class='feather mr-2 icon-camera'></i>WTB</a>&nbsp;&nbsp;<br>";
+                $wts .="<a href='#' onClick='Data.addPhotocardwtb(".$photord->id.")' type='button' class='btn btn-danger'><i class='feather mr-2 icon-heart'></i>Wishlist</a>&nbsp;&nbsp;<br>";
                 // $trade ="<a href='#' onClick='Data.addPhotocardtrhave(".$photord->id.")' type='button' class='btn btn-success'><i class='fa fa-shopping-cart' aria-hidden='true'></i>&nbsp; Trade Have</a>&nbsp;&nbsp;";
                 // $trade .="<a href='#' onClick='Data.addPhotocardtrwant(".$photord->id.")' type='button' class='btn btn-danger'><i class='feather mr-2 icon-camera'></i>Trade Want</a>&nbsp;&nbsp;";
             }else{

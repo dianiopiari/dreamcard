@@ -145,7 +145,7 @@
                         <div class="row">
                             <div class="float-center">
                                 <button id="btn-Preview-Image"  type="button" class="btn btn-primary"><i class="feather mr-2 icon-thumbs-up"></i>WTS</button>
-                                <a id="btn-Convert-Html2Image" href="#" type="button" class="btn btn-secondary"><i class="feather mr-2 icon-camera"></i>WTB</a>
+                                <a id="btn-Convert-Html2Image" href="#" type="button" class="btn btn-danger"><i class="feather mr-2 icon-heart"></i>Wishlist</a>
                                 <a id="download-image"  href="#" type="button" class="btn btn-success"><i class="feather mr-2 icon-check-circle"></i>Trade</a>
                             </div>
                         </div>

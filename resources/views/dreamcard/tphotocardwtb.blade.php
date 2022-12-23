@@ -110,7 +110,7 @@
 					<div class="card-header">
 						<h5 class="mt-4"><b>Custome Template</b></h5>
                         <a href="#" onClick="Data.clear()" type="button" class="btn btn-warning"><i class="feather mr-2 icon-trash"></i>Clear All</a>
-                        <a href="{{config('app.url')}}/member/{{$namagroup}}" type="button" class="btn btn-danger"><i class="feather mr-2 icon-corner-down-left"></i>Back</a>
+                        <a href="{{config('app.url')}}/member/{{$namagroup}}" type="button" class="btn btn-dark"><i class="feather mr-2 icon-corner-down-left"></i>Back</a>
                         <a id="btn-Convert-Html2Image" href="#" type="button" class="btn btn-secondary"><i class="feather mr-2 icon-camera"></i>Download</a>
                         <a id="btn-Convert-Html2Image-without" href="#" type="button" class="btn btn-info"><i class="feather mr-2 icon-camera"></i>Download Without Background</a>
                     </div>
