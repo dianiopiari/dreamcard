@@ -142,7 +142,7 @@
                                                 @if(session('cartwtb'))
                                                     @foreach(session('cartwtb') as $id => $details)
                                                         <div class="col-sm-2">
-                                                            <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{ $details['pic_front'] }}" alt="Card image cap" style="height: 80%">
+                                                            <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{ $details['pic_front'] }}" alt="Card image cap" style="height: 90%">
                                                             <div class="middle" style="justify-content: left">
                                                                 <a href="#"  type="button" class="btn btn-default text" onClick="Data.deletePhotocard('{{ $details['id'] }}')"><i class="feather mr-2 icon-trash"></i>Delete&nbsp;</a>
                                                             </div>
