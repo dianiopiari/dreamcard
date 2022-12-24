@@ -115,6 +115,7 @@ class DreamController extends Controller
         //dd($limit);
         if($group!=null){
             $albums = MAlbum::where('group_id','=',$group->id)->orderBy('order','desc')->get();
+            $members = MMember::where('group_id','=',$group->id)->get();
             $arrphoto=array();
             $channels = MChannel::where('album_id','=',$album->id);
             if($categori_id!=-1){
@@ -141,7 +142,7 @@ class DreamController extends Controller
         }else{
             return view('dreamcard.notfound');
         }
-        return view('dreamcard.album',compact('vipot_columns','albums','group','slug','album','style1','style2','style3','style4','style5','style6','limit'));
+        return view('dreamcard.album',compact('vipot_columns','albums','group','slug','album','style1','style2','style3','style4','style5','style6','limit','members'));
     }
 
 
@@ -184,7 +185,7 @@ class DreamController extends Controller
         }else{
             return view('dreamcard.notfound');
         }
-        return view('dreamcard.member',compact('vipot_columns','members','group','slug','group_slug'));
+        return view('dreamcard.member',compact('vipot_columns','members','group','slug','group_slug','albums'));
     }
 
     public function detailPhotocard($photocard_id=null)

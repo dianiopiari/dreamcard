@@ -44,21 +44,17 @@
 	<nav class="pcoded-navbar menu-light ">
 		<div class="navbar-wrapper  ">
 			<div class="navbar-content scroll-div " >
-				{{-- <div class="">
-					<div class="main-menu-header">
-						<img class="img-radius" src="{{asset('/theme/ablepro/assets/images/user/avatar-2.jpg')}}" alt="User-Profile-Image">
-					</div>
-				</div> --}}
-				{{-- <ul class="nav pcoded-inner-navbar ">
-					@foreach($albums as $album)
-						<li class="nav-item">
-							<a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">{{$album->album}}</span></a>
-						</li>
-					@endforeach
-				</ul> --}}
 				<ul class="nav pcoded-inner-navbar ">
-					<li class="nav-item pcoded-hasmenu active pcoded-trigger">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">{{$group->group_name}}</span></a>
+                    <li class="nav-item pcoded-hasmenu pcoded-trigger">
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Member {{$group->group_name}}</span></a>
+						<ul class="pcoded-submenu">
+                            @foreach($members as $member)
+                            <li><a href="{{config('app.url')}}/member/{{$group->slug}}/{{$member->slug}}">{{$member->member_name}}</a></li>
+							@endforeach
+						</ul>
+					</li>
+                    <li class="nav-item pcoded-hasmenu active pcoded-trigger">
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Album {{$group->group_name}}</span></a>
 						<ul class="pcoded-submenu">
 							@foreach($albums as $al)
 								@if ($slug==$al->slug)

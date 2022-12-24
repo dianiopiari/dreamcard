@@ -56,6 +56,18 @@
 							@endforeach
 						</ul>
 					</li>
+                    <li class="nav-item pcoded-hasmenu pcoded-trigger">
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Album {{$group->group_name}}</span></a>
+						<ul class="pcoded-submenu">
+							@foreach($albums as $album)
+								@if ($slug==$album->slug)
+									<li class="active"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}">{{$album->album}}</a></li>
+								@else
+									<li><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}">{{$album->album}}</a></li>
+								@endif
+							@endforeach
+						</ul>
+					</li>
 				</ul>
 			</div>
 		</div>

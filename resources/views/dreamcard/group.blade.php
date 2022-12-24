@@ -50,8 +50,16 @@
 					</div>
 				</div> --}}
 				<ul class="nav pcoded-inner-navbar ">
+                    <li class="nav-item pcoded-hasmenu pcoded-trigger">
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Member {{$group->group_name}}</span></a>
+						<ul class="pcoded-submenu">
+                            @foreach($members as $member)
+                            <li><a href="{{config('app.url')}}/member/{{$group->slug}}/{{$member->slug}}">{{$member->member_name}}</a></li>
+							@endforeach
+						</ul>
+					</li>
 					<li class="nav-item pcoded-hasmenu active pcoded-trigger">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">{{$group->group_name}}</span></a>
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Album {{$group->group_name}}</span></a>
 						<ul class="pcoded-submenu">
 							@foreach($albums as $album)
 								@if ($slug==$album->slug)
@@ -81,7 +89,7 @@
 						<i class="feather icon-more-vertical"></i>
 					</a>
 				</div>
-				<div class="collapse navbar-collapse">
+				{{-- <div class="collapse navbar-collapse">
 					<ul class="navbar-nav mr-auto">
 						<li class="nav-item">
 							<a href="#!" class="pop-search"><i class="feather icon-search"></i></a>
@@ -93,7 +101,7 @@
 							</div>
 						</li>
 					</ul>
-				</div>
+				</div> --}}
 	</header>
 	<!-- [ Header ] end -->
 <!-- [ Main Content ] start -->
@@ -117,7 +125,7 @@
 		</div>
 		<!-- [ breadcrumb ] end -->
 		<!-- [ Main Content ] start -->
-		{{-- <div class="row">
+		<div class="row">
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header">
@@ -140,7 +148,7 @@
 					</div>
 				</div>
 			</div>
-		</div> --}}
+		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="card">
