@@ -45,15 +45,19 @@
 			<div class="navbar-content scroll-div " >
 				<ul class="nav pcoded-inner-navbar ">
 					<li class="nav-item pcoded-hasmenu active pcoded-trigger">
-						<a href="{{config('app.url')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Home</span></a>
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Member {{$group->group_name}}</span></a>
 						<ul class="pcoded-submenu">
-							{{-- @foreach($albums as $album)
-								@if ($slug==$album->slug)
-									<li class="active"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}">{{$album->album}}</a></li>
-								@else
+                            @foreach($members as $member)
+                            <li><a href="{{config('app.url')}}/member/{{$group->slug}}/{{$member->slug}}">{{$member->member_name}}</a></li>
+							@endforeach
+						</ul>
+					</li>
+					<li class="nav-item pcoded-hasmenu  pcoded-trigger">
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Album {{$group->group_name}}</span></a>
+						<ul class="pcoded-submenu">
+							@foreach($albums as $album)
 									<li><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}">{{$album->album}}</a></li>
-								@endif
-							@endforeach --}}
+							@endforeach
 						</ul>
 					</li>
 				</ul>
