@@ -126,7 +126,7 @@
                     <div class="card-header">
                         <h5>Make a Custome Template</h5>
                         <div class="float-right">
-                            <a href="{{ route('cart') }}/{{$group->slug}}" type="button" class="btn btn-info"><i class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp; WTS &nbsp; <span class="badge badge-pill badge-danger" id="countphoto">{{count((array) session('cart')) }}</span></a>
+                            <a href="{{ route('cart') }}/{{$group->slug}}" type="button" class="btn btn-info"><i class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp; My Photocard &nbsp; <span class="badge badge-pill badge-danger" id="countphoto">{{count((array) session('cart')) }}</span></a>
                             <a href="{{ route('cartwtb') }}/{{$group->slug}}" type="button" class="btn btn-danger"><i class="fa fa-heart" aria-hidden="true"></i>&nbsp; Wishlist &nbsp; <span class="badge badge-pill badge-light" id="countphotowtb"><font color="#000000">{{count((array) session('cartwtb')) }}</font></span></a>
                             {{-- <button type="button" class="btn btn-success"><i class="feather mr-2 icon-check-circle"></i>Trade</button> --}}
                             {{-- <a href="{{ route('carttr') }}" type="button" class="btn btn-success"><i class="feather mr-2 icon-camera" aria-hidden="true"></i>&nbsp; Trade &nbsp;<span class="badge badge-pill badge-danger" id="countphototrhave">{{count((array) session('carttrhave')) }}</span> <span class="badge badge-pill badge-info" id="countphototrwant">{{count((array) session('carttrwant')) }}</span> </a> --}}

@@ -213,7 +213,7 @@ class DreamController extends Controller
                 $photocard_detail .= "<img class='img-fluid card-img-top' src='".$pic_back."' style='height: 100%;'>";
                 $photocard_detail .="</div>";
                 $info=$photord->credit;
-                $wts ="<a href='#' onClick='Data.addPhotocard(".$photord->id.")' type='button' class='btn btn-info'><i class='fa fa-shopping-cart' aria-hidden='true'></i>&nbsp; WTS &nbsp; </a>&nbsp;&nbsp;";
+                $wts ="<a href='#' onClick='Data.addPhotocard(".$photord->id.")' type='button' class='btn btn-info'><i class='fa fa-shopping-cart' aria-hidden='true'></i>&nbsp; My Photocard &nbsp; </a>&nbsp;&nbsp;";
                 $wts .="<a href='#' onClick='Data.addPhotocardwtb(".$photord->id.")' type='button' class='btn btn-danger'><i class='feather mr-2 icon-heart'></i>Wishlist</a>&nbsp;&nbsp;<br>";
                 // $trade ="<a href='#' onClick='Data.addPhotocardtrhave(".$photord->id.")' type='button' class='btn btn-success'><i class='fa fa-shopping-cart' aria-hidden='true'></i>&nbsp; Trade Have</a>&nbsp;&nbsp;";
                 // $trade .="<a href='#' onClick='Data.addPhotocardtrwant(".$photord->id.")' type='button' class='btn btn-danger'><i class='feather mr-2 icon-camera'></i>Trade Want</a>&nbsp;&nbsp;";
@@ -312,12 +312,14 @@ class DreamController extends Controller
             $group_id = $groups['group_id'];
         }
         $hastag=[
-            "tipe" =>"#WTS",
+            "tipe" =>"#MyPhotocard",
             "photo" =>"#Photocard",
             "group" =>$group,
             "album" =>$album,
             "member"=>$member
         ];
+        $albums=[];
+        $members=[];
         if($group_id!=0){
             $group= MGroup::where('id','=',$group_id)->first();
             $albums = MAlbum::where('group_id','=',$group->id)->orderBy('order','desc')->get();
