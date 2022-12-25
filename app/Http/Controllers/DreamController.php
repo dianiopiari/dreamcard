@@ -304,10 +304,12 @@ class DreamController extends Controller
                 "member" => $members['member']
             ];
         }
+        $group_id=0;
         foreach ($cart  as $key => $groups) {
             $group[$groups['group_id']]=[
                 "group" => $groups['group']
             ];
+            $group_id = $groups['group_id'];
         }
         $hastag=[
             "tipe" =>"#WTS",
@@ -316,9 +318,12 @@ class DreamController extends Controller
             "album" =>$album,
             "member"=>$member
         ];
-        //dd($hastag);
-        //return view('dreamcard.tphotocard');
-        return view('dreamcard.tphotocard',compact('hastag','namagroup'));
+        if($group_id!=0){
+            $group= MGroup::where('id','=',$group_id)->first();
+            $albums = MAlbum::where('group_id','=',$group->id)->orderBy('order','desc')->get();
+            $members = MMember::where('group_id','=',$group->id)->get();
+        }
+        return view('dreamcard.tphotocard',compact('hastag','namagroup','albums','members','group'));
     }
 
 
