@@ -134,7 +134,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Make a Custome Template</h5>
+                        <h5>&nbsp;</h5>
                         <div class="float-right">
                             <a href="{{ route('cart') }}/{{$group->slug}}" type="button" class="btn btn-info"><i class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp; My Photocard &nbsp; <span class="badge badge-pill badge-danger" id="countphoto">{{count((array) session('cart')) }}</span></a>
                             <a href="{{ route('cartwtb') }}/{{$group->slug}}" type="button" class="btn btn-danger"><i class="fa fa-heart" aria-hidden="true"></i>&nbsp; Wishlist &nbsp; <span class="badge badge-pill badge-light" id="countphotowtb"><font color="#000000">{{count((array) session('cartwtb')) }}</font></span></a>
@@ -184,61 +184,6 @@
 		@endif
 		<!-- [ Main Content ] end -->
 	</div>
-</div>
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                {{-- <h5 class="modal-title h4" id="myLargeModalLabel">Photocard</h5> --}}
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                                    <div class="carousel-inner">
-                                        <!-- dinamis-->
-                                    </div>
-                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="sr-only">Previous</span></a>
-                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="sr-only">Next</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Info</a>
-                                        </li>
-                                        {{-- <li class="nav-item">
-                                            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Discuss</a>
-                                        </li> --}}
-                                    </ul>
-                                    <div class="tab-content" id="pills-tabContent">
-                                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                                            <p class="mb-0 info">
-                                            </p>
-                                        </div>
-                                        {{-- <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                                            <p class="mb-0">
-                                                Est quis nulla laborum officia ad nisi ex nostrud culpa Lorem excepteur aliquip dolor aliqua irure ex. Nulla ut duis ipsum nisi elit fugiat commodo sunt reprehenderit laborum veniam eu
-                                                veniam. Eiusmod
-                                                minim exercitation fugiat irure ex labore incididunt do fugiat commodo aliquip sit id deserunt reprehenderit aliquip nostrud. Amet ex cupidatat excepteur aute veniam incididunt mollit cupidatat esse
-                                                irure officia elit do ipsum ullamco Lorem.consequat non.</p>
-                                        </div> --}}
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 <!-- [ Main Content ] end -->
     <!-- Warning Section start -->
@@ -293,27 +238,5 @@
     <script src="{{asset('/theme/ablepro/assets/js/plugins/bootstrap.min.js')}}"></script>
     <script src="{{asset('/theme/ablepro/assets/js/ripple.js')}}"></script>
     <script src="{{asset('/theme/ablepro/assets/js/pcoded.min.js')}}"></script>
-    <script>
-        var Data = {
-            "getPhotocard" : function(photocard_id){
-                $.ajax({
-                    url: "{{config('app.url')}}"+"/detail/" + photocard_id,
-                    type:  'get',
-                    dataType: "json"
-                }).done(function(response){
-                    $("#myModal").modal('hide');
-                    $("#myModal .carousel-inner").html(response.photocard_detail);
-                    $("#myModal .info").html(response.info);
-                    $("#myModal").modal('show');
-                });
-            },
-            "addPhotocard" : function(photocard_id){
-                alert("add");
-                $.ajax({
-                }).done(function(response){
-                });
-            }
-        };
-    </script>
 </body>
 </html>

@@ -112,11 +112,16 @@
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header">
-						<h5 class="mt-4"><b>Custome Template</b></h5>
-                        <a href="#" onClick="Data.clear()" type="button" class="btn btn-warning"><i class="feather mr-2 icon-trash"></i>Clear All</a>
+                        <a href="javascript:window.history.go(-1);" type="button" class="btn btn-dark"><i class="fa fa-arrow-left"></i>&nbsp; Back&nbsp;</a>
+                        <div class="float-right">
+                            <button onClick="Data.clear()" class="btn btn-info"><i class="feather mr-2 icon-trash"></i>Clear Data All </button>
+                            <button id="btn-Convert-Html2Image" class="btn btn-danger"><i class="feather mr-2 icon-camera"></i>Download Template</button>
+                            <button id="btn-Convert-Html2Image-without" class="btn btn-success"><i class="feather mr-2 icon-camera"></i>Download Without Background</button>
+                        </div>
+                        {{-- <a href="#" onClick="Data.clear()" type="button" class="btn btn-warning"><i class="feather mr-2 icon-trash"></i>Clear All</a>
                         <a href="{{config('app.url')}}/member/{{$namagroup}}" type="button" class="btn btn-success"><i class="feather mr-2 icon-corner-down-left"></i>Back</a>
                         <a id="btn-Convert-Html2Image" href="#" type="button" class="btn btn-secondary"><i class="feather mr-2 icon-camera"></i>Download</a>
-                        <a id="btn-Convert-Html2Image-without" href="#" type="button" class="btn btn-info"><i class="feather mr-2 icon-camera"></i>Download Without Background</a>
+                        <a id="btn-Convert-Html2Image-without" href="#" type="button" class="btn btn-info"><i class="feather mr-2 icon-camera"></i>Download Without Background</a> --}}
                     </div>
                     <div class="card-body" id="html-content-holder">
                         <div class="row d-flex justify-content-center">

@@ -124,7 +124,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Make a Custome Template</h5>
+                        <h5>&nbsp;</h5>
                         <div class="float-right">
                             <a href="{{ route('cart') }}/{{$group->slug}}" type="button" class="btn btn-info"><i class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp; My Photocard &nbsp; <span class="badge badge-pill badge-danger" id="countphoto">{{count((array) session('cart')) }}</span></a>
                             <a href="{{ route('cartwtb') }}/{{$group->slug}}" type="button" class="btn btn-danger"><i class="fa fa-heart" aria-hidden="true"></i>&nbsp; Wishlist &nbsp; <span class="badge badge-pill badge-light" id="countphotowtb"><font color="#000000">{{count((array) session('cartwtb')) }}</font></span></a>
@@ -155,7 +155,7 @@
                                                             <div class="col-sm-1">
                                                                 <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%;">
                                                                 <div class="middle">
-                                                                    <a href="#"  type="button" class="btn btn-default text" onClick="Data.getPhotocard('{{$kb->id}}')"><i class="feather mr-2 icon-search"></i></a>
+                                                                    <a href="{{config('app.url')}}/photocard/{{$group->slug}}/{{$album->slug}}/{{$kb->id}}"  type="button" class="btn btn-warning textadd"><i class="feather mr-2 icon-search"></i>Detail &nbsp;</a>
                                                                 </div>
                                                             </div>
                                                     @endforeach
@@ -173,143 +173,10 @@
 		<!-- [ Main Content ] end -->
 	</div>
 </div>
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                {{-- <h5 class="modal-title h4" id="myLargeModalLabel">Photocard</h5> --}}
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                                    <div class="carousel-inner">
-                                        <!-- dinamis-->
-                                    </div>
-                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="sr-only">Previous</span></a>
-                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="sr-only">Next</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Info</a>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content" id="pills-tabContent">
-                                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                                            <p class="mb-0 info">
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="tab-content" id="pills-tabContent">
-                                        <div class="float-left wts">
-                                         </div>
-                                    </div>
-                                    <div style="padding-top: 1opx;padding-top: 50px;"></div>
-                                    <div class="tab-content" id="pills-tabContent">
-                                        <div class="float-left trade">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
     <!-- Required Js -->
 <script src="{{asset('/theme/ablepro/assets/js/vendor-all.min.js')}}"></script>
 <script src="{{asset('/theme/ablepro/assets/js/plugins/bootstrap.min.js')}}"></script>
 <script src="{{asset('/theme/ablepro/assets/js/ripple.js')}}"></script>
 <script src="{{asset('/theme/ablepro/assets/js/pcoded.min.js')}}"></script>
-<script>
-    var Data = {
-        "getPhotocard" : function(photocard_id){
-            $.ajax({
-                url: "{{config('app.url')}}"+"/detail/" + photocard_id,
-                type:  'get',
-                dataType: "json"
-            }).done(function(response){
-                $("#myModal").modal('hide');
-                $("#myModal .carousel-inner").html(response.photocard_detail);
-                $("#myModal .info").html(response.info);
-                $("#myModal .wts").html(response.wts);
-                $("#myModal .trade").html(response.trade);
-                $("#myModal").modal('show');
-            });
-        },
-        "addPhotocard" : function(photocard_id){
-            $.ajax({
-                url:"{{config('app.url')}}/tmp/add-to-cart" + '/' + photocard_id,
-                type:  'get',
-                dataType: "json",
-                beforeSend: function() {
-                    $("#loading-image").show();
-                },
-                success: function(response) {
-                    $('span#countphoto').html(response.countphoto);
-                    $("#myModal").modal('hide');
-                }
-            }).done(function(response){
-            })
-        },
-        "addPhotocardwtb" : function(photocard_id){
-            $.ajax({
-                url:"{{config('app.url')}}/tmp/add-to-cart-wtb" + '/' + photocard_id,
-                type:  'get',
-                dataType: "json",
-                beforeSend: function() {
-                    $("#loading-image").show();
-                },
-                success: function(response) {
-                    $('span#countphotowtb').html(response.countphoto);
-                    $("#myModal").modal('hide');
-                }
-            }).done(function(response){
-            })
-        },
-        "addPhotocardtrwant" : function(photocard_id){
-            $.ajax({
-                url:"{{config('app.url')}}/tmp/add-to-cart-trwant" + '/' + photocard_id,
-                type:  'get',
-                dataType: "json",
-                beforeSend: function() {
-                    $("#loading-image").show();
-                },
-                success: function(response) {
-                    $('span#countphototrwant').html(response.countphoto);
-                    $("#myModal").modal('hide');
-                }
-            }).done(function(response){
-            })
-        },
-        "addPhotocardtrhave" : function(photocard_id){
-            $.ajax({
-                url:"{{config('app.url')}}/tmp/add-to-cart-trhave" + '/' + photocard_id,
-                type:  'get',
-                dataType: "json",
-                beforeSend: function() {
-                    $("#loading-image").show();
-                },
-                success: function(response) {
-                    $('span#countphototrhave').html(response.countphoto);
-                    $("#myModal").modal('hide');
-                }
-            }).done(function(response){
-            })
-        }
-    };
-</script>
-
 </body>
 </html>

@@ -107,7 +107,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <a href="javascript:window.history.go(-1);" type="button" class="btn btn-dark"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Back &nbsp; </a>
+                            <a href="javascript:window.history.go(-1);" type="button" class="btn btn-dark"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;&nbsp; Back &nbsp; </a>
                         </div>
                         <div class="float-right">
                             <a href="{{ route('cart') }}/{{@$group->slug}}" type="button" class="btn btn-info"><i class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp; My Photocard &nbsp; <span class="badge badge-pill badge-danger" id="countphoto">{{count((array) session('cart')) }}</span></a>
@@ -148,17 +148,17 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-right">
-                            <a href="#" onClick="Data.addPhotocard('{{$photocard->id}}')" type="button" class="btn btn-info"><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp; My Photocard &nbsp; </a>
-                            <a href="#" onClick="Data.addPhotocardwtb('{{$photocard->id}}')" type="button" class="btn btn-danger"><i class="fa fa-check"></i>&nbsp; My Wishlist &nbsp;</a>
+                            <button onClick="Data.addPhotocard('{{$photocard->id}}')" class="btn btn-info"><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp; My Photocard &nbsp;</button>
+                            <button onClick="Data.addPhotocardwtb('{{$photocard->id}}')" class="btn btn-danger"><i class="fa fa-check"></i>&nbsp; My Wishlist &nbsp;</button>
                         </div>
                     </div>
                     <div class="card-body">
                             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Info</a>
+                                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">INFO</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Discuss</a>
+                                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">DISQUS</a>
                                 </li>
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
