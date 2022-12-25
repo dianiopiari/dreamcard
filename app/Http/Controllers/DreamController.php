@@ -372,10 +372,12 @@ class DreamController extends Controller
                 "member" => $members['member']
             ];
         }
+        $group_id=0;
         foreach ($cart  as $key => $groups) {
             $group[$groups['group_id']]=[
                 "group" => $groups['group']
             ];
+            $group_id = $groups['group_id'];
         }
         $hastag=[
             "tipe" =>"#WTB",
@@ -384,8 +386,17 @@ class DreamController extends Controller
             "album" =>$album,
             "member"=>$member
         ];
+        $group=[];
+        $albums=[];
+        $members=[];
+       //dd($group_id);
+        if($group_id!=0){
+            $group= MGroup::where('id','=',$group_id)->first();
+            $albums = MAlbum::where('group_id','=',$group->id)->orderBy('order','desc')->get();
+            $members = MMember::where('group_id','=',$group->id)->get();
+        }
         //return view('dreamcard.tphotocardwtb');
-        return view('dreamcard.tphotocardwtb',compact('hastag','namagroup'));
+        return view('dreamcard.tphotocardwtb',compact('hastag','namagroup','albums','members','group'));
     }
 
     public function removewtb(Request $request)
