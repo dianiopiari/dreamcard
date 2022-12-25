@@ -129,6 +129,21 @@
 			</div>
 		</div>
 		<!-- [ breadcrumb ] end -->
+        <!-- Whislist & Search panel -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Make a Custome Template</h5>
+                        <div class="float-right">
+                            <a href="{{ route('cart') }}/{{$group->slug}}" type="button" class="btn btn-info"><i class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp; My Photocard &nbsp; <span class="badge badge-pill badge-danger" id="countphoto">{{count((array) session('cart')) }}</span></a>
+                            <a href="{{ route('cartwtb') }}/{{$group->slug}}" type="button" class="btn btn-danger"><i class="fa fa-heart" aria-hidden="true"></i>&nbsp; Wishlist &nbsp; <span class="badge badge-pill badge-light" id="countphotowtb"><font color="#000000">{{count((array) session('cartwtb')) }}</font></span></a>
+                            <a href="#" type="button" class="btn btn-success"><i class="fa fa-search" aria-hidden="true"></i>&nbsp; Looking for photocards &nbsp; </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 		<!-- [ Main Content ] start -->
 		@foreach ($vipot_columns as $item)
 			<div class="row">
@@ -145,16 +160,9 @@
 								@foreach($item['photo'] as $kb)
                                     <div class="col-sm-1">
 										<img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%;">
-                                        @if ($kb->pic_hd!=null)
-                                            <div class="middle">
-                                                <a href="#"  type="button" class="btn btn-default text" onClick="Data.getPhotocard('{{$kb->id}}')"><i class="feather mr-2 icon-search"></i></a>
-                                                <a href="#"  type="button" class="btn btn-default textadd" onClick="Data.addPhotocard('{{$kb->id}}')"><i class="feather mr-2 icon-plus-circle"></i></a>
-                                            </div>
-                                        @else
-                                            <div class="middle">
-                                                <a href="#"  type="button" class="btn btn-default textadd" onClick="Data.addPhotocard('{{$kb->id}}')"><i class="feather mr-2 icon-plus-circle"></i></a>
-                                            </div>
-                                        @endif
+                                        <div class="middle">
+                                            <a href="{{config('app.url')}}/photocard/{{$group->slug}}/{{$album->slug}}/{{$kb->id}}"  type="button" class="btn btn-warning textadd"><i class="feather mr-2 icon-search"></i>Detail &nbsp;</a>
+                                        </div>
 									</div>
 								@endforeach
 							</div>

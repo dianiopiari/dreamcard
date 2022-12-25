@@ -48,3 +48,5 @@ Route::get('/tmp/add-to-cart-trwant/{id}', [DreamController::class, 'addToCartTr
 
 Route::get('/search/{group?}','DreamController@searchphotocard');
 Route::post('/search/upload/proses', 'DreamController@prosesUpload');
+
+Route::get('/photocard/{group}/{album}/{photocard_id?}','DreamController@detailPhoca');

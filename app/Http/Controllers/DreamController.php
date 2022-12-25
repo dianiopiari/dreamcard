@@ -526,4 +526,41 @@ class DreamController extends Controller
         asort($distances);
         return view('dreamcard.search',compact('distances'));
 	}
+
+
+    public function detailPhoca($group,$album,$photocard_id=null)
+    {
+        $pic_front="";
+        $pic_back="";
+        $url="/photocard/".$group."/".$album."/".$photocard_id;
+        $page_id=$photocard_id;
+        if($tipe=0){
+            //balik ke member
+        }else{
+            //balik ke album
+        }
+        $group_id=0;
+        if($photocard_id!=null){
+            $photocard = MPhotocard::findOrFail($photocard_id);
+            $group_id = $photocard->group_id;
+            if($photocard->pic_hd!=null){
+                $pic_front=config('app.url')."/".config('app.str')."/".$photocard->pic_hd;
+            }else{
+                $pic_front=config('app.url')."/".config('app.str')."/".$photocard->pic_front;
+            }
+            if($photocard->pic_back!=null){
+                $pic_back=config('app.url')."/".config('app.str')."/".$photocard->pic_back;
+            }else{
+                $pic_back=config('app.url')."/".config('app.str')."/images/default_back.jpg";
+            }
+        }
+        $albums=[];
+        $members=[];
+        if($group_id!=0){
+            $group= MGroup::where('id','=',$group_id)->first();
+            $albums = MAlbum::where('group_id','=',$group->id)->orderBy('order','desc')->get();
+            $members = MMember::where('group_id','=',$group->id)->get();
+        }
+        return view('dreamcard.photocard',compact('photocard','pic_front','pic_back','page_id','url','albums','members','group'));
+    }
 }

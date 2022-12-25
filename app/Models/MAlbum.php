@@ -16,6 +16,7 @@ class MAlbum extends Model
           'tahun',
           'photo',
           'order',
+          'slug',
           'created_at',
           'updated_at'
       ];
