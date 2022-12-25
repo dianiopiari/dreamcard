@@ -188,47 +188,47 @@ class DreamController extends Controller
         return view('dreamcard.member',compact('vipot_columns','members','group','slug','group_slug','albums'));
     }
 
-    public function detailPhotocard($photocard_id=null)
-    {
-        if($photocard_id!=null){
-            $photord = MPhotocard::where('id','=',$photocard_id)->first();
-            $trade="";
-            if($photord!=null){
-                $pic_front="";
-                $pic_back="";
-                if($photord->pic_hd!=null){
-                    $pic_front=config('app.url')."/".config('app.str')."/".$photord->pic_hd;
-                }else{
-                    $pic_front=config('app.url')."/".config('app.str')."/".$photord->pic_front;
-                }
-                if($photord->pic_back!=null){
-                    $pic_back=config('app.url')."/".config('app.str')."/".$photord->pic_back;
-                }else{
-                    $pic_back=config('app.url')."/".config('app.str')."/images/default_back.jpg";
-                }
-                $photocard_detail ="<div class='carousel-item active'>";
-                $photocard_detail .= "<img class='img-fluid card-img-top' src='".$pic_front."' style='height: 100%;'>";
-                $photocard_detail .="</div>";
-                $photocard_detail .="<div class='carousel-item'>";
-                $photocard_detail .= "<img class='img-fluid card-img-top' src='".$pic_back."' style='height: 100%;'>";
-                $photocard_detail .="</div>";
-                $info=$photord->credit;
-                $wts ="<a href='#' onClick='Data.addPhotocard(".$photord->id.")' type='button' class='btn btn-info'><i class='fa fa-shopping-cart' aria-hidden='true'></i>&nbsp; My Photocard &nbsp; </a>&nbsp;&nbsp;";
-                $wts .="<a href='#' onClick='Data.addPhotocardwtb(".$photord->id.")' type='button' class='btn btn-danger'><i class='feather mr-2 icon-heart'></i>Wishlist</a>&nbsp;&nbsp;<br>";
-                // $trade ="<a href='#' onClick='Data.addPhotocardtrhave(".$photord->id.")' type='button' class='btn btn-success'><i class='fa fa-shopping-cart' aria-hidden='true'></i>&nbsp; Trade Have</a>&nbsp;&nbsp;";
-                // $trade .="<a href='#' onClick='Data.addPhotocardtrwant(".$photord->id.")' type='button' class='btn btn-danger'><i class='feather mr-2 icon-camera'></i>Trade Want</a>&nbsp;&nbsp;";
-            }else{
-                $photocard_detail ="";
-                $info="-";
-                $wts="";
-                $trade="";
-            }
-        }else{
-            $photocard_detail ="";
-            $info="-";
-        }
-        return response()->json(["photocard_detail"=>$photocard_detail,"info"=>$info,"wts"=>$wts,"trade"=>$trade]);
-    }
+    // public function detailPhotocard($photocard_id=null)
+    // {
+    //     if($photocard_id!=null){
+    //         $photord = MPhotocard::where('id','=',$photocard_id)->first();
+    //         $trade="";
+    //         if($photord!=null){
+    //             $pic_front="";
+    //             $pic_back="";
+    //             if($photord->pic_hd!=null){
+    //                 $pic_front=config('app.url')."/".config('app.str')."/".$photord->pic_hd;
+    //             }else{
+    //                 $pic_front=config('app.url')."/".config('app.str')."/".$photord->pic_front;
+    //             }
+    //             if($photord->pic_back!=null){
+    //                 $pic_back=config('app.url')."/".config('app.str')."/".$photord->pic_back;
+    //             }else{
+    //                 $pic_back=config('app.url')."/".config('app.str')."/images/default_back.jpg";
+    //             }
+    //             $photocard_detail ="<div class='carousel-item active'>";
+    //             $photocard_detail .= "<img class='img-fluid card-img-top' src='".$pic_front."' style='height: 100%;'>";
+    //             $photocard_detail .="</div>";
+    //             $photocard_detail .="<div class='carousel-item'>";
+    //             $photocard_detail .= "<img class='img-fluid card-img-top' src='".$pic_back."' style='height: 100%;'>";
+    //             $photocard_detail .="</div>";
+    //             $info=$photord->credit;
+    //             $wts ="<a href='#' onClick='Data.addPhotocard(".$photord->id.")' type='button' class='btn btn-info'><i class='fa fa-shopping-cart' aria-hidden='true'></i>&nbsp; My Photocard &nbsp; </a>&nbsp;&nbsp;";
+    //             $wts .="<a href='#' onClick='Data.addPhotocardwtb(".$photord->id.")' type='button' class='btn btn-danger'><i class='feather mr-2 icon-heart'></i>Wishlist</a>&nbsp;&nbsp;<br>";
+    //             // $trade ="<a href='#' onClick='Data.addPhotocardtrhave(".$photord->id.")' type='button' class='btn btn-success'><i class='fa fa-shopping-cart' aria-hidden='true'></i>&nbsp; Trade Have</a>&nbsp;&nbsp;";
+    //             // $trade .="<a href='#' onClick='Data.addPhotocardtrwant(".$photord->id.")' type='button' class='btn btn-danger'><i class='feather mr-2 icon-camera'></i>Trade Want</a>&nbsp;&nbsp;";
+    //         }else{
+    //             $photocard_detail ="";
+    //             $info="-";
+    //             $wts="";
+    //             $trade="";
+    //         }
+    //     }else{
+    //         $photocard_detail ="";
+    //         $info="-";
+    //     }
+    //     return response()->json(["photocard_detail"=>$photocard_detail,"info"=>$info,"wts"=>$wts,"trade"=>$trade]);
+    // }
 
     public function addToCart($id)
     {
@@ -475,20 +475,25 @@ class DreamController extends Controller
         return view('dreamcard.tphotocardtr');
     }
 
-    public function searchphotocard()
+    public function searchphotocard($group_slug=null)
     {
         // return view('dreamcard.search');
         $distances = [];
-        return view('dreamcard.search',compact('distances'));
+        $group=[];
+        $albums = [];
+        $members=[];
+        if($group_slug!=null){
+            $group= MGroup::where('slug','=',$group_slug)->first();
+            $albums = MAlbum::where('group_id','=',$group->id)->orderBy('order','desc')->get();
+            $members = MMember::where('group_id','=',$group->id)->get();
+        }
+        return view('dreamcard.search',compact('distances','group','albums','members'));
     }
 
     public function prosesUpload(Request $request){
-        //dd("helllo");
-
 		$this->validate($request, [
 			'file' => 'required',
 		]);
-
 		// menyimpan data file yang diupload ke variabel $file
 		$file = $request->file('file');
         $tujuan_upload = 'uploads\\data_pencarian';
@@ -499,7 +504,6 @@ class DreamController extends Controller
         }
         $hasher = new ImageHash(new DifferenceHash());
         $hashSearch = $hasher->hash($pathfind);
-        //dd($hashSearch->toHex());
 
         $distances = [];
         $photocards = MPhotocard::orderBy('id', 'DESC')->get();
@@ -517,12 +521,16 @@ class DreamController extends Controller
                     'group'=>$photocard->groupp->group_name,
                     'channel'=> $photocard->channelp->channel,
                     'member' =>$photocard->memberp->member_name,
-                    'album' =>$photocard->albump->member_name
+                    'album' =>$photocard->albump->album,
+                    'group_slug'=>$photocard->groupp->slug,
+                    'album_slug'=>$photocard->albump->slug,
+                    'id'=>$photocard->id
                 ] ;
             }
         }
-        //dd($distances);
-        //return view('dreamcard.search');
+        //delete file di server
+        unlink($pathfind);
+
         asort($distances);
         return view('dreamcard.search',compact('distances'));
 	}

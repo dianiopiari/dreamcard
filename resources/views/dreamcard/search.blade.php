@@ -45,7 +45,7 @@
 			<div class="navbar-content scroll-div " >
 				<ul class="nav pcoded-inner-navbar ">
 					<li class="nav-item pcoded-hasmenu active pcoded-trigger">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Home</span></a>
+						<a href="{{config('app.url')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Home</span></a>
 						<ul class="pcoded-submenu">
 							{{-- @foreach($albums as $album)
 								@if ($slug==$album->slug)
@@ -94,8 +94,11 @@
 				<div class="row align-items-center">
 					<div class="col-md-12">
 						<div class="page-header-title">
-							<h5 class="m-b-10">Group</h5>
+							<h5 class="m-b-10">&nbsp;</h5>
 						</div>
+                        <ul class="breadcrumb">
+							<li class="breadcrumb-item"><a href="{{config('app.url')}}"><i class="feather icon-home"></i></a></li>
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -108,24 +111,15 @@
                     </div>
 					<div class="card-body">
                         <div class="row">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-8">
-                                <form action="/search/upload/proses" method="POST" enctype="multipart/form-data" class="was-validated" >
-                                    {{ csrf_field() }}
-                                    <div class="input-group cust-file-button">
-                                            <input type="file" name="file">
-                                            {{-- <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="validatedCustomFile" required>
-                                                <input type="file" name="file">
-                                                <label class="custom-file-label" for="validatedCustomFile">Choose file</label>
-                                            </div> --}}
-                                            <div class="input-group-append">
-                                                <input type="submit" value="Upload" class="btn btn-primary">
-                                            </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-md-2"></div>
+                            <form action="/search/upload/proses" method="POST" enctype="multipart/form-data" class="was-validated" >
+                                {{ csrf_field() }}
+                                <div class="input-group cust-file-button">
+                                        <input type="file" name="file">
+                                        <div class="input-group-append">
+                                            <input type="submit" value="Upload" class="btn btn-primary">
+                                        </div>
+                                </div>
+                            </form>
                         </div>
 					</div>
 				</div>
@@ -138,47 +132,34 @@
                     <div class="card-header">
                         <h5><b>Result</b></h5>
                     </div>
-                    {{-- <div class="card-body">
-                        <div class="row">
-                            @foreach ($distances as $item)
-                                <h5 style="padding-top: 10px">({{ $item['group'] }})</h5><br>
-                                <div class="col-sm-2">
-                                    <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{ $item['photo']}}" alt="Card image cap"  style="height: 90%">
-                                </div>
-                                <h5 style="padding-top: 10px">({{ $item['channel'] }})</h5>
-                            @endforeach
-                        </div>
-                    </div> --}}
-                    <div class="card-body" id="html-content-holder">
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-md-12">
-                                <div class="card p-3 py-4" id="html-content-holder">
-                                    <div class="p-3 py-4" id="html-without-background">
-                                        <div class="text-center mt-3">
-                                            <div class="row">
-                                                @php
-                                                    $i=0;
-                                                @endphp
-                                                @foreach ($distances as $item)
-                                                    <div class="col-sm-2">
-                                                        <h5 style="padding-top: 10px">({{ $item['member'] }})</h5>
-                                                        <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{ $item['photo']}}" alt="Card image cap"  style="height: 85%">
-                                                        {{-- <h5 style="padding-top: 10px">({{ $item['album'] }})</h5> --}}
-                                                        <h6 style="padding-top: 10px">({{ $item['channel'] }})</h6>
-                                                    </div>
+                    <div class="card-body">
+                        <div class="card-body" style="padding-top: 20px; padding-left: 40px;padding-right: 4-;padding-right: 40px;">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                            <div class="card-body" style="padding-top: 20px; padding-left: 40px;padding-right: 4-;padding-right: 40px;">
+                                                <div class="row" >
                                                     @php
-                                                        if ($i++ == 2) break;
-                                                        // if($loop>3){
-                                                        //     break;
-                                                        // }
+                                                        $i=0;
                                                     @endphp
-                                                @endforeach
+                                                    @foreach ($distances as $item)
+                                                            <div class="col-sm-1">
+                                                                <h5 style="padding-top: 10px">{{ $item['member'] }}</h5>
+                                                                <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{ $item['photo']}}" alt="Card image cap"  style="height: 85%">
+                                                                <div class="middle">
+                                                                    <a href="{{config('app.url')}}/photocard/{{ $item['group_slug'] }}/{{ $item['album_slug'] }}/{{ $item['id'] }}"  type="button" class="btn btn-warning textadd"><i class="feather mr-2 icon-search"></i>delete &nbsp;</a>
+                                                                </div>
+                                                                <h5 style="padding-top: 10px">({{ $item['album'] }})</h5>
+                                                                <h6 style="padding-top: 10px">({{ $item['channel'] }})</h6>
+                                                            </div>
+                                                            @php
+                                                                if ($i++ == 2) break;
+                                                            @endphp
+                                                    @endforeach
+                                                </div>
                                             </div>
-                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+						</div>
 					</div>
                 </div>
             </div>
