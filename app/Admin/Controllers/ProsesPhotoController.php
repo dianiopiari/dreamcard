@@ -58,6 +58,8 @@ class ProsesPhotoController extends Controller
                 $dataphoto->update([
                     'hash_img'     => $hash->toBits()
                 ]);
+            }else{
+                return "gambar tidak ada";
             }
                 //dd($path);
         }
