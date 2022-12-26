@@ -150,7 +150,7 @@
                                                                 <center><h5 style="padding-top: 10px">{{ $item['member'] }}</h5></center>
                                                                 <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{ $item['photo']}}" alt="Card image cap"  style="height: 85%">
                                                                 <div class="middle">
-                                                                    <a href="{{config('app.url')}}/photocard/{{ $item['group_slug'] }}/{{ $item['album_slug'] }}/{{ $item['id'] }}"  type="button" class="btn btn-warning textadd"><i class="feather mr-2 icon-search"></i>delete &nbsp;</a>
+                                                                    <a href="{{config('app.url')}}/photocard/{{ $item['group_slug'] }}/{{ $item['album_slug'] }}/{{ $item['id'] }}"  type="button" class="btn btn-warning textadd"><i class="feather mr-2 icon-search"></i>Detail &nbsp;</a>
                                                                 </div>
                                                                 <h5 style="padding-top: 10px">({{ $item['album'] }})</h5>
                                                                 <h6 style="padding-top: 10px">({{ $item['channel'] }})</h6>
