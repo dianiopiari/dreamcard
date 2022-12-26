@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8369cd34cc7fde07c59d83ed100b9f99",
+    "content-hash": "0574ea2a78acbb0249afe5425eff5b5a",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -685,16 +685,16 @@
         },
         {
             "name": "encore/laravel-admin",
-            "version": "v1.8.19",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/z-song/laravel-admin.git",
-                "reference": "6c292ebb5efa886fa4776d86e975180608505946"
+                "reference": "3fb6c9ea48e2c543e5e7db81f429780a2beae4ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/z-song/laravel-admin/zipball/6c292ebb5efa886fa4776d86e975180608505946",
-                "reference": "6c292ebb5efa886fa4776d86e975180608505946",
+                "url": "https://api.github.com/repos/z-song/laravel-admin/zipball/3fb6c9ea48e2c543e5e7db81f429780a2beae4ff",
+                "reference": "3fb6c9ea48e2c543e5e7db81f429780a2beae4ff",
                 "shasum": ""
             },
             "require": {
@@ -751,7 +751,7 @@
                 "grid",
                 "laravel"
             ],
-            "time": "2022-05-24T03:49:38+00:00"
+            "time": "2022-09-17T03:41:55+00:00"
         },
         {
             "name": "fideloper/proxy",
@@ -6595,7 +6595,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "encore/laravel-admin": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
