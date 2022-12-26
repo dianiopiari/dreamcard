@@ -40,7 +40,7 @@ class ProsesPhotoController extends Controller
         // }
         // return $path;
 
-        $photocards = MPhotocard::limit(1)->get();
+        $photocards = MPhotocard::all();
         $hash ="";
         $path="";
         foreach ($photocards as $key => $photocard) {
