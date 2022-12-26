@@ -50,7 +50,7 @@ class ProsesPhotoController extends Controller
             if(config('app.str_adm')!="production"){
                 $path = str_replace("\\","/",$path );
             }
-            return public_path($dataphoto->pic_front);
+            return public_path("upload/".$dataphoto->pic_front);
             //public_path('images/1461177230.jpg'))
             //public_path($dataphoto->pic_front);
             if (file_exists("")) {
