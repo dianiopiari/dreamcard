@@ -31,7 +31,7 @@
 
         gtag('config', 'G-1VQDNKKF6L');
     </script>
-
+    {!! ReCaptcha::htmlScriptTagJsApi() !!}
 </head>
 <body class="">
 	<!-- [ Pre-loader ] start -->
@@ -119,9 +119,11 @@
                                 {{ csrf_field() }}
                                 <div class="input-group cust-file-button">
                                         <input type="file" name="file" accept="image/png, image/gif, image/jpeg" required>
-                                        <div class="input-group-append">
-                                            <input type="submit" value="Upload" class="btn btn-primary">
-                                        </div>
+
+                                </div>
+                                {!! htmlFormSnippet() !!}
+                                <div class="input-group-append">
+                                    <input type="submit" value="Upload" class="btn btn-primary">
                                 </div>
                             </form>
                         </div>

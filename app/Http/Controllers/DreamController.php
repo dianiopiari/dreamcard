@@ -493,6 +493,7 @@ class DreamController extends Controller
     public function prosesUpload(Request $request){
 		$this->validate($request, [
 			'file' => 'required | mimes:jpeg,jpg,png | max:1000',
+            'g-recaptcha-response' => 'recaptcha',
 		]);
 		// menyimpan data file yang diupload ke variabel $file
 		$file = $request->file('file');
