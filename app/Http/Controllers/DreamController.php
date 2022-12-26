@@ -493,7 +493,6 @@ class DreamController extends Controller
     public function prosesUpload(Request $request){
 		$this->validate($request, [
 			'file' => 'required | mimes:jpeg,jpg,png | max:1000',
-            //'file' => 'required | mimes:jpeg,jpg,png | max:1000',
 		]);
 		// menyimpan data file yang diupload ke variabel $file
 		$file = $request->file('file');
