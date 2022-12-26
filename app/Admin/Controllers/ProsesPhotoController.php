@@ -50,7 +50,7 @@ class ProsesPhotoController extends Controller
             if(config('app.str_adm')!="production"){
                 $path = str_replace("\\","/",$path );
             }
-            return $path;
+            //return $path;
             if (file_exists($path)) {
                 $hasher = new ImageHash(new DifferenceHash());
                 $hash = $hasher->hash($path);
