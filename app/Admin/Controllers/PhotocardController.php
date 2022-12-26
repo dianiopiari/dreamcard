@@ -138,7 +138,7 @@ class PhotocardController extends AdminController
                 $hash = $hasher->hash($path);
                 //dd($hash);
                 $dataphoto->update([
-                    'hash_img'     => $hash->toHex()
+                    'hash_img'     => $hash->toBits()
                 ]);
 
             }
