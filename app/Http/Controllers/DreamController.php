@@ -499,7 +499,7 @@ class DreamController extends Controller
 		$file = $request->file('file');
         $tujuan_upload = public_path('data_pencarian');//'uploads\\data_pencarian';
 	    $file->move($tujuan_upload,$file->getClientOriginalName());
-        $pathfind = config('app.str_adm')."\\"."data_pencarian"."\\".$file->getClientOriginalName();
+        $pathfind = public_path('data_pencarian')."\\".$file->getClientOriginalName();
         if(config('app.str_adm')!="production"){
             $pathfind = str_replace("\\","/",$pathfind );
         }
