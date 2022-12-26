@@ -507,6 +507,8 @@ class DreamController extends Controller
 
         $distances = [];
         $photocards = MPhotocard::orderBy('id', 'DESC')->get();
+
+        $group_id=0;
         foreach ($photocards as $key => $photocard) {
             $bits1 = $hashSearch->toBits();
             $bits2 = $photocard->hash_img;
@@ -523,16 +525,27 @@ class DreamController extends Controller
                     'member' =>$photocard->memberp->member_name,
                     'album' =>$photocard->albump->album,
                     'group_slug'=>$photocard->groupp->slug,
+                    'group_id'=>$photocard->group_id,
                     'album_slug'=>$photocard->albump->slug,
                     'id'=>$photocard->id
                 ] ;
-            }
+                $group_id=$photocard->group_id;
+           }
         }
+
         //delete file di server
         unlink($pathfind);
-
         asort($distances);
-        return view('dreamcard.search',compact('distances'));
+
+        $group=[];
+        $albums = [];
+        $members=[];
+        if( $group_id!=0){
+            $group= MGroup::where('id','=', $group_id)->first();
+            $albums = MAlbum::where('group_id','=',$group->id)->orderBy('order','desc')->get();
+            $members = MMember::where('group_id','=',$group->id)->get();
+        }
+        return view('dreamcard.search',compact('distances','group','albums','members'));
 	}
 
 

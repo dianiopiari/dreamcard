@@ -45,7 +45,7 @@
 			<div class="navbar-content scroll-div " >
 				<ul class="nav pcoded-inner-navbar ">
 					<li class="nav-item pcoded-hasmenu active pcoded-trigger">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Member {{$group->group_name}}</span></a>
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Member {{@$group->group_name}}</span></a>
 						<ul class="pcoded-submenu">
                             @foreach($members as $member)
                             <li><a href="{{config('app.url')}}/member/{{$group->slug}}/{{$member->slug}}">{{$member->member_name}}</a></li>
@@ -53,7 +53,7 @@
 						</ul>
 					</li>
 					<li class="nav-item pcoded-hasmenu  pcoded-trigger">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Album {{$group->group_name}}</span></a>
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Album {{@$group->group_name}}</span></a>
 						<ul class="pcoded-submenu">
 							@foreach($albums as $album)
 									<li><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}">{{$album->album}}</a></li>
@@ -115,10 +115,10 @@
                     </div>
 					<div class="card-body">
                         <div class="row">
-                            <form action="{{config('app.url')}}/search/upload/proses" method="POST" enctype="multipart/form-data" class="was-validated" >
+                            <form action="/search/upload/proses" method="POST" enctype="multipart/form-data" class="was-validated" >
                                 {{ csrf_field() }}
                                 <div class="input-group cust-file-button">
-                                        <input type="file" name="file">
+                                        <input type="file" name="file" required>
                                         <div class="input-group-append">
                                             <input type="submit" value="Upload" class="btn btn-primary">
                                         </div>
@@ -147,7 +147,7 @@
                                                     @endphp
                                                     @foreach ($distances as $item)
                                                             <div class="col-sm-1">
-                                                                <h5 style="padding-top: 10px">{{ $item['member'] }}</h5>
+                                                                <center><h5 style="padding-top: 10px">{{ $item['member'] }}</h5></center>
                                                                 <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{ $item['photo']}}" alt="Card image cap"  style="height: 85%">
                                                                 <div class="middle">
                                                                     <a href="{{config('app.url')}}/photocard/{{ $item['group_slug'] }}/{{ $item['album_slug'] }}/{{ $item['id'] }}"  type="button" class="btn btn-warning textadd"><i class="feather mr-2 icon-search"></i>delete &nbsp;</a>
@@ -156,7 +156,7 @@
                                                                 <h6 style="padding-top: 10px">({{ $item['channel'] }})</h6>
                                                             </div>
                                                             @php
-                                                                if ($i++ == 2) break;
+                                                                if ($i++ == 6) break;
                                                             @endphp
                                                     @endforeach
                                                 </div>
