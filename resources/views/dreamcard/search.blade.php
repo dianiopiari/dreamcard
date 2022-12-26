@@ -118,7 +118,7 @@
                             <form action="{{config('app.url')}}/search/upload/proses" method="POST" enctype="multipart/form-data" class="was-validated" >
                                 {{ csrf_field() }}
                                 <div class="input-group cust-file-button">
-                                        <input type="file" name="file" required>
+                                        <input type="file" name="file" accept="image/png, image/gif, image/jpeg" required>
                                         <div class="input-group-append">
                                             <input type="submit" value="Upload" class="btn btn-primary">
                                         </div>
