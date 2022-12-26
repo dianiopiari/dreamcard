@@ -115,7 +115,7 @@
                     </div>
 					<div class="card-body">
                         <div class="row">
-                            <form action="/search/upload/proses" method="POST" enctype="multipart/form-data" class="was-validated" >
+                            <form action="{{config('app.url')}}/search/upload/proses" method="POST" enctype="multipart/form-data" class="was-validated" >
                                 {{ csrf_field() }}
                                 <div class="input-group cust-file-button">
                                         <input type="file" name="file">
