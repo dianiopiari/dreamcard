@@ -62,7 +62,7 @@ class ProsesPhotoController extends Controller
                     'hash_img'     => $hash->toBits()
                 ]);
             }else{
-                return "tidak ada gambar";
+                return "tidak ada gambar ".$path;
             }
         }
         return "berhasil";
