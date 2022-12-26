@@ -53,7 +53,7 @@ class ProsesPhotoController extends Controller
             //return $path;
             //public_path('images/1461177230.jpg'))
             //public_path($dataphoto->pic_front);
-            if (file_exists("app/public/uploads".$dataphoto->pic_front)) {
+            if (file_exists("app/public/uploads/".$dataphoto->pic_front)) {
                 $hasher = new ImageHash(new DifferenceHash());
                 $hash = $hasher->hash($path);
                 //dd($hash);
