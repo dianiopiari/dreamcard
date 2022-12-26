@@ -492,11 +492,12 @@ class DreamController extends Controller
 
     public function prosesUpload(Request $request){
 		$this->validate($request, [
-			'file' => 'required',
+			'file' => 'required | mimes:jpeg,jpg,png | max:1000',
+            //'file' => 'required | mimes:jpeg,jpg,png | max:1000',
 		]);
 		// menyimpan data file yang diupload ke variabel $file
 		$file = $request->file('file');
-        $tujuan_upload = 'uploads\\data_pencarian';
+        $tujuan_upload = $path = public_path('data_pencarian');//'uploads\\data_pencarian';
 	    $file->move($tujuan_upload,$file->getClientOriginalName());
         $pathfind = config('app.str_adm')."\\"."data_pencarian"."\\".$file->getClientOriginalName();
         if(config('app.str_adm')!="production"){
