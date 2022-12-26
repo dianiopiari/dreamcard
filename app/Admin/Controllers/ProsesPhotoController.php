@@ -34,30 +34,30 @@ class ProsesPhotoController extends Controller
 
     public function proses()
     {
-        $path = config('app.str_adm')."\\"."images/Screenshot_3.jpg";
-        if(config('app.str_adm')!="production"){
-            $path = str_replace("\\","/",$path );
-        }
-        return $path;
-
-        // $photocards = MPhotocard::all();
-        // foreach ($photocards as $key => $photocard) {
-        //     # code...
-        //     $dataphoto = MPhotocard::findOrFail($photocard->id);
-        //         $path = config('app.str_adm')."\\".$dataphoto->pic_front;
-        //         if(config('app.str_adm')!="production"){
-        //             $path = str_replace("\\","/",$path );
-        //         }
-        //         if (file_exists($path)) {
-        //             $hasher = new ImageHash(new DifferenceHash());
-        //             $hash = $hasher->hash($path);
-        //             //dd($hash);
-        //             $dataphoto->update([
-        //                 'hash_img'     => $hash->toBits()
-        //             ]);
-        //         }
-        //         //dd($path);
+        // $path = config('app.str_adm')."\\"."images/Screenshot_3.jpg";
+        // if(config('app.str_adm')!="production"){
+        //     $path = str_replace("\\","/",$path );
         // }
-        // return "Berhasil";
+        // return $path;
+
+        $photocards = MPhotocard::all();
+        foreach ($photocards as $key => $photocard) {
+            # code...
+            $dataphoto = MPhotocard::findOrFail($photocard->id);
+                $path = config('app.str_adm')."\\".$dataphoto->pic_front;
+                if(config('app.str_adm')!="production"){
+                    $path = str_replace("\\","/",$path );
+                }
+                if (file_exists($path)) {
+                    $hasher = new ImageHash(new DifferenceHash());
+                    $hash = $hasher->hash($path);
+                    //dd($hash);
+                    $dataphoto->update([
+                        'hash_img'     => $hash->toBits()
+                    ]);
+                }
+                //dd($path);
+        }
+        return "Berhasil";
     }
 }
