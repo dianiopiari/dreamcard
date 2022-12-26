@@ -497,7 +497,7 @@ class DreamController extends Controller
 		]);
 		// menyimpan data file yang diupload ke variabel $file
 		$file = $request->file('file');
-        $tujuan_upload = $path = public_path('data_pencarian');//'uploads\\data_pencarian';
+        $tujuan_upload = public_path('data_pencarian');//'uploads\\data_pencarian';
 	    $file->move($tujuan_upload,$file->getClientOriginalName());
         $pathfind = config('app.str_adm')."\\"."data_pencarian"."\\".$file->getClientOriginalName();
         if(config('app.str_adm')!="production"){
