@@ -42,6 +42,7 @@ class ProsesPhotoController extends Controller
 
         $photocards = MPhotocard::limit(1);
         $hash ="";
+        $path="";
         foreach ($photocards as $key => $photocard) {
             # code...
             $dataphoto = MPhotocard::findOrFail($photocard->id);
