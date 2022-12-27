@@ -192,7 +192,7 @@
                                                         <td>&nbsp;</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Tipe</td>
+                                                        <td>From</td>
                                                         <td>{{@$photocard->channelp->channel}}
                                                             @switch(@$photocard->channelp->kategori_id)
                                                                 @case(0)
