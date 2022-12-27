@@ -163,7 +163,6 @@
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-
                                     <div class="card-body table-border-style">
                                         <div class="table-responsive">
                                             <table class="table table-striped">
@@ -215,12 +214,13 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <br>
                                     <b>Detail</b>
                                     <hr>
-                                    <p class="mb-0">
-                                        {{!!$photocard->credit!!}}
-                                    </p>
+                                    <div class="alert alert-success" role="alert">
+                                        <p class="mb-0">
+                                            {!!$photocard->credit!!}
+                                        </p>
+                                    </div>
                                 </div>
                                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                                     <p class="mb-0">
