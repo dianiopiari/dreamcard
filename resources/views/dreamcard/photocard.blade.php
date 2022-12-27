@@ -163,6 +163,59 @@
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
+                                    <div class="card-body table-border-style">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Nama</td>
+                                                        <td>{{@$photocard->memberp->member_name}}</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Group</td>
+                                                        <td>{{@$photocard->groupp->group_name}}</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Album</td>
+                                                        <td>{{@$photocard->albump->album}}</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tipe</td>
+                                                        <td>{{@$photocard->channelp->channel}}
+                                                            @switch(@$photocard->channelp->kategori_id)
+                                                                @case(0)
+                                                                    <i>(Album Inclusions)</i>
+                                                                    @break
+                                                                @case(1)
+                                                                    <i>(Fansign/POB)</i>
+                                                                    @break
+                                                                @default
+                                                                    <i>(Other Photocard)</i>
+                                                            @endswitch
+                                                        </td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <hr>
                                     <p class="mb-0">
                                         {{!!$photocard->credit}}
                                     </p>
