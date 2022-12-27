@@ -193,17 +193,20 @@
                                                     </tr>
                                                     <tr>
                                                         <td>From</td>
-                                                        <td>{{@$photocard->channelp->channel}}
-                                                            @switch(@$photocard->channelp->kategori_id)
-                                                                @case(0)
-                                                                    <i>(Album Inclusions)</i>
-                                                                    @break
-                                                                @case(1)
-                                                                    <i>(Fansign/POB)</i>
-                                                                    @break
-                                                                @default
-                                                                    <i>(Other Photocard)</i>
-                                                            @endswitch
+                                                        <td>
+                                                            <a href="{{config('app.url')}}/appc/{{@$photocard->groupp->slug}}/{{@$photocard->albump->slug}}/{{@$photocard->channelp->id}}">{{@$photocard->albump->album}}
+                                                                {{@$photocard->channelp->channel}}
+                                                                @switch(@$photocard->channelp->kategori_id)
+                                                                    @case(0)
+                                                                        <i>(Album Inclusions)</i>
+                                                                        @break
+                                                                    @case(1)
+                                                                        <i>(Fansign/POB)</i>
+                                                                        @break
+                                                                    @default
+                                                                        <i>(Other Photocard)</i>
+                                                                @endswitch
+                                                            </a>
                                                         </td>
                                                         <td>&nbsp;</td>
                                                         <td>&nbsp;</td>
