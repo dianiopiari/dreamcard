@@ -195,11 +195,12 @@ class DreamController extends Controller
             $members = MMember::where('group_id','=',$group->id)->get();
             $arrphoto=array();
             $channels = MChannel::where('album_id','=',$album->id);
-            if($categori_id!=-1){
-                $channels = $channels->where('kategori_id','=',$categori_id);
-            }
             if($channelid!=0){
                 $channels = $channels->where('id','=',$channelid);
+            }else{
+                if($categori_id!=-1){
+                    $channels = $channels->where('kategori_id','=',$categori_id);
+                }
             }
             if($limit==1){
                 $channels = $channels->limit('3');
