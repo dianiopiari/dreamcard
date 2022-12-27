@@ -216,7 +216,7 @@
                                     </div>
                                     <b>Detail</b>
                                     <hr>
-                                    <div class="alert alert-secondary" role="alert">
+                                    <div class="alert alert-warning" role="alert">
                                         <p class="mb-0">
                                             {!!$photocard->credit!!}
                                         </p>
