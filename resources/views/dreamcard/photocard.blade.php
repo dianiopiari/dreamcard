@@ -185,7 +185,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>Album</td>
-                                                        <td>{{@$photocard->albump->album}}</td>
+                                                        <td><a href="{{config('app.url')}}/app/{{@$photocard->groupp->slug}}/{{@$photocard->albump->slug}}">{{@$photocard->albump->album}}</a></td>
                                                         <td>&nbsp;</td>
                                                         <td>&nbsp;</td>
                                                         <td>&nbsp;</td>
