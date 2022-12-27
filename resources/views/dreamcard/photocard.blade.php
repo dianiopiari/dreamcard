@@ -215,9 +215,11 @@
                                             </table>
                                         </div>
                                     </div>
+                                    <br>
+                                    <b>Detail</b>
                                     <hr>
                                     <p class="mb-0">
-                                        {{!!$photocard->credit}}
+                                        {{!!$photocard->credit!!}}
                                     </p>
                                 </div>
                                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
