@@ -84,6 +84,7 @@
 					<div class="col-md-12">
 						<div class="page-header-title">
 							<h5 class="m-b-10">Not Found</h5>
+                            <a href="javascript:window.history.go(-1);" type="button" class="btn btn-dark"><i class="fa fa-arrow-left"></i>&nbsp; Back&nbsp;</a>
 						</div>
 					</div>
 				</div>
