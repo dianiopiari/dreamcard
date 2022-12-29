@@ -55,6 +55,14 @@
 							@endforeach
 						</ul>
 					</li>
+                    <li class="nav-item pcoded-hasmenu pcoded-trigger">
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Merchandise/Event</span></a>
+						<ul class="pcoded-submenu">
+							@foreach($MdThums as $mdthu)
+									<li><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$mdthu->slug}}">{{$mdthu->album}}</a></li>
+							@endforeach
+						</ul>
+					</li>
 				</ul>
 			</div>
 		</div>

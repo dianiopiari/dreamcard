@@ -44,11 +44,6 @@
 	<nav class="pcoded-navbar menu-light ">
 		<div class="navbar-wrapper  ">
 			<div class="navbar-content scroll-div " >
-				{{-- <div class="">
-					<div class="main-menu-header">
-						<img class="img-radius" src="{{asset('/theme/ablepro/assets/images/user/avatar-2.jpg')}}" alt="User-Profile-Image">
-					</div>
-				</div> --}}
 				<ul class="nav pcoded-inner-navbar ">
                     <li class="nav-item pcoded-hasmenu pcoded-trigger">
 						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Member {{$group->group_name}}</span></a>

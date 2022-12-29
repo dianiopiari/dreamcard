@@ -674,8 +674,9 @@ class DreamController extends Controller
         if($group_id!=0){
             $group= MGroup::where('id','=',$group_id)->first();
             $albums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
+            $MdThums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',1)->orderBy('order','desc')->get();
             $members = MMember::where('group_id','=',$group->id)->get();
         }
-        return view('dreamcard.photocard',compact('photocard','pic_front','pic_back','page_id','url','albums','members','group'));
+        return view('dreamcard.photocard',compact('photocard','pic_front','pic_back','page_id','url','albums','members','group','MdThums'));
     }
 }
