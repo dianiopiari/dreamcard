@@ -58,7 +58,7 @@
 							@endforeach
 						</ul>
 					</li>
-					<li class="nav-item pcoded-hasmenu active pcoded-trigger">
+					<li class="nav-item pcoded-hasmenu pcoded-trigger">
 						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Album {{$group->group_name}}</span></a>
 						<ul class="pcoded-submenu">
 							@foreach($albums as $album)

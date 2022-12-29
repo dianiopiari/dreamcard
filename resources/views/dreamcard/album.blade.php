@@ -65,6 +65,18 @@
 							@endforeach
 						</ul>
 					</li>
+                    <li class="nav-item pcoded-hasmenu pcoded-trigger">
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Merchandise/Event</span></a>
+						<ul class="pcoded-submenu">
+							@foreach($MdThums as $mdthu)
+								@if ($slug==$mdthu->slug)
+									<li class="active"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$mdthu->slug}}">{{$mdthu->album}}</a></li>
+								@else
+									<li><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$mdthu->slug}}">{{$mdthu->album}}</a></li>
+								@endif
+							@endforeach
+						</ul>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -113,17 +125,12 @@
 						<ul class="breadcrumb">
 							<li class="breadcrumb-item"><a href="{{config('app.url')}}"><i class="feather icon-home"></i></a></li>
 							<li class="breadcrumb-item"><a href="{{config('app.url')}}/app/{{$group->slug}}" @if ($style2==1) style="background: white;color: #fd6e29;padding: 2px;" @endif>{{$group->group_name}}</a></li>
-							{{-- <li class="breadcrumb-item"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}" @if ($style3==1) style="background: white;color: #fd6e29;padding: 2px;" @endif>{{$album->album}}</a></li> --}}
-							<li class="breadcrumb-item"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}/album" @if ($style4==1) style="background: white;color: #fd6e29;padding: 2px;" @endif>Album Inclusions</a></li>
-							<li class="breadcrumb-item"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}/fansign" @if ($style5==1) style="background: white;color: #fd6e29;padding: 2px;" @endif >Fansign/POB</a></li>
+                            @if (@$album->tipe==0)
+                                <li class="breadcrumb-item"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}/album" @if ($style4==1) style="background: white;color: #fd6e29;padding: 2px;" @endif>Album Inclusions</a></li>
+                                <li class="breadcrumb-item"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}/fansign" @if ($style5==1) style="background: white;color: #fd6e29;padding: 2px;" @endif >Fansign/POB</a></li>
+                            @endif
 							<li class="breadcrumb-item"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}/other" @if ($style6==1) style="background: white;color: #fd6e29;padding: 2px;" @endif>Other</a></li>
 						</ul>
-						{{-- <ul class="breadcrumb float-right">
-							<li class="breadcrumb-item"><a href="/">All</a></li>
-							<li class="breadcrumb-item"><a href="/">Album Inclusions</a></li>
-							<li class="breadcrumb-item"><a href="/">Fansign/POB</a></li>
-							<li class="breadcrumb-item"><a href="/">Other Photocard</a></li>
-						</ul> --}}
 					</div>
 				</div>
 			</div>
@@ -186,51 +193,6 @@
 	</div>
 </div>
 <!-- [ Main Content ] end -->
-    <!-- Warning Section start -->
-    <!-- Older IE warning message -->
-    <!--[if lt IE 11]>
-        <div class="ie-warning">
-            <h1>Warning!!</h1>
-            <p>You are using an outdated version of Internet Explorer, please upgrade
-               <br/>to any of the following web browsers to access this website.
-            </p>
-            <div class="iew-container">
-                <ul class="iew-download">
-                    <li>
-                        <a href="http://www.google.com/chrome/">
-                            <img src="assets/images/browser/chrome.png" alt="Chrome">
-                            <div>Chrome</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.mozilla.org/en-US/firefox/new/">
-                            <img src="assets/images/browser/firefox.png" alt="Firefox">
-                            <div>Firefox</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://www.opera.com">
-                            <img src="assets/images/browser/opera.png" alt="Opera">
-                            <div>Opera</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.apple.com/safari/">
-                            <img src="assets/images/browser/safari.png" alt="Safari">
-                            <div>Safari</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                            <img src="assets/images/browser/ie.png" alt="">
-                            <div>IE (11 & above)</div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <p>Sorry for the inconvenience!</p>
-        </div>
-    <![endif]-->
     <!-- Warning Section Ends -->
 
     <!-- Required Js -->
