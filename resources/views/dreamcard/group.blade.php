@@ -71,7 +71,7 @@
 						</ul>
 					</li>
                     <li class="nav-item pcoded-hasmenu pcoded-trigger">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Album {{$group->group_name}}</span></a>
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Merchandise/Concert</span></a>
 						<ul class="pcoded-submenu">
 							@foreach($MdThums as $mdthu)
 								@if ($slug==$mdthu->slug)
