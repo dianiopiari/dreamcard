@@ -17,6 +17,7 @@ class MAlbum extends Model
           'photo',
           'order',
           'slug',
+          'tipe',
           'created_at',
           'updated_at'
       ];

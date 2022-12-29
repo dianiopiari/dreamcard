@@ -26,8 +26,8 @@ class DreamController extends Controller
         $group= MGroup::where('slug','=',$slug)->first();
         if($group!=null){
             $members = MMember::where('group_id','=',$group->id)->get();
-            $albums = MAlbum::where('group_id','=',$group->id)->orderBy('order','desc')->get();
-            $albumsThum = MAlbum::where('group_id','=',$group->id)->orderBy('order','desc')->get();
+            $albums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
+            $albumsThum = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
         }else{
             return view('dreamcard.notfound');
         }
@@ -114,7 +114,7 @@ class DreamController extends Controller
         }
         //dd($limit);
         if($group!=null){
-            $albums = MAlbum::where('group_id','=',$group->id)->orderBy('order','desc')->get();
+            $albums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
             $members = MMember::where('group_id','=',$group->id)->get();
             $arrphoto=array();
             $channels = MChannel::where('album_id','=',$album->id);
@@ -191,7 +191,7 @@ class DreamController extends Controller
         }
         //dd($limit);
         if($group!=null){
-            $albums = MAlbum::where('group_id','=',$group->id)->orderBy('order','desc')->get();
+            $albums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
             $members = MMember::where('group_id','=',$group->id)->get();
             $arrphoto=array();
             $channels = MChannel::where('album_id','=',$album->id);
@@ -401,7 +401,7 @@ class DreamController extends Controller
         $members=[];
         if($group_id!=0){
             $group= MGroup::where('id','=',$group_id)->first();
-            $albums = MAlbum::where('group_id','=',$group->id)->orderBy('order','desc')->get();
+            $albums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
             $members = MMember::where('group_id','=',$group->id)->get();
         }
         return view('dreamcard.tphotocard',compact('hastag','namagroup','albums','members','group'));
@@ -478,7 +478,7 @@ class DreamController extends Controller
        //dd($group_id);
         if($group_id!=0){
             $group= MGroup::where('id','=',$group_id)->first();
-            $albums = MAlbum::where('group_id','=',$group->id)->orderBy('order','desc')->get();
+            $albums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
             $members = MMember::where('group_id','=',$group->id)->get();
         }
         //return view('dreamcard.tphotocardwtb');
@@ -563,7 +563,7 @@ class DreamController extends Controller
         $members=[];
         if($group_slug!=null){
             $group= MGroup::where('slug','=',$group_slug)->first();
-            $albums = MAlbum::where('group_id','=',$group->id)->orderBy('order','desc')->get();
+            $albums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
             $members = MMember::where('group_id','=',$group->id)->get();
         }
         return view('dreamcard.search',compact('distances','group','albums','members'));
@@ -622,7 +622,7 @@ class DreamController extends Controller
         $members=[];
         if( $group_id!=0){
             $group= MGroup::where('id','=', $group_id)->first();
-            $albums = MAlbum::where('group_id','=',$group->id)->orderBy('order','desc')->get();
+            $albums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
             $members = MMember::where('group_id','=',$group->id)->get();
         }
         return view('dreamcard.search',compact('distances','group','albums','members'));
@@ -659,7 +659,7 @@ class DreamController extends Controller
         $members=[];
         if($group_id!=0){
             $group= MGroup::where('id','=',$group_id)->first();
-            $albums = MAlbum::where('group_id','=',$group->id)->orderBy('order','desc')->get();
+            $albums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
             $members = MMember::where('group_id','=',$group->id)->get();
         }
         return view('dreamcard.photocard',compact('photocard','pic_front','pic_back','page_id','url','albums','members','group'));

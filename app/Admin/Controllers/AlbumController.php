@@ -97,6 +97,7 @@ class AlbumController extends AdminController
         $form->text('tahun', __('Tahun'));
         $form->image('photo', __('Image'));
         $form->number('order', __('order'));
+        $form->select('tipe', 'Tipe')->options([0 => 'Album', 1 => 'MD/Concert']);
         $form->hasMany('versichannel', __('Versi'), function (Form\NestedForm $form) {
             $form->text('channel', __('Versi'));
             $form->select('kategori_id', __('Kategori'))->options([0 => 'Album Inclusions', 1 => 'Fansign/POB', '2' => 'Other Photocard']);
