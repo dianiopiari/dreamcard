@@ -70,6 +70,18 @@
 							@endforeach
 						</ul>
 					</li>
+                    <li class="nav-item pcoded-hasmenu pcoded-trigger">
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Album {{$group->group_name}}</span></a>
+						<ul class="pcoded-submenu">
+							@foreach($MdThums as $mdthu)
+								@if ($slug==$mdthu->slug)
+									<li class="active"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$mdthu->slug}}">{{$mdthu->album}}</a></li>
+								@else
+									<li><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$mdthu->slug}}">{{$mdthu->album}}</a></li>
+								@endif
+							@endforeach
+						</ul>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -163,6 +175,28 @@
                                     <div class="card-body">
                                         <h5 class="card-title">{{$albs->album}}</h5>
 										<p class="card-text">{{$albs->tahun}}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<h5 class="mt-4">Merchandise/Event/Concert</h5>
+					</div>
+					<div class="card-body">
+                        <div class="row">
+                            @foreach($MdThums as $MdThum)
+								<div class="col-sm-2">
+                                    <a href="{{config('app.url')}}/app/{{$group->slug}}/{{$MdThum->slug}}"><img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$MdThum->photo}}" alt="Card image cap"></a>
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{$MdThum->album}}</h5>
+										<p class="card-text">{{$MdThum->tahun}}</p>
                                     </div>
                                 </div>
                             @endforeach

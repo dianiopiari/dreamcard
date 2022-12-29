@@ -28,10 +28,11 @@ class DreamController extends Controller
             $members = MMember::where('group_id','=',$group->id)->get();
             $albums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
             $albumsThum = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
+            $MdThums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',1)->orderBy('order','desc')->get();
         }else{
             return view('dreamcard.notfound');
         }
-        return view('dreamcard.group',compact('members','albums','group','slug','albumsThum'));
+        return view('dreamcard.group',compact('members','albums','group','slug','albumsThum','MdThums'));
     }
 
     // public function listAlbum($group_slug,$slug)
