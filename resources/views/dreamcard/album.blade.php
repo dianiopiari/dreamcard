@@ -53,7 +53,7 @@
 							@endforeach
 						</ul>
 					</li>
-                    <li class="nav-item pcoded-hasmenu active pcoded-trigger">
+                    <li class="nav-item pcoded-hasmenu {{$active}} pcoded-trigger">
 						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Album {{$group->group_name}}</span></a>
 						<ul class="pcoded-submenu">
 							@foreach($albums as $al)
@@ -65,7 +65,7 @@
 							@endforeach
 						</ul>
 					</li>
-                    <li class="nav-item pcoded-hasmenu pcoded-trigger">
+                    <li class="nav-item pcoded-hasmenu {{$activemd}} pcoded-trigger">
 						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Merchandise/Event</span></a>
 						<ul class="pcoded-submenu">
 							@foreach($MdThums as $mdthu)

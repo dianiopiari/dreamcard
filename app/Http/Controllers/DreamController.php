@@ -114,7 +114,19 @@ class DreamController extends Controller
                 break;
         }
         //dd($limit);
+        $active="";
+        $activemd="";
         if($group!=null){
+            if($album->tipe==0){
+                $active="active";
+                $activemd="";
+            }else{
+                $active="";
+                $activemd="active";
+                $categori_id=2;
+                $style6="1";
+                $limit=0;
+            }
             $albums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
             $MdThums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',1)->orderBy('order','desc')->get();
             $members = MMember::where('group_id','=',$group->id)->get();
@@ -144,7 +156,7 @@ class DreamController extends Controller
         }else{
             return view('dreamcard.notfound');
         }
-        return view('dreamcard.album',compact('vipot_columns','albums','group','slug','album','style1','style2','style3','style4','style5','style6','limit','members','MdThums'));
+        return view('dreamcard.album',compact('vipot_columns','albums','group','slug','album','style1','style2','style3','style4','style5','style6','limit','members','MdThums','active','activemd'));
     }
 
     public function listAlbum($group_slug,$slug,$channelid=null,$cat=null)
