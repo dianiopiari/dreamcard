@@ -44,11 +44,6 @@
 	<nav class="pcoded-navbar menu-light ">
 		<div class="navbar-wrapper  ">
 			<div class="navbar-content scroll-div " >
-				{{-- <div class="">
-					<div class="main-menu-header">
-						<img class="img-radius" src="{{asset('/theme/ablepro/assets/images/user/avatar-2.png')}}" alt="User-Profile-Image">
-					</div>
-				</div> --}}
                 <div class="card text-center">
 					<div class="card-block">
 						<i class="feather icon-sunset f-40"></i>
@@ -57,6 +52,16 @@
 					</div>
 				</div>
 			</div>
+            <div class="navbar-content scroll-div " >
+                <ul class="nav pcoded-inner-navbar ">
+                    <li class="nav-item pcoded-menu-caption">
+					    <label>About Us</label>
+					</li>
+					<li class="nav-item">
+					    <a href="{{config('app.url')."/privacy-policy" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">privacy Policy</span></a>
+					</li>
+                </ul>
+            </div>
 		</div>
 	</nav>
 	<!-- [ navigation menu ] end -->
