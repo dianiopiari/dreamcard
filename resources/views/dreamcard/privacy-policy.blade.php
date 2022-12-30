@@ -84,7 +84,8 @@
                                     <span>Hai, {{ auth('web')->user()->name }}</span>
                                 </div>
                                 <ul class="pro-body">
-                                    <li><a href="user-profile.html" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
+                                    <li><a href="{{ route('cart') }}" class="dropdown-item"><i class="fa fa-shopping-bag"></i> My Photocard</a></li>
+                                    <li><a href="{{ route('cartwtb') }}" class="dropdown-item"><i class="fa fa-heart"></i> Wishlist</a></li>
                                     <li>
                                         {{-- <a href="{{ route('logout') }}" class="dropdown-item"><i class="feather icon-log-out"></i> Log Out</a> --}}
                                         <form action="{{ route('logout') }}" method="post">

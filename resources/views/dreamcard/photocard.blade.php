@@ -102,7 +102,8 @@
                                     <span>Hai, {{ auth('web')->user()->name }}</span>
                                 </div>
                                 <ul class="pro-body">
-                                    <li><a href="user-profile.html" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
+                                    <li><a href="{{ route('cart') }}" class="dropdown-item"><i class="fa fa-shopping-bag"></i> My Photocard</a></li>
+                                    <li><a href="{{ route('cartwtb') }}" class="dropdown-item"><i class="fa fa-heart"></i> Wishlist</a></li>
                                     <li>
                                         {{-- <a href="{{ route('logout') }}" class="dropdown-item"><i class="feather icon-log-out"></i> Log Out</a> --}}
                                         <form action="{{ route('logout') }}" method="post">
@@ -195,8 +196,16 @@
                     <div class="card-header">
                         <div class="float-right">
                             @auth
-                                <button onClick="Data.addPhotocard('{{$photocard->id}}')" class="btn btn-info"><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp; My Photocard &nbsp;</button>
-                                <button onClick="Data.addPhotocardwtb('{{$photocard->id}}')" class="btn btn-danger"><i class="fa fa-check"></i>&nbsp; My Wishlist &nbsp;</button>
+                                @if ($isExist!=null)
+                                    <button  class="btn btn-succsess"><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp; Already Add on My Photocard&nbsp;</button>
+                                @else
+                                    <button onClick="Data.addPhotocard('{{$photocard->id}}')" class="btn btn-info"><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp; My Photocard &nbsp;</button>
+                                @endif
+                                @if ($isExistWhislist!=null)
+                                    <button  class="btn btn-succsess"><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp; Already Add on Wishlist&nbsp;</button>
+                                @else
+                                    <button onClick="Data.addPhotocardwtb('{{$photocard->id}}')" class="btn btn-danger"><i class="fa fa-check"></i>&nbsp; My Wishlist &nbsp;</button>
+                                @endif
                             @endauth
                         </div>
                     </div>
@@ -320,6 +329,7 @@
                         $("#myModal").modal('hide');
                     }
                 }).done(function(response){
+                    window.location.reload();
                 })
             },
             "addPhotocardwtb" : function(photocard_id){
@@ -335,6 +345,7 @@
                         $("#myModal").modal('hide');
                     }
                 }).done(function(response){
+                    window.location.reload();
                 })
             },
             "addPhotocardtrwant" : function(photocard_id){
@@ -350,6 +361,7 @@
                         $("#myModal").modal('hide');
                     }
                 }).done(function(response){
+                    window.location.reload();
                 })
             },
             "addPhotocardtrhave" : function(photocard_id){

@@ -652,11 +652,19 @@ class DreamController extends Controller
             $members = MMember::where('group_id','=',$group->id)->get();
 
             //cek berapa ada photocard dan whislist
+            $isExist=null;
+            $isExistWhislist =null;
             if(@auth('web')->user()->id!=0){
                 $countphoto = TPhotocard::where('user_id','=',auth('web')->user()->id)->count();
                 $countphotowhistlist = TphotocardWishlist::where('user_id','=',auth('web')->user()->id)->count();
+                $isExist = TPhotocard::where('photocard_id', '=', $photocard->id)
+                        ->where('user_id','=',auth('web')->user()->id)
+                        ->first();
+                $isExistWhislist = TphotocardWishlist::where('photocard_id', '=', $photocard->id)
+                        ->where('user_id','=',auth('web')->user()->id)
+                        ->first();
             }
         }
-        return view('dreamcard.photocard',compact('photocard','pic_front','pic_back','page_id','url','albums','members','group','MdThums','countphoto','countphotowhistlist'));
+        return view('dreamcard.photocard',compact('photocard','pic_front','pic_back','page_id','url','albums','members','group','MdThums','countphoto','countphotowhistlist','isExist','isExistWhislist'));
     }
 }
