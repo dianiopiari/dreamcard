@@ -105,6 +105,22 @@
 		</div>
 		<!-- [ breadcrumb ] end -->
 		<!-- [ Main Content ] start -->
+        <div class="row">
+            <div class="col-md-12">
+                    <div class="card">
+                        @auth
+                            <h4>Name: {{ auth('web')->user()->name }}</h4>
+                            <h4>Email: {{ auth('web')->user()->email }}</h4>
+                            <hr />
+                            <form action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <button class="btn btn-dark" type="submit">Logout</button>
+                            </form>
+                        @else
+                        @endauth
+                    </div>
+            </div>
+        </div>
 		<div class="row">
 			<!-- [ basic-alert ] start -->
 			<div class="col-md-12">

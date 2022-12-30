@@ -17,6 +17,7 @@
         "intervention/image": "^2.7",
         "jenssegers/imagehash": "^0.8.0",
         "laravel/framework": "^7.29",
+        "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.5"
     },
     "require-dev": {
