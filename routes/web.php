@@ -51,3 +51,6 @@ Route::get('/search/{group_slug?}','DreamController@searchphotocard')->name('sea
 Route::post('/search/upload/proses', 'DreamController@prosesUpload')->name('search.proses');
 
 Route::get('/photocard/{group}/{album}/{photocard_id?}','DreamController@detailPhoca');
+Route::get('/privacy-policy', function() {
+    return view('dreamcard.privacy-policy');
+});
