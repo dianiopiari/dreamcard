@@ -141,8 +141,10 @@
 				<div class="row align-items-center">
 					<div class="col-md-12">
 						<div class="page-header-title">
-							{{-- <a href="{{ route('cart') }}" class="btn btn-primary"> --}}
-						</div>
+                            @auth
+                                <h5 class="m-b-10">Hai <b>{{ auth('web')->user()->name }}</b>, Welcome to K-DreamCard</h5>
+                            @endauth
+                        </div>
 						<ul class="breadcrumb">
 							<li class="breadcrumb-item"><a href="{{config('app.url')}}"><i class="feather icon-home"></i></a></li>
 							<li class="breadcrumb-item"><a href="{{config('app.url')}}/app/{{$group->slug}}" >{{$group->group_name}}</a></li>
@@ -159,8 +161,10 @@
                     <div class="card-header">
                         <a href="javascript:window.history.go(-1);" type="button" class="btn btn-dark"><i class="fa fa-arrow-left"></i>&nbsp; Back&nbsp;</a>
                         <div class="float-right">
-                            <a href="{{ route('cart') }}/{{@$group->slug}}" type="button" class="btn btn-info"><i class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp; My Photocard &nbsp; <span class="badge badge-pill badge-danger" id="countphoto">{{count((array) session('cart')) }}</span></a>
-                            <a href="{{ route('cartwtb') }}/{{@$group->slug}}" type="button" class="btn btn-danger"><i class="fa fa-heart" aria-hidden="true"></i>&nbsp; Wishlist &nbsp; <span class="badge badge-pill badge-light" id="countphotowtb"><font color="#000000">{{count((array) session('cartwtb')) }}</font></span></a>
+                            @auth
+                                <a href="{{ route('cart') }}/{{@$group->slug}}" type="button" class="btn btn-info"><i class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp; My Photocard &nbsp; <span class="badge badge-pill badge-danger" id="countphoto">{{count((array) session('cart')) }}</span></a>
+                                <a href="{{ route('cartwtb') }}/{{@$group->slug}}" type="button" class="btn btn-danger"><i class="fa fa-heart" aria-hidden="true"></i>&nbsp; Wishlist &nbsp; <span class="badge badge-pill badge-light" id="countphotowtb"><font color="#000000">{{count((array) session('cartwtb')) }}</font></span></a>
+                            @endauth
                             <a href="{{ route('search') }}/{{@$group->slug}}" type="button" class="btn btn-success"><i class="fa fa-search" aria-hidden="true"></i>&nbsp; Looking for photocards &nbsp; </a>
                         </div>
                     </div>
