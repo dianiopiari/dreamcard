@@ -37,40 +37,6 @@ class DreamController extends Controller
         return view('dreamcard.group',compact('members','albums','group','slug','albumsThum','MdThums'));
     }
 
-    // public function listAlbum($group_slug,$slug)
-    // {
-    //     $group= MGroup::where('slug','=',$group_slug)->first();
-    //     $album= MAlbum::where('slug','=',$slug)->first();
-    //     $style1="";
-    //     $style2="";
-    //     $style3="1";
-    //     $style4="";
-    //     $style5="";
-    //     $style6="";
-    //     if($group!=null){
-    //         $albums = MAlbum::where('group_id','=',$group->id)->orderBy('order','desc')->get();
-    //         $arrphoto=array();
-    //         $channels = MChannel::where('album_id','=',$album->id)->get();
-    //         $photocards = MPhotocard::where('group_id','=',$group->id)
-    //                                 ->where('album_id','=',$album->id);
-    //         $vipot_columns=[];
-    //         foreach ($channels as $key => $channel) {
-    //             $photocards = MPhotocard::where('group_id','=',$group->id)
-    //                         ->where('album_id','=',$album->id)
-    //                         ->where('channel_id','=',$channel->id)->get();
-    //             if (! array_key_exists($key,$channel) ) {
-    //                 $vipot_columns[$key] = [
-    //                     'channel'=> $channel->channel,
-    //                     'photo'=>$photocards
-    //                 ];
-    //             }
-    //         }
-    //         //dd($vipot_columns);
-    //     }else{
-    //     }
-    //     return view('dreamcard.album',compact('vipot_columns','albums','group','slug','album','style1','style2','style3','style4','style5','style6'));
-    // }
-
     public function listAlbumCategori($group_slug,$slug,$cat=null)
     {
         $group= MGroup::where('slug','=',$group_slug)->first();
@@ -299,48 +265,6 @@ class DreamController extends Controller
         return view('dreamcard.member',compact('vipot_columns','members','group','slug','group_slug','albums','countphoto','countphotowhistlist','MdThums'));
     }
 
-    // public function detailPhotocard($photocard_id=null)
-    // {
-    //     if($photocard_id!=null){
-    //         $photord = MPhotocard::where('id','=',$photocard_id)->first();
-    //         $trade="";
-    //         if($photord!=null){
-    //             $pic_front="";
-    //             $pic_back="";
-    //             if($photord->pic_hd!=null){
-    //                 $pic_front=config('app.url')."/".config('app.str')."/".$photord->pic_hd;
-    //             }else{
-    //                 $pic_front=config('app.url')."/".config('app.str')."/".$photord->pic_front;
-    //             }
-    //             if($photord->pic_back!=null){
-    //                 $pic_back=config('app.url')."/".config('app.str')."/".$photord->pic_back;
-    //             }else{
-    //                 $pic_back=config('app.url')."/".config('app.str')."/images/default_back.jpg";
-    //             }
-    //             $photocard_detail ="<div class='carousel-item active'>";
-    //             $photocard_detail .= "<img class='img-fluid card-img-top' src='".$pic_front."' style='height: 100%;'>";
-    //             $photocard_detail .="</div>";
-    //             $photocard_detail .="<div class='carousel-item'>";
-    //             $photocard_detail .= "<img class='img-fluid card-img-top' src='".$pic_back."' style='height: 100%;'>";
-    //             $photocard_detail .="</div>";
-    //             $info=$photord->credit;
-    //             $wts ="<a href='#' onClick='Data.addPhotocard(".$photord->id.")' type='button' class='btn btn-info'><i class='fa fa-shopping-cart' aria-hidden='true'></i>&nbsp; My Photocard &nbsp; </a>&nbsp;&nbsp;";
-    //             $wts .="<a href='#' onClick='Data.addPhotocardwtb(".$photord->id.")' type='button' class='btn btn-danger'><i class='feather mr-2 icon-heart'></i>Wishlist</a>&nbsp;&nbsp;<br>";
-    //             // $trade ="<a href='#' onClick='Data.addPhotocardtrhave(".$photord->id.")' type='button' class='btn btn-success'><i class='fa fa-shopping-cart' aria-hidden='true'></i>&nbsp; Trade Have</a>&nbsp;&nbsp;";
-    //             // $trade .="<a href='#' onClick='Data.addPhotocardtrwant(".$photord->id.")' type='button' class='btn btn-danger'><i class='feather mr-2 icon-camera'></i>Trade Want</a>&nbsp;&nbsp;";
-    //         }else{
-    //             $photocard_detail ="";
-    //             $info="-";
-    //             $wts="";
-    //             $trade="";
-    //         }
-    //     }else{
-    //         $photocard_detail ="";
-    //         $info="-";
-    //     }
-    //     return response()->json(["photocard_detail"=>$photocard_detail,"info"=>$info,"wts"=>$wts,"trade"=>$trade]);
-    // }
-
     public function addToCart($id)
     {
         $photocard = MPhotocard::findOrFail($id);
@@ -367,10 +291,16 @@ class DreamController extends Controller
     public function remove(Request $request)
     {
         if($request->id) {
-            $cart = session()->get('cart');
-            if(isset($cart[$request->id])) {
-                unset($cart[$request->id]);
-                session()->put('cart', $cart);
+            // $cart = session()->get('cart');
+            // if(isset($cart[$request->id])) {
+            //     unset($cart[$request->id]);
+            //     session()->put('cart', $cart);
+            // }
+            //dd($request->id);
+            $userid=auth('web')->user()->id;
+            if($userid!=0){
+                $query = TPhotocard::where('user_id','=',$userid)
+                            ->where('photocard_id','=',$request->id)->delete();
             }
             session()->flash('success', 'Product removed successfully');
         }
@@ -378,22 +308,40 @@ class DreamController extends Controller
 
     public function removeall(Request $request)
     {
-        $request->session()->forget('cart');
+        //$request->session()->forget('cart');
+        $userid=auth('web')->user()->id;
+        if($userid!=0){
+            $query = TPhotocard::where('user_id','=',$userid)->delete();
+        }
         session()->flash('success', 'Product removed successfully');
     }
 
     public function cart($namagroup=null)
     {
-
-        //session()->flush();
-        //tambahkan pembuatan hastag
-        // @foreach(session('cart') as $id => $details)
         $hastag=[];
         $album=[];
         $member=[];
         $group=[];
-        $cart = session()->get('cart', []);
-        foreach ($cart  as $key => $value) {
+        $userid=auth('web')->user()->id;
+        //$cart = session()->get('cart', []);
+        $cart = TPhotocard::join('m_photocard','m_photocard.id','=','t_photocard.photocard_id')
+                            ->join('m_channel','m_photocard.channel_id','=','m_channel.id')
+                            ->join('m_album','m_photocard.album_id','=','m_album.id')
+                            ->join('m_member','m_photocard.member_id','=','m_member.id')
+                            ->join('m_group','m_photocard.group_id','=','m_group.id')
+                                    ->select('t_photocard.id'
+                                    ,'m_photocard.id as photo_id'
+                                    ,'m_photocard.album_id'
+                                    ,'m_photocard.member_id','m_photocard.group_id'
+                                    ,'m_photocard.pic_front'
+                                    ,'m_channel.channel'
+                                    ,'m_album.id as album_id' ,'m_album.album'
+                                    ,'m_member.id as member_id' ,'m_member.member_name as member'
+                                    ,'m_group.id as group_id' ,'m_group.group_name as group'
+                                    )
+                                    ->where('t_photocard.user_id','=',$userid)->get();
+
+       foreach ($cart  as $key => $value) {
             $album[$value['album_id']]=[
                 "album" => $value['album']
             ];
@@ -424,7 +372,7 @@ class DreamController extends Controller
             $albums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
             $members = MMember::where('group_id','=',$group->id)->get();
         }
-        return view('dreamcard.tphotocard',compact('hastag','namagroup','albums','members','group'));
+        return view('dreamcard.tphotocard',compact('hastag','namagroup','albums','members','group','cart'));
     }
 
 
@@ -435,29 +383,21 @@ class DreamController extends Controller
         $album = MAlbum::findOrFail($photocard->album_id);
         $group = MGroup::findOrFail($photocard->group_id);
         $member = MMember::findOrFail($photocard->member_id);
-        $cart = session()->get('cartwtb', []);
-
-        if(isset($cart[$id])) {
-            $cart[$id]['quantity']++;
-        } else {
-            $cart[$id] = [
-                "group_id"=>$group->id,
-                "group"=>$group->group_name,
-                "channel"=>$channel->channel,
-                "album_id"=>$album->id,
-                "album"=>$album->album,
-                "member_id"=>$member->id,
-                "member"=>$member->member_name,
-                "quantity" => 1,
-                "id"=>$photocard->id,
-                "name"=>$photocard->memberp->member_name,
-                "pic_front" => $photocard->pic_front,
-                "pic_back" => $photocard->pic_back
-            ];
+        $userid = auth('web')->user()->id;
+        $countphotowish=0;
+        if($userid!=0){
+            $isExist = TphotocardWishlist::where('photocard_id', '=', $photocard->id)
+                        ->where('user_id','=',$userid)
+                        ->first();
+            if ($isExist === null) {
+                $tphotocard = new TphotocardWishlist();
+                $tphotocard->photocard_id = $photocard->id;
+                $tphotocard->user_id = auth('web')->user()->id;
+                $tphotocard->save();
+            }
+            $countphotowish = TphotocardWishlist::where('user_id','=',auth('web')->user()->id)->count();
         }
-
-        session()->put('cartwtb', $cart);
-        $countphoto=count((array) session('cartwtb'));
+        $countphoto=$countphotowish;
         return response()->json(["countphoto"=>$countphoto]);
     }
 
@@ -467,7 +407,24 @@ class DreamController extends Controller
         $album=[];
         $member=[];
         $group=[];
-        $cart = session()->get('cartwtb', []);
+        $userid=auth('web')->user()->id;
+        //$cart = session()->get('cartwtb', []);
+        $cart = TphotocardWishlist::join('m_photocard','m_photocard.id','=','t_photocard_whislist.photocard_id')
+                            ->join('m_channel','m_photocard.channel_id','=','m_channel.id')
+                            ->join('m_album','m_photocard.album_id','=','m_album.id')
+                            ->join('m_member','m_photocard.member_id','=','m_member.id')
+                            ->join('m_group','m_photocard.group_id','=','m_group.id')
+                                    ->select('t_photocard_whislist.id'
+                                    ,'m_photocard.id as photo_id'
+                                    ,'m_photocard.album_id'
+                                    ,'m_photocard.member_id','m_photocard.group_id'
+                                    ,'m_photocard.pic_front'
+                                    ,'m_channel.channel'
+                                    ,'m_album.id as album_id' ,'m_album.album'
+                                    ,'m_member.id as member_id' ,'m_member.member_name as member'
+                                    ,'m_group.id as group_id' ,'m_group.group_name as group'
+                                    )
+                                    ->where('t_photocard_whislist.user_id','=',$userid)->get();
         foreach ($cart  as $key => $value) {
             $album[$value['album_id']]=[
                 "album" => $value['album']
@@ -502,16 +459,21 @@ class DreamController extends Controller
             $members = MMember::where('group_id','=',$group->id)->get();
         }
         //return view('dreamcard.tphotocardwtb');
-        return view('dreamcard.tphotocardwtb',compact('hastag','namagroup','albums','members','group'));
+        return view('dreamcard.tphotocardwtb',compact('hastag','namagroup','albums','members','group','cart'));
     }
 
     public function removewtb(Request $request)
     {
         if($request->id) {
-            $cart = session()->get('cartwtb');
-            if(isset($cart[$request->id])) {
-                unset($cart[$request->id]);
-                session()->put('cartwtb', $cart);
+            // $cart = session()->get('cartwtb');
+            // if(isset($cart[$request->id])) {
+            //     unset($cart[$request->id]);
+            //     session()->put('cartwtb', $cart);
+            // }
+            $userid=auth('web')->user()->id;
+            if($userid!=0){
+                $query = TphotocardWishlist::where('user_id','=',$userid)
+                            ->where('photocard_id','=',$request->id)->delete();
             }
             session()->flash('success', 'Product removed successfully');
         }
@@ -519,7 +481,11 @@ class DreamController extends Controller
 
     public function removeallwtb(Request $request)
     {
-        $request->session()->forget('cartwtb');
+        //$request->session()->forget('cartwtb');
+        $userid=auth('web')->user()->id;
+        if($userid!=0){
+            $query = TphotocardWishlist::where('user_id','=',$userid)->delete();
+        }
         session()->flash('success', 'Product removed successfully');
     }
 

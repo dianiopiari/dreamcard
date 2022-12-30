@@ -181,17 +181,15 @@
                                                 @endif
                                             </div>
                                             <div class="row">
-                                                @if(session('cartwtb'))
-                                                    @foreach(session('cartwtb') as $id => $details)
-                                                        <div class="col-sm-2">
-                                                            <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{ $details['pic_front'] }}" alt="Card image cap" style="height: 90%">
-                                                            <div class="middle" style="justify-content: left">
-                                                                <a href="#"  type="button" class="btn btn-default text" onClick="Data.deletePhotocard('{{ $details['id'] }}')"><i class="feather mr-2 icon-trash"></i>Delete&nbsp;</a>
-                                                            </div>
-                                                            <h5 style="padding-top: 10px">({{ $details['channel'] }})</h6>
+                                                @foreach($cart as $details)
+                                                    <div class="col-sm-2">
+                                                        <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{ $details['pic_front'] }}" alt="Card image cap" style="height: 90%">
+                                                        <div class="middle" style="justify-content: left">
+                                                            <a href="#"  type="button" class="btn btn-default text" onClick="Data.deletePhotocard('{{ $details['photo_id'] }}')"><i class="feather mr-2 icon-trash"></i>Delete&nbsp;</a>
                                                         </div>
-                                                    @endforeach
-                                                @endif
+                                                        <h5 style="padding-top: 10px">({{ $details['channel'] }})</h6>
+                                                    </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
