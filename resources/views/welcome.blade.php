@@ -71,15 +71,13 @@
 				<div class="m-header">
 					<a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
 					<a href="{{config('app.url')}}" class="b-brand">
-						<!-- ========   change your logo hear   ============ -->
-						{{-- <img src="{{asset('/theme/ablepro/assets/images/logo.png')}}" alt="" class="logo">
-                         --}}
                         <h4> <font color="#FFFFFF">K-DreamCard</font></h4>
                     </a>
 					<a href="#!" class="mob-toggler">
 						<i class="feather icon-more-vertical"></i>
 					</a>
 				</div>
+                <!-- profile -->
 				<div class="collapse navbar-collapse">
 					<ul class="navbar-nav mr-auto">
 						<li class="nav-item">
@@ -92,6 +90,38 @@
 							</div>
 						</li>
 					</ul>
+					<ul class="navbar-nav ml-auto">
+                        @auth
+                            <li>
+                                <div class="dropdown drp-user">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="feather icon-user"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right profile-notification">
+                                        <div class="pro-head">
+                                            <span>Hai, {{ auth('web')->user()->name }}</span>
+                                        </div>
+                                        <ul class="pro-body">
+                                            <li><a href="user-profile.html" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
+                                            <li>
+                                                {{-- <a href="{{ route('logout') }}" class="dropdown-item"><i class="feather icon-log-out"></i> Log Out</a> --}}
+                                                <form action="{{ route('logout') }}" method="post">
+                                                    @csrf
+                                                    <a href="javascript:;" onclick="parentNode.submit();" class="dropdown-item"><i class="feather icon-log-out"></i> Log Out</a>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        @else
+                            <li>
+                                <div class="dropdown drp-user">
+                                    <a href="{{ route('login') }}"><i class="feather icon-log-in"></i></a>
+                                </div>
+                            </li>
+                        @endauth
+					</ul>
 				</div>
 	</header>
 	<!-- [ Header ] end -->
@@ -101,26 +131,18 @@
 		<!-- [ breadcrumb ] start -->
 		<div class="page-header">
 			<div class="page-block">
+                <div class="row align-items-center">
+					<div class="col-md-12">
+						<div class="page-header-title">
+                            @auth
+							    <h5 class="m-b-10">Hai <b>{{ auth('web')->user()->name }}</b>, Welcome to K-DreamCard</h5>
+                            @endauth
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- [ breadcrumb ] end -->
-		<!-- [ Main Content ] start -->
-        <div class="row">
-            <div class="col-md-12">
-                    <div class="card">
-                        @auth
-                            <h4>Name: {{ auth('web')->user()->name }}</h4>
-                            <h4>Email: {{ auth('web')->user()->email }}</h4>
-                            <hr />
-                            <form action="{{ route('logout') }}" method="post">
-                            @csrf
-                            <button class="btn btn-dark" type="submit">Logout</button>
-                            </form>
-                        @else
-                        @endauth
-                    </div>
-            </div>
-        </div>
 		<div class="row">
 			<!-- [ basic-alert ] start -->
 			<div class="col-md-12">

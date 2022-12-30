@@ -62,7 +62,7 @@ Route::get('/terms-condition', function() {
 //login page
 Route::get('/login', function () {
     return view('dreamcard.login');
-})->name('index');
+})->name('login');
 
 // Untuk redirect ke Google
 Route::get('/login/google/redirect', [SocialiteController::class, 'redirect'])
