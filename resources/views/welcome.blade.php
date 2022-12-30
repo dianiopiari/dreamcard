@@ -51,8 +51,6 @@
 						<p>Let you track your favorite kpop photocard</p>
 					</div>
 				</div>
-			</div>
-            <div class="navbar-content scroll-div " >
                 <ul class="nav pcoded-inner-navbar ">
                     <li class="nav-item pcoded-menu-caption">
 					    <label>About Us</label>
@@ -61,7 +59,7 @@
 					    <a href="{{config('app.url')."/privacy-policy"}} class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">privacy Policy</span></a>
 					</li>
                 </ul>
-            </div>
+			</div>
 		</div>
 	</nav>
 	<!-- [ navigation menu ] end -->
