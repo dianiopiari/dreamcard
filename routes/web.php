@@ -54,3 +54,6 @@ Route::get('/photocard/{group}/{album}/{photocard_id?}','DreamController@detailP
 Route::get('/privacy-policy', function() {
     return view('dreamcard.privacy-policy');
 });
+Route::get('/terms-condition', function() {
+    return view('dreamcard.term-condition');
+});

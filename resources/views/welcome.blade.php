@@ -58,6 +58,9 @@
 					<li class="nav-item">
 					    <a href="{{config('app.url')}}/privacy-policy" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">privacy Policy</span></a>
 					</li>
+                    <li class="nav-item">
+					    <a href="{{config('app.url')}}/terms-condition" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">privacy Policy</span></a>
+					</li>
                 </ul>
 			</div>
 		</div>
