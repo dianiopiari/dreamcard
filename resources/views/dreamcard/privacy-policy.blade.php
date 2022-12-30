@@ -93,7 +93,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header" style="padding-top: 5px;border-bottom: 1px solid #ffffff;">
-                        <h5>Privacy Policy for kdreamcard</h5>
+                        <h5>&nbsp;</h5>
                     </div>
                     <div class="card-body">
                         <h1>Privacy Policy for kdreamcard</h1>
