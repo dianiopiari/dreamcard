@@ -88,15 +88,42 @@ class DreamController extends Controller
         $isExistPob=0;
         $isExistOther=0;
         if($group!=null){
+            $isExistAlbum = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
+                            ->where('m_photocard.album_id', '=', $album->id)
+                            ->where('m_channel.kategori_id','=',0)
+                            ->first();
+            $isExistPob = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
+                            ->where('m_photocard.album_id', '=', $album->id)
+                            ->where('m_channel.kategori_id','=',1)
+                            ->first();
+            $isExistOther = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
+                            ->where('m_photocard.album_id', '=', $album->id)
+                            ->where('m_channel.kategori_id','=',2)
+                            ->first();
             if($album->tipe==0){
                 $active="active";
                 $activemd="";
             }else{
-                $active="";
-                $activemd="active";
-                $categori_id=2;
-                $style6="1";
-                $limit=0;
+                if($isExistAlbum != null){
+                    $active="";
+                    $activemd="active";
+                    $categori_id=0;
+                    $style4="1";
+                    $limit=0;
+                }else if($isExistPob != null){
+                    $active="";
+                    $activemd="active";
+                    $categori_id=1;
+                    $style5="1";
+                    $limit=0;
+                }else{
+                    $active="";
+                    $activemd="active";
+                    $categori_id=2;
+                    $style6="1";
+                    $limit=0;
+                }
+
             }
             $albums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
             $MdThums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',1)->orderBy('order','desc')->get();
@@ -125,18 +152,7 @@ class DreamController extends Controller
                         ];
                     }
             }
-            $isExistAlbum = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
-                        ->where('m_photocard.album_id', '=', $album->id)
-                        ->where('m_channel.kategori_id','=',0)
-                        ->first();
-            $isExistPob = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
-                        ->where('m_photocard.album_id', '=', $album->id)
-                        ->where('m_channel.kategori_id','=',1)
-                        ->first();
-            $isExistOther = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
-                        ->where('m_photocard.album_id', '=', $album->id)
-                        ->where('m_channel.kategori_id','=',2)
-                        ->first();
+
             //dd($vipot_columns);
         }else{
             return view('dreamcard.notfound');
