@@ -156,11 +156,15 @@
 						<ul class="breadcrumb">
 							<li class="breadcrumb-item"><a href="{{config('app.url')}}"><i class="feather icon-home"></i></a></li>
 							<li class="breadcrumb-item"><a href="{{config('app.url')}}/app/{{$group->slug}}" @if ($style2==1) style="background: white;color: #fd6e29;padding: 2px;" @endif>{{$group->group_name}}</a></li>
-                            @if (@$album->tipe==0)
+                            @if (@$isExistAlbum==1)
                                 <li class="breadcrumb-item"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}/album" @if ($style4==1) style="background: white;color: #fd6e29;padding: 2px;" @endif>Album Inclusions</a></li>
+                            @endif
+                            @if (@$isExistPob==1)
                                 <li class="breadcrumb-item"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}/fansign" @if ($style5==1) style="background: white;color: #fd6e29;padding: 2px;" @endif >Fansign/POB</a></li>
                             @endif
-							<li class="breadcrumb-item"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}/other" @if ($style6==1) style="background: white;color: #fd6e29;padding: 2px;" @endif>Other</a></li>
+                            @if (@$isExistOther==1)
+                            <li class="breadcrumb-item"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}/other" @if ($style6==1) style="background: white;color: #fd6e29;padding: 2px;" @endif>Other</a></li>
+                            @endif
 						</ul>
 					</div>
 				</div>

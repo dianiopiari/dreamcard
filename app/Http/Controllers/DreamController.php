@@ -179,6 +179,9 @@ class DreamController extends Controller
                 break;
         }
         //dd($limit);
+        $isExistAlbum=0;
+        $isExistPob=0;
+        $isExistOther=0;
         if($group!=null){
             $albums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
             $members = MMember::where('group_id','=',$group->id)->get();
@@ -200,9 +203,19 @@ class DreamController extends Controller
                                     ->where('album_id','=',$album->id);
             $vipot_columns=[];
             foreach ($channels as $key => $channel) {
+                if($channel->kategori_id==0){
+                    $isExistAlbum=1;
+                }
+                if($channel->kategori_id==1){
+                    $isExistPob=1;
+                }
+                if($channel->kategori_id==2){
+                    $isExistOther=1;
+                }
                 $photocards = MPhotocard::where('group_id','=',$group->id)
                             ->where('album_id','=',$album->id)
                             ->where('channel_id','=',$channel->id)->get();
+
                     $vipot_columns[$key] = [
                         'channel'=> $channel->channel,
                         'photo'=>$photocards
@@ -211,7 +224,7 @@ class DreamController extends Controller
         }else{
             return view('dreamcard.notfound');
         }
-        return view('dreamcard.album',compact('vipot_columns','albums','group','slug','album','style1','style2','style3','style4','style5','style6','limit','members'));
+        return view('dreamcard.album',compact('vipot_columns','albums','group','slug','album','style1','style2','style3','style4','style5','style6','limit','members','isExistAlbum','isExistPob','isExistOther'));
     }
 
     public function listMember($group_slug,$slug=null)
