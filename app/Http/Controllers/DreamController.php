@@ -109,33 +109,18 @@ class DreamController extends Controller
                     $activemd="active";
                     $categori_id=0;
                     $style4="1";
-                    $style1="";
-                    $style2="";
-                    $style3="";
-                    $style5="";
-                    $style6="";
                     $limit=0;
                 }else if($isExistPob != null){
                     $active="";
                     $activemd="active";
                     $categori_id=1;
                     $style5="1";
-                    $style1="";
-                    $style2="";
-                    $style3="";
-                    $style4="";
-                    $style6="";
                     $limit=0;
                 }else{
                     $active="";
                     $activemd="active";
                     $categori_id=2;
                     $style6="1";
-                    $style1="";
-                    $style2="";
-                    $style3="";
-                    $style4="";
-                    $style5="";
                     $limit=0;
                 }
 
