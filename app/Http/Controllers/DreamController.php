@@ -49,6 +49,7 @@ class DreamController extends Controller
         $style4="";
         $style5="";
         $style6="";
+        $default=0;
         switch ($cat) {
             case 'other':
                 # code...
@@ -76,6 +77,7 @@ class DreamController extends Controller
                 break;
             default:
                 # code...
+                $default=1;
                 $categori_id=0;
                 $style4="1";
                 $limit=0;
@@ -107,19 +109,25 @@ class DreamController extends Controller
                 if($isExistAlbum != null){
                     $active="";
                     $activemd="active";
-                    $categori_id=0;
+                    if($default==1){
+                        $categori_id=0;
+                    }
                     $style4="1";
                     $limit=0;
                 }else if($isExistPob != null){
                     $active="";
                     $activemd="active";
-                    $categori_id=1;
+                    if($default==1){
+                        $categori_id=1;
+                    }
                     $style5="1";
                     $limit=0;
                 }else{
                     $active="";
                     $activemd="active";
-                    $categori_id=2;
+                    if($default==1){
+                        $categori_id=2;
+                    }
                     $style6="1";
                     $limit=0;
                 }
