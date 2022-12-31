@@ -107,29 +107,29 @@ class DreamController extends Controller
                 $activemd="";
             }else{
                 if($isExistAlbum != null){
-                    $active="";
-                    $activemd="active";
                     if($default==1){
+                        $active="";
+                        $activemd="active";
                         $categori_id=0;
+                        $style4="1";
+                        $limit=0;
                     }
-                    $style4="1";
-                    $limit=0;
                 }else if($isExistPob != null){
-                    $active="";
-                    $activemd="active";
                     if($default==1){
+                        $active="";
+                        $activemd="active";
                         $categori_id=1;
+                        $style5="1";
+                        $limit=0;
                     }
-                    $style5="1";
-                    $limit=0;
                 }else{
-                    $active="";
-                    $activemd="active";
                     if($default==1){
+                        $active="";
+                        $activemd="active";
                         $categori_id=2;
+                        $style6="1";
+                        $limit=0;
                     }
-                    $style6="1";
-                    $limit=0;
                 }
 
             }
