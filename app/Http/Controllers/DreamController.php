@@ -84,6 +84,9 @@ class DreamController extends Controller
         //dd($limit);
         $active="";
         $activemd="";
+        $isExistAlbum=0;
+        $isExistPob=0;
+        $isExistOther=0;
         if($group!=null){
             if($album->tipe==0){
                 $active="active";
@@ -115,12 +118,26 @@ class DreamController extends Controller
                 $photocards = MPhotocard::where('group_id','=',$group->id)
                             ->where('album_id','=',$album->id)
                             ->where('channel_id','=',$channel->id)->get();
-                    //dd(array($channel));
-                    $vipot_columns[$key] = [
-                        'channel'=> $channel->channel,
-                        'photo'=>$photocards
-                    ];
+                    if(!$photocards->isEmpty()){
+                        $vipot_columns[$key] = [
+                            'channel'=> $channel->channel,
+                            'photo'=>$photocards
+                        ];
+                    }
             }
+            $isExistAlbum = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
+                        ->where('m_photocard.album_id', '=', $album->id)
+                        ->where('m_channel.kategori_id','=',0)
+                        ->first();
+            $isExistPob = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
+                        ->where('m_photocard.album_id', '=', $album->id)
+                        ->where('m_channel.kategori_id','=',1)
+                        ->first();
+            $isExistOther = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
+                        ->where('m_photocard.album_id', '=', $album->id)
+                        ->where('m_channel.kategori_id','=',2)
+                        ->first();
+            //dd($vipot_columns);
         }else{
             return view('dreamcard.notfound');
         }
@@ -131,7 +148,7 @@ class DreamController extends Controller
             $countphotowhistlist = TphotocardWishlist::where('user_id','=',auth('web')->user()->id)->count();
         }
 
-        return view('dreamcard.album',compact('vipot_columns','albums','group','slug','album','style1','style2','style3','style4','style5','style6','limit','members','MdThums','active','activemd','countphoto','countphotowhistlist'));
+        return view('dreamcard.album',compact('vipot_columns','albums','group','slug','album','style1','style2','style3','style4','style5','style6','limit','members','MdThums','active','activemd','countphoto','countphotowhistlist','isExistAlbum','isExistPob','isExistOther'));
     }
 
     public function listAlbum($group_slug,$slug,$channelid=null,$cat=null)
@@ -203,24 +220,38 @@ class DreamController extends Controller
                                     ->where('album_id','=',$album->id);
             $vipot_columns=[];
             foreach ($channels as $key => $channel) {
-                if($channel->kategori_id==0){
-                    $isExistAlbum=1;
-                }
-                if($channel->kategori_id==1){
-                    $isExistPob=1;
-                }
-                if($channel->kategori_id==2){
-                    $isExistOther=1;
-                }
                 $photocards = MPhotocard::where('group_id','=',$group->id)
                             ->where('album_id','=',$album->id)
                             ->where('channel_id','=',$channel->id)->get();
 
-                    $vipot_columns[$key] = [
-                        'channel'=> $channel->channel,
-                        'photo'=>$photocards
-                    ];
+                    if(!$photocards->isEmpty()){
+                        if($channel->kategori_id==0){
+                            $isExistAlbum=1;
+                        }
+                        if($channel->kategori_id==1){
+                            $isExistPob=1;
+                        }
+                        if($channel->kategori_id==2){
+                            $isExistOther=1;
+                        }
+                        $vipot_columns[$key] = [
+                            'channel'=> $channel->channel,
+                            'photo'=>$photocards
+                        ];
+                    }
             }
+            $isExistAlbum = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
+                        ->where('m_photocard.album_id', '=', $album->id)
+                        ->where('m_channel.kategori_id','=',0)
+                        ->first();
+            $isExistPob = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
+                        ->where('m_photocard.album_id', '=', $album->id)
+                        ->where('m_channel.kategori_id','=',1)
+                        ->first();
+            $isExistOther = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
+                        ->where('m_photocard.album_id', '=', $album->id)
+                        ->where('m_channel.kategori_id','=',2)
+                        ->first();
         }else{
             return view('dreamcard.notfound');
         }
