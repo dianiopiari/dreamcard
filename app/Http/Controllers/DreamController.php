@@ -227,11 +227,11 @@ class DreamController extends Controller
             //$albums= MAlbum::where('group_id','=',$group->id)->orderBy('order','desc')->get();
             $albums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
             $MdThums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',1)->orderBy('order','desc')->get();
-
+            $allalbums = MAlbum::where('group_id','=',$group->id)->orderBy('order','desc')->get();
             $photocards = MPhotocard::where('group_id','=',$group->id)
                                     ->where('member_id','=',$member->id);
             $vipot_columns=[];
-            foreach ($albums as $key => $album) {
+            foreach ($allalbums as $key => $album) {
                 $channels = MChannel::where('album_id','=',$album->id)
                                     ->select('kategori_id',DB::raw('if(kategori_id=0,"Album Inclusions",if(kategori_id=1,"Fansign/POB","Other Photocard")) as channel'))
                                     ->groupBy('m_channel.kategori_id')->get();
