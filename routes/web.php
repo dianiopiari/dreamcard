@@ -19,9 +19,9 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::get('/','DreamController@index');
 Route::get('/app/{slug}','DreamController@listPerGroup');
-Route::get('/app/{group_slug}/{slug}/{cat?}','DreamController@listAlbumCategori');
-Route::get('/appc/{group_slug}/{slug}/{channel?}/{cat?}','DreamController@listAlbum');
-Route::get('/member/{group_slug}/{vmember?}','DreamController@listMember');
+//Route::get('/app/{group_slug}/{slug}/{cat?}','DreamController@listAlbumCategori');
+Route::get('/app/{group_slug}/{slug}/{channel?}/{cat?}/{cek?}','DreamController@listAlbum');
+Route::get('/member/{group_slug}/{vmember}/{cek?}','DreamController@listMember');
 // Route::get('/detail/{photocard_id?}','DreamController@detailPhotocard');
 Route::get('/clear/artisan', function() {
     Artisan::call('cache:clear');

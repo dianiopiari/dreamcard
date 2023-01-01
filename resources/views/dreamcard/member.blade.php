@@ -61,9 +61,9 @@
 						<ul class="pcoded-submenu">
 							@foreach($albums as $album)
 								@if ($slug==$album->slug)
-									<li class="active"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}">{{$album->album}}</a></li>
+									<li class="active"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}/0/0">{{$album->album}}</a></li>
 								@else
-									<li><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}">{{$album->album}}</a></li>
+									<li><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}/0/0">{{$album->album}}</a></li>
 								@endif
 							@endforeach
 						</ul>
@@ -73,9 +73,9 @@
 						<ul class="pcoded-submenu">
 							@foreach($MdThums as $mdthu)
 								@if ($slug==$mdthu->slug)
-									<li class="active"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$mdthu->slug}}">{{$mdthu->album}}</a></li>
+									<li class="active"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$mdthu->slug}}/0/0">{{$mdthu->album}}</a></li>
 								@else
-									<li><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$mdthu->slug}}">{{$mdthu->album}}</a></li>
+									<li><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$mdthu->slug}}/0/0">{{$mdthu->album}}</a></li>
 								@endif
 							@endforeach
 						</ul>
@@ -175,6 +175,11 @@
                         <a href="javascript:window.history.go(-1);" type="button" class="btn btn-dark"><i class="fa fa-arrow-left"></i>&nbsp; Back&nbsp;</a>
                         <div class="float-right">
                             @auth
+                                @if ($cek==null)
+                                    <a href="{{$_SERVER['REQUEST_URI']}}/cek" type="button" class="btn btn-warning"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp; Show My Collection &nbsp;</a>
+                                @else
+                                    <a href="{{ str_replace("/cek","",$_SERVER['REQUEST_URI']) }}" type="button" class="btn btn-secondary"><i class="fa fa-eye-slash" aria-hidden="true"></i>&nbsp; Don't Show My Collection &nbsp;</a>
+                                @endif
                                 <a href="{{ route('cart') }}/{{@$group->slug}}" type="button" class="btn btn-info"><i class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp; My Photocard &nbsp; <span class="badge badge-pill badge-danger" id="countphoto">{{$countphoto}}</span></a>
                                 <a href="{{ route('cartwtb') }}/{{@$group->slug}}" type="button" class="btn btn-danger"><i class="fa fa-heart" aria-hidden="true"></i>&nbsp; Wishlist &nbsp; <span class="badge badge-pill badge-light" id="countphotowtb"><font color="#000000">{{$countphotowhistlist }}</font></span></a>
                             @endauth
@@ -203,8 +208,16 @@
                                                 <div class="row" >
                                                     @foreach($cat['photo'] as $kb)
                                                             <div class="col-sm-1">
-                                                                <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%;">
-                                                                <div class="middle">
+                                                                @if ($cek==null)
+                                                                    <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%;">
+                                                                @else
+                                                                    @if (in_array($kb->id, $myphotocards))
+                                                                        <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%;">
+                                                                    @else
+                                                                    <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%; filter:grayscale(100%)">
+                                                                    @endif
+                                                                @endif
+                                                               <div class="middle">
                                                                     <a href="{{config('app.url')}}/photocard/{{$group->slug}}/{{$album->slug}}/{{$kb->id}}"  type="button" class="btn btn-warning textadd"><i class="feather mr-2 icon-search"></i>Detail &nbsp;</a>
                                                                 </div>
                                                             </div>

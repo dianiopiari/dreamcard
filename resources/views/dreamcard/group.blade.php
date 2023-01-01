@@ -58,9 +58,9 @@
 						<ul class="pcoded-submenu">
 							@foreach($albums as $album)
 								@if ($slug==$album->slug)
-									<li class="active"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}">{{$album->album}}</a></li>
+									<li class="active"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}/0/0">{{$album->album}}</a></li>
 								@else
-									<li><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}">{{$album->album}}</a></li>
+									<li><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}/0/0">{{$album->album}}</a></li>
 								@endif
 							@endforeach
 						</ul>
@@ -70,9 +70,9 @@
 						<ul class="pcoded-submenu">
 							@foreach($MdThums as $mdthu)
 								@if ($slug==$mdthu->slug)
-									<li class="active"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$mdthu->slug}}">{{$mdthu->album}}</a></li>
+									<li class="active"><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$mdthu->slug}}/0/0">{{$mdthu->album}}</a></li>
 								@else
-									<li><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$mdthu->slug}}">{{$mdthu->album}}</a></li>
+									<li><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$mdthu->slug}}/0/0">{{$mdthu->album}}</a></li>
 								@endif
 							@endforeach
 						</ul>
@@ -197,7 +197,7 @@
                         <div class="row">
                             @foreach($albumsThum as $albs)
 								<div class="col-sm-2">
-                                    <a href="{{config('app.url')}}/app/{{$group->slug}}/{{$albs->slug}}"><img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$albs->photo}}" alt="Card image cap"></a>
+                                    <a href="{{config('app.url')}}/app/{{$group->slug}}/{{$albs->slug}}/0/0"><img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$albs->photo}}" alt="Card image cap"></a>
                                     <div class="card-body">
                                         <h5 class="card-title">{{$albs->album}}</h5>
 										<p class="card-text">{{$albs->tahun}}</p>

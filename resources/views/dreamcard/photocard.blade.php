@@ -251,7 +251,7 @@
                                                     <tr>
                                                         <td>From</td>
                                                         <td>
-                                                            <a href="{{config('app.url')}}/appc/{{@$photocard->groupp->slug}}/{{@$photocard->albump->slug}}/{{@$photocard->channelp->id}}">{{@$photocard->albump->album}}
+                                                            <a href="{{config('app.url')}}/app/{{@$photocard->groupp->slug}}/{{@$photocard->albump->slug}}/{{@$photocard->channelp->id}}">{{@$photocard->albump->album}}
                                                                 {{@$photocard->channelp->channel}}
                                                                 @switch(@$photocard->channelp->kategori_id)
                                                                     @case(0)
