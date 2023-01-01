@@ -44,22 +44,23 @@
 		<div class="navbar-wrapper  ">
 			<div class="navbar-content scroll-div " >
 				<ul class="nav pcoded-inner-navbar ">
-					<li class="nav-item pcoded-hasmenu active pcoded-trigger">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Member {{@$group->group_name}}</span></a>
-						<ul class="pcoded-submenu">
-                            @foreach($members as $member)
-                            <li><a href="{{config('app.url')}}/member/{{$group->slug}}/{{$member->slug}}">{{$member->member_name}}</a></li>
-							@endforeach
-						</ul>
+                    <li class="nav-item pcoded-menu-caption">
+					    <label>My Collection</label>
 					</li>
-					<li class="nav-item pcoded-hasmenu  pcoded-trigger">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Album {{@$group->group_name}}</span></a>
-						<ul class="pcoded-submenu">
-							@foreach($albums as $album)
-								<li><a href="{{config('app.url')}}/app/{{$group->slug}}/{{$album->slug}}">{{$album->album}}</a></li>
-							@endforeach
-						</ul>
+                    <li class="nav-item">
+					    <a href="{{config('app.url')}}/temp/cart" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">All Photocard</span></a>
 					</li>
+                    @foreach ($sideMenu as $item)
+                        <li class="nav-item pcoded-hasmenu  pcoded-trigger">
+                                <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext"> {{@$item['group']->group_name}}</span></a>
+                                <ul class="pcoded-submenu">
+                                    <li><a href="{{config('app.url')}}/temp/cart/{{@$item['group']->slug}}">All {{@$item['group']->group_name}}</a></li>
+                                    @foreach($item['channel'] as $album)
+                                        <li><a href="{{config('app.url')}}/temp/cart/{{@$item['group']->slug}}/{{$album->slug}}">{{$album->album}}</a></li>
+                                    @endforeach
+                                </ul>
+                        </li>
+                    @endforeach
 				</ul>
 			</div>
 		</div>
@@ -132,7 +133,7 @@
 				<div class="row align-items-center">
 					<div class="col-md-12">
 						<div class="page-header-title">
-							<h5 class="m-b-10">Group</h5>
+							<h5 class="m-b-10">Hai</h5>
 						</div>
 					</div>
 				</div>
