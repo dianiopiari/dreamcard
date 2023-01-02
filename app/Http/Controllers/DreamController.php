@@ -840,6 +840,8 @@ class DreamController extends Controller
             }else{
                 $pic_back=config('app.url')."/".config('app.str')."/images/default_back.jpg";
             }
+
+            $otherPhotocard = MPhotocard::where('channel_id','=',$photocard->channel_id)->get();
         }
         $albums=[];
         $members=[];
@@ -864,7 +866,10 @@ class DreamController extends Controller
                         ->where('user_id','=',auth('web')->user()->id)
                         ->first();
             }
+
+
+
         }
-        return view('dreamcard.photocard',compact('photocard','pic_front','pic_back','page_id','url','albums','members','group','MdThums','countphoto','countphotowhistlist','isExist','isExistWhislist'));
+        return view('dreamcard.photocard',compact('photocard','pic_front','pic_back','page_id','url','albums','members','group','MdThums','countphoto','countphotowhistlist','isExist','isExistWhislist','otherPhotocard'));
     }
 }
