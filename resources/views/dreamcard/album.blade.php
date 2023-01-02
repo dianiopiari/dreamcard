@@ -223,7 +223,7 @@
                                                 <button onClick="Data.addPhotocard('{{$kb->id}}')" class="btn btn-info text"><i class="feather mr-2 icon-briefcase" aria-hidden="true"></i></button>
                                                 <button onClick="Data.addPhotocardwtb('{{$kb->id}}')" class="btn btn-danger text"><i class="feather mr-2 icon-heart" aria-hidden="true"></i></button>
                                             @else
-                                            <a href="{{config('app.url')}}/photocard/{{$group->slug}}/{{$album->slug}}/{{$kb->id}}"  type="button" class="btn btn-warning text"><i class="feather mr-2 icon-search"></i>Detail &nbsp;</a>
+                                            <a href="{{config('app.url')}}/photocard/{{$group->slug}}/{{$album->slug}}/{{$kb->id}}"  type="button" class="btn btn-warning textadd"><i class="feather mr-2 icon-search"></i>Detail &nbsp;</a>
                                             @endauth
                                         </div>
 									</div>
