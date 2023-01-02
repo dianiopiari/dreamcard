@@ -418,6 +418,7 @@ class DreamController extends Controller
         $group = MGroup::findOrFail($photocard->group_id);
         $member = MMember::findOrFail($photocard->member_id);
         $userid = auth('web')->user()->id;
+        $exist=0;
         if($userid!=0){
             $isExist = TPhotocard::where('photocard_id', '=', $photocard->id)
                         ->where('user_id','=',$userid)
@@ -427,10 +428,15 @@ class DreamController extends Controller
                 $tphotocard->photocard_id = $photocard->id;
                 $tphotocard->user_id = auth('web')->user()->id;
                 $tphotocard->save();
+            }else{
+                $exist=1;
             }
         }
         $countphoto = TPhotocard::where('user_id','=',auth('web')->user()->id)->count();
-        return response()->json(["countphoto"=>$countphoto]);
+        return response()->json([
+            "countphoto"=>$countphoto,
+            "exist"=>$exist
+        ]);
      }
 
     public function remove(Request $request)
@@ -560,6 +566,7 @@ class DreamController extends Controller
         $member = MMember::findOrFail($photocard->member_id);
         $userid = auth('web')->user()->id;
         $countphotowish=0;
+        $exist=0;
         if($userid!=0){
             $isExist = TphotocardWishlist::where('photocard_id', '=', $photocard->id)
                         ->where('user_id','=',$userid)
@@ -569,11 +576,16 @@ class DreamController extends Controller
                 $tphotocard->photocard_id = $photocard->id;
                 $tphotocard->user_id = auth('web')->user()->id;
                 $tphotocard->save();
+            }else{
+                $exist=1;
             }
             $countphotowish = TphotocardWishlist::where('user_id','=',auth('web')->user()->id)->count();
         }
         $countphoto=$countphotowish;
-        return response()->json(["countphoto"=>$countphoto]);
+        return response()->json([
+            "countphoto"=>$countphoto,
+            "exist"=>$exist
+        ]);
     }
 
     public function cartwtb($namagroup=null,$slugalbum=null,$slugchannel=null)

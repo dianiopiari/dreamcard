@@ -177,7 +177,7 @@
                                             <div class="row">
                                                 @foreach($cart as $details)
                                                     <div class="col-sm-2">
-                                                        <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{ $details['pic_front'] }}" alt="Card image cap"  style="height: 90%">
+                                                        <img class="img-fluid card-img-top cover" src="{{config('app.url')}}/{{config('app.str')}}/{{ $details['pic_front'] }}" alt="Card image cap" style="height: 280px;width: auto; -o-object-fit: contain;">
                                                         <div class="middle" style="justify-content: left">
                                                             <a href="#"  type="button" class="btn btn-default text" onClick="Data.deletePhotocard('{{ $details['photo_id'] }}')"><i class="feather mr-2 icon-trash"></i>Delete&nbsp;</a>
                                                         </div>

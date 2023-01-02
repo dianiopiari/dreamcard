@@ -218,7 +218,14 @@
                                                                     @endif
                                                                 @endif
                                                                <div class="middle">
-                                                                    <a href="{{config('app.url')}}/photocard/{{$group->slug}}/{{$album->slug}}/{{$kb->id}}"  type="button" class="btn btn-warning textadd"><i class="feather mr-2 icon-search"></i>Detail &nbsp;</a>
+                                                                    {{-- <a href="{{config('app.url')}}/photocard/{{$group->slug}}/{{$album->slug}}/{{$kb->id}}"  type="button" class="btn btn-warning textadd"><i class="feather mr-2 icon-search"></i>Detail &nbsp;</a> --}}
+                                                                    @auth
+                                                                        <a href="{{config('app.url')}}/photocard/{{$group->slug}}/{{$album->slug}}/{{$kb->id}}"  type="button" class="btn btn-warning text"><i class="feather mr-2 icon-search"></i></a>
+                                                                        <button onClick="Data.addPhotocard('{{$kb->id}}')" class="btn btn-info text"><i class="feather mr-2 icon-briefcase" aria-hidden="true"></i></button>
+                                                                        <button onClick="Data.addPhotocardwtb('{{$kb->id}}')" class="btn btn-danger text"><i class="feather mr-2 icon-heart" aria-hidden="true"></i></button>
+                                                                    @else
+                                                                    <a href="{{config('app.url')}}/photocard/{{$group->slug}}/{{$album->slug}}/{{$kb->id}}"  type="button" class="btn btn-warning text"><i class="feather mr-2 icon-search"></i>Detail &nbsp;</a>
+                                                                    @endauth
                                                                 </div>
                                                             </div>
                                                     @endforeach
@@ -241,5 +248,46 @@
 <script src="{{asset('/theme/ablepro/assets/js/plugins/bootstrap.min.js')}}"></script>
 <script src="{{asset('/theme/ablepro/assets/js/ripple.js')}}"></script>
 <script src="{{asset('/theme/ablepro/assets/js/pcoded.min.js')}}"></script>
+<script src="{{asset('/theme/ablepro/assets/js/sweetalert.min.js')}}"></script>
+<script>
+    var Data = {
+        "addPhotocard" : function(photocard_id){
+            $.ajax({
+                url:"{{config('app.url')}}/tmp/add-to-cart" + '/' + photocard_id,
+                type:  'get',
+                dataType: "json",
+                beforeSend: function() {
+                    $("#loading-image").show();
+                },
+                success: function(response) {
+                    $('span#countphoto').html(response.countphoto);
+                    if(response.exist==1){
+                        swal("Opps!", "Photocard already save on your data!", "warning");
+                    }else{
+                        swal("Good job!", "Photocard add to your data!", "success");
+                    }
+                }
+            })
+        },
+        "addPhotocardwtb" : function(photocard_id){
+            $.ajax({
+                url:"{{config('app.url')}}/tmp/add-to-cart-wtb" + '/' + photocard_id,
+                type:  'get',
+                dataType: "json",
+                beforeSend: function() {
+                    $("#loading-image").show();
+                },
+                success: function(response) {
+                    $('span#countphotowtb').html(response.countphoto);
+                    if(response.exist==1){
+                        swal("Opps!", "Photocard already save on your wishlist!", "warning");
+                    }else{
+                        swal("Good job!", "Photocard add to your wishlist!", "success");
+                    }
+                }
+            })
+        }
+    };
+</script>
 </body>
 </html>
