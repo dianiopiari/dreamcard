@@ -377,6 +377,7 @@ class DreamController extends Controller
             $vipot_columns=[];
             foreach ($allalbums as $key => $album) {
                 $channels = MChannel::where('m_channel.album_id','=',$album->id)
+                                    ->where('m_photocard.member_id','=',$member->id)
                                     ->select('kategori_id',DB::raw('if(kategori_id=0,"Album Inclusions",if(kategori_id=1,"Fansign/POB","Other Photocard")) as channel'))
                                     ->join('m_photocard','m_photocard.channel_id','=','m_channel.id')
                                     ->groupBy('m_channel.kategori_id')->get();
