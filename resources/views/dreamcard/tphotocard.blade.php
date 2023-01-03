@@ -132,58 +132,151 @@
 				</div>
 			</div>
 		</div>
+        <div class="row">
+            <div class="col-xl-3 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-10">
+                                <h3>{{$totgroup}}</h3>
+                                <h6 class="text-muted m-b-0">Artis/Group<i class="fa fa-caret-down text-c-red m-l-10"></i></h6>
+                            </div>
+                            <div class="col-2">
+                                <i class="feather icon-bar-chart-2 f-28"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-10">
+                                <h3>{{$totalbum}}</h3>
+                                <h6 class="text-muted m-b-0">Album<i class="fa fa-caret-up text-c-green m-l-10"></i></h6>
+                            </div>
+                            <div class="col-2">
+                                <i class="feather icon-bar-chart-2 f-28"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-10">
+                                <h3>{{$totmd}}</h3>
+                                <h6 class="text-muted m-b-0">MD/Event<i class="fa fa-caret-down text-c-red m-l-10"></i></h6>
+                            </div>
+                            <div class="col-2">
+                                <i class="feather icon-bar-chart-2 f-28"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-10">
+                                <h3>{{$totphotocard}}</h3>
+                                <h6 class="text-muted m-b-0">Photocard<i class="fa fa-caret-down text-c-red m-l-10"></i></h6>
+                            </div>
+                            <div class="col-2">
+                                <i class="feather icon-bar-chart-2 f-28"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header">
                         <a href="javascript:window.history.go(-1);" type="button" class="btn btn-dark"><i class="fa fa-arrow-left"></i>&nbsp; Back&nbsp;</a>
+                        <a href="#" type="button" class="btn btn-warning"><i class="fa fa-arrow"></i>&nbsp; View As Photocard&nbsp;</a>
                         <div class="float-right">
                             <button  onClick="Data.clear()" class="btn btn-info"><i class="feather mr-2 icon-trash"></i>Clear Data All </button>
                             <button  id="btn-Convert-Html2Image"  class="btn btn-danger"><i class="feather mr-2 icon-camera"></i>Download Template</button>
                             <button  id="btn-Convert-Html2Image-without" class="btn btn-success"><i class="feather mr-2 icon-camera"></i>Download Without Background </button>
                         </div>
                     </div>
-                    <div class="card-body" id="html-content-holder">
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-md-12">
-                                <div class="card p-3 py-4" id="html-content-holder">
-                                    <div class="p-3 py-4" id="html-without-background">
-                                        <div class="text-center mt-3">
-                                            <div class="card-body">
-                                                <h1><b>My Photocard Collection</b></h1>
-                                                <h5 class="mt-2 mb-0">&nbsp;</h5>
-                                                @if($hastag)
-                                                    <span class="badge badge-primary">{{$hastag['tipe']}}</span>&nbsp;
-                                                    <span class="badge badge-secondary">{{$hastag['photo']}}</span>&nbsp;
-                                                    @foreach($hastag['group'] as $id => $groups)
-                                                        <span class="badge badge-success">{{$groups['group']}}</span>
-                                                    @endforeach
-                                                    @foreach($hastag['member'] as $id => $members)
-                                                        <span class="badge badge-danger">{{$members['member']}}</span>
-                                                    @endforeach
-                                                    @foreach($hastag['album'] as $id => $albums)
-                                                        <span class="badge badge-info">{{$albums['album']}}</span>
-                                                    @endforeach
+                    @if ($tipe==1)
+                        <div class="card-body" id="html-content-holder">
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-md-12">
+                                    <div class="card p-3 py-4" id="html-content-holder">
+                                        <div class="p-3 py-4" id="html-without-background">
+                                            <div class="text-center mt-3">
+                                                <div class="card-body">
+                                                    <h1><b>My Photocard Collection</b></h1>
                                                     <h5 class="mt-2 mb-0">&nbsp;</h5>
-                                                @endif
-                                            </div>
-                                            <div class="row">
-                                                @foreach($cart as $details)
-                                                    <div class="col-sm-2 containerx">
-                                                        <img class="img-fluid card-img-top cover" src="{{config('app.url')}}/{{config('app.str')}}/{{ $details['pic_front'] }}" alt="Card image cap" style="height: 270px;width: auto; -o-object-fit: contain;">
-                                                        <div class="middlex" style="justify-content: left">
-                                                            <a href="#"  type="button" class="btn btn-default textx" onClick="Data.deletePhotocard('{{ $details['photo_id'] }}')"><i class="feather mr-2 icon-trash"></i>Delete&nbsp;</a>
+                                                    @if($hastag)
+                                                        <span class="badge badge-primary">{{$hastag['tipe']}}</span>&nbsp;
+                                                        <span class="badge badge-secondary">{{$hastag['photo']}}</span>&nbsp;
+                                                        @foreach($hastag['group'] as $id => $groups)
+                                                            <span class="badge badge-success">{{$groups['group']}}</span>
+                                                        @endforeach
+                                                        @foreach($hastag['member'] as $id => $members)
+                                                            <span class="badge badge-danger">{{$members['member']}}</span>
+                                                        @endforeach
+                                                        @foreach($hastag['album'] as $id => $albums)
+                                                            <span class="badge badge-info">{{$albums['album']}}</span>
+                                                        @endforeach
+                                                        <h5 class="mt-2 mb-0">&nbsp;</h5>
+                                                    @endif
+                                                </div>
+                                                <div class="row">
+                                                    @foreach($cart as $details)
+                                                        <div class="col-sm-2 containerx">
+                                                            <img class="img-fluid card-img-top cover" src="{{config('app.url')}}/{{config('app.str')}}/{{ $details['pic_front'] }}" alt="Card image cap" style="height: 270px;width: auto; -o-object-fit: contain;">
+                                                            <div class="middlex" style="justify-content: left">
+                                                                <a href="#"  type="button" class="btn btn-default textx" onClick="Data.deletePhotocard('{{ $details['photo_id'] }}')"><i class="feather mr-2 icon-trash"></i>Delete&nbsp;</a>
+                                                            </div>
+                                                            <h5 style="padding-top: 10px">({{ $details['channel'] }})</h5>
                                                         </div>
-                                                        <h5 style="padding-top: 10px">({{ $details['channel'] }})</h5>
-                                                    </div>
-                                                @endforeach
+                                                    @endforeach
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-					</div>
+                    @else
+                        <div class="card-body" id="html-content-holder">
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-md-12">
+                                    <div class="card p-3 py-4" id="html-content-holder">
+                                        <div class="p-3 py-4" id="html-without-background">
+                                            <div class="text-center mt-3">
+                                                <div class="card-body">
+                                                    <h1><b>My Collection</b></h1>
+                                                    <hr>
+                                                </div>
+                                                <div class="row">
+                                                    @foreach($cartalbum as $details)
+                                                        <div class="col-sm-2 containerx">
+                                                            <h5 style="padding-top: 10px" class="float-right">{{$details->total}}/100</h5>
+                                                            <img class="img-fluid card-img-top cover" src="{{config('app.url')}}/{{config('app.str')}}/{{ $details->photo }}" alt="Card image cap" style="height: 250;width: auto; -o-object-fit: contain;">
+                                                            <h5 style="padding-top: 10px">({{ $details->album }})</h5>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- end --}}
+                    @endif
+                    {{-- view album --}}
 				</div>
 			</div>
 		</div>
