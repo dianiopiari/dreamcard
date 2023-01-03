@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>K-DreamCard</title>
+	<title>Album</title>
 	<!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 11]>
@@ -22,15 +22,7 @@
 	<link rel="stylesheet" href="{{asset('/theme/ablepro/assets/css/style.css')}}">
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1VQDNKKF6L"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-1VQDNKKF6L');
-    </script>
-
+    @include('dreamcard.analyticstracking')
 </head>
 <body class="">
 	<!-- [ Pre-loader ] start -->
