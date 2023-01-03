@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Photocard</title>
+	<title>Photocard {{@$photocard->groupp->group_name}} - {{@$photocard->memberp->member_name}} - {{@$photocard->albump->album}}</title>
 	<!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 11]>

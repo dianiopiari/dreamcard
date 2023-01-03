@@ -407,7 +407,7 @@ class DreamController extends Controller
             $countphoto = TPhotocard::where('user_id','=',auth('web')->user()->id)->count();
             $countphotowhistlist = TphotocardWishlist::where('user_id','=',auth('web')->user()->id)->count();
         }
-        return view('dreamcard.member',compact('vipot_columns','members','group','slug','group_slug','albums','countphoto','countphotowhistlist','MdThums','myphotocards','cek'));
+        return view('dreamcard.member',compact('vipot_columns','members','group','slug','group_slug','albums','countphoto','countphotowhistlist','MdThums','myphotocards','cek','member'));
     }
 
     public function addToCart($id)
