@@ -344,16 +344,17 @@ class DreamController extends Controller
     {
         $group= MGroup::where('slug','=',$group_slug)->first();
         $member = MMember::where('slug','=',$slug)->first();
-        // if($slug!=0){
-        //     $member = MMember::where('slug','=',$slug)->first();
-        // }else{
-        //     $member = MMember::first();
-        // }
         $members = MMember::where('group_id','=',$group->id)->get();
         if($group!=null){
             $albums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
             $MdThums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',1)->orderBy('order','desc')->get();
-            $allalbums = MAlbum::where('group_id','=',$group->id)->orderBy('order','desc')->get();
+            $allalbums = MAlbum::where('m_album.group_id','=',$group->id)
+                         ->select("m_album.*")
+                         ->join('m_photocard','m_photocard.album_id','=','m_album.id')
+                         ->where('m_photocard.member_id','=',$member->id)
+                         ->orderBy('order','desc')
+                         ->distinct()
+                         ->get();
 
             //cek dengan koleksi
             $myphotocards=array();
@@ -373,12 +374,11 @@ class DreamController extends Controller
             }
 
             //menampilkan sesuai dengan masterdata
-            $photocards = MPhotocard::where('group_id','=',$group->id)
-                                    ->where('member_id','=',$member->id);
             $vipot_columns=[];
             foreach ($allalbums as $key => $album) {
-                $channels = MChannel::where('album_id','=',$album->id)
+                $channels = MChannel::where('m_channel.album_id','=',$album->id)
                                     ->select('kategori_id',DB::raw('if(kategori_id=0,"Album Inclusions",if(kategori_id=1,"Fansign/POB","Other Photocard")) as channel'))
+                                    ->join('m_photocard','m_photocard.channel_id','=','m_channel.id')
                                     ->groupBy('m_channel.kategori_id')->get();
                 $vipot_cat_photo=[];
                 foreach ($channels as $keyc => $channel) {
