@@ -468,15 +468,18 @@ class DreamController extends Controller
         session()->flash('success', 'Product removed successfully');
     }
 
-    public function cart($namagroup,$slugalbum=null,$slugchannel=null, $tipe=null)
+    public function cart(Request $request, $namagroup,$slugalbum=null,$slugchannel=null, $tipe=null)
     {
         if(auth('web')->user()==null){
             return view('dreamcard.notfound');
         }
+        $view = $request->viewas;
+        //dd($view);
         $hastag=[];
         $album=[];
         $member=[];
         $group=[];
+        $vipotalbum=[];
         $userid=auth('web')->user()->id;
 
         //total artis yang di ikuti
@@ -505,46 +508,59 @@ class DreamController extends Controller
         //total photocard
         $totphotocard = TPhotocard::where('t_photocard.user_id','=',$userid)->count();
 
-        $cart = TPhotocard::join('m_photocard','m_photocard.id','=','t_photocard.photocard_id')
-                            ->join('m_channel','m_photocard.channel_id','=','m_channel.id')
-                            ->join('m_album','m_photocard.album_id','=','m_album.id')
-                            ->join('m_member','m_photocard.member_id','=','m_member.id')
-                            ->join('m_group','m_photocard.group_id','=','m_group.id')
-                                    ->select('t_photocard.id'
-                                    ,'m_photocard.id as photo_id'
-                                    ,'m_photocard.album_id'
-                                    ,'m_photocard.member_id','m_photocard.group_id'
-                                    ,'m_photocard.pic_front'
-                                    ,'m_channel.channel'
-                                    ,'m_album.id as album_id' ,'m_album.album'
-                                    ,'m_member.id as member_id' ,'m_member.member_name as member'
-                                    ,'m_group.id as group_id' ,'m_group.group_name as group'
-                                    )
-                                    ->where('t_photocard.user_id','=',$userid);
+        if($view ==1){
+            $cart = TPhotocard::join('m_photocard','m_photocard.id','=','t_photocard.photocard_id')
+                    ->join('m_channel','m_photocard.channel_id','=','m_channel.id')
+                    ->join('m_album','m_photocard.album_id','=','m_album.id')
+                    ->join('m_member','m_photocard.member_id','=','m_member.id')
+                    ->join('m_group','m_photocard.group_id','=','m_group.id')
+                            ->select('t_photocard.id'
+                            ,'m_photocard.id as photo_id'
+                            ,'m_photocard.album_id'
+                            ,'m_photocard.member_id','m_photocard.group_id'
+                            ,'m_photocard.pic_front'
+                            ,'m_channel.channel'
+                            ,'m_album.id as album_id' ,'m_album.album'
+                            ,'m_member.id as member_id' ,'m_member.member_name as member'
+                            ,'m_group.id as group_id' ,'m_group.group_name as group'
+                            )
+                            ->where('t_photocard.user_id','=',$userid);
+            if($namagroup!=null || $namagroup!=0){
+            $cart = $cart->where('m_group.slug','=',$namagroup);
+            }
+            if($slugalbum!=null  || $slugalbum!=0){
+                $cart = $cart->where('m_album.slug','=',$slugalbum);
+            }
+            $cart = $cart->get();
+        }else{
+             //cart album
+            $cart = TPhotocard::join('m_photocard','m_photocard.id','=','t_photocard.photocard_id')
+                ->join('m_channel','m_photocard.channel_id','=','m_channel.id')
+                ->join('m_album','m_photocard.album_id','=','m_album.id')
+                ->join('m_member','m_photocard.member_id','=','m_member.id')
+                ->join('m_group','m_photocard.group_id','=','m_group.id')
+                        ->select(
+                            'm_group.slug',
+                            'm_album.slug',
+                            'm_album.album',
+                            'm_album.photo',
+                            'm_album.id as album_id',
+                            'm_group.id as group_id',
+                            'm_group.group_name as group',
+                            DB::raw('COUNT(t_photocard.id) AS total')
+                        )
+                        ->where('t_photocard.user_id','=',$userid)
+                        ->groupBy('m_group.slug','m_album.slug','m_album.album','m_album.photo','m_album.id','m_group.id','m_group.group_name')->get();
 
-        //cart album
-        $cartalbum = TPhotocard::join('m_photocard','m_photocard.id','=','t_photocard.photocard_id')
-                            ->join('m_channel','m_photocard.channel_id','=','m_channel.id')
-                            ->join('m_album','m_photocard.album_id','=','m_album.id')
-                            ->join('m_member','m_photocard.member_id','=','m_member.id')
-                            ->join('m_group','m_photocard.group_id','=','m_group.id')
-                                    ->select(
-                                        'm_group.slug',
-                                        'm_album.slug',
-                                        'm_album.album',
-                                        'm_album.photo',
-                                         DB::raw('COUNT(t_photocard.id) AS total')
-                                    )
-                                    ->where('t_photocard.user_id','=',$userid)
-                                    ->groupBy('m_group.slug','m_album.slug','m_album.album','m_album.photo')->get();
-
-       if($namagroup!=null || $namagroup!=0){
-        $cart = $cart->where('m_group.slug','=',$namagroup);
+            foreach ($cart  as $key => $value) {
+                # tentukan jumlah photocard dalam album
+                $totalphotocardalbum = MPhotocard::where('album_id','=',$value->album_id)->count();
+                $vipotalbum[$key]=[
+                    "album" => $value,
+                    "total" => $totalphotocardalbum
+                ];
+            }
        }
-       if($slugalbum!=null  || $slugalbum!=0){
-            $cart = $cart->where('m_album.slug','=',$slugalbum);
-        }
-        $cart = $cart->get();
        foreach ($cart  as $key => $value) {
             $album[$value['album_id']]=[
                 "album" => $value['album']
@@ -565,39 +581,38 @@ class DreamController extends Controller
         $hastag=[
             "tipe" =>"#MyPhotocard",
             "photo" =>"#Photocard",
+            "tipealbum" =>"#MyAlbum",
             "group" =>$group,
             "album" =>$album,
             "member"=>$member
         ];
+
+        //Membuat dinasmis menu sesuai menu disamping
         $albums=[];
         $members=[];
         $sideMenu=[];
-        if($group_id!=0){
-            $group= MGroup::where('id','=',$group_id)->first();
-            $groups = TPhotocard::join('m_photocard','m_photocard.id','=','t_photocard.photocard_id')
-                        ->join('m_group','m_group.id','=','m_photocard.group_id')
-                        ->select('m_group.id','m_group.group_name','m_group.slug')
+        $groups = TPhotocard::join('m_photocard','m_photocard.id','=','t_photocard.photocard_id')
+                    ->join('m_group','m_group.id','=','m_photocard.group_id')
+                    ->select('m_group.id','m_group.group_name','m_group.slug')
+                    ->where('t_photocard.user_id','=',$userid)
+                    ->groupBy('m_group.id','m_group.group_name','m_group.slug')
+                    ->get();
+        foreach ($groups as $key => $group) {
+            $albums = TPhotocard::join('m_photocard','m_photocard.id','=','t_photocard.photocard_id')
+                        ->join('m_album','m_album.id','=','m_photocard.album_id')
+                        ->select('m_album.id','m_album.album','m_album.slug')
                         ->where('t_photocard.user_id','=',$userid)
-                        ->groupBy('m_group.id','m_group.group_name','m_group.slug')
+                        ->where('m_photocard.group_id','=',$group->id)
+                        ->groupBy('m_album.id','m_album.album','m_album.slug')
                         ->get();
-            foreach ($groups as $key => $group) {
-                //mencari channel
-                $albums = TPhotocard::join('m_photocard','m_photocard.id','=','t_photocard.photocard_id')
-                            ->join('m_album','m_album.id','=','m_photocard.album_id')
-                            ->select('m_album.id','m_album.album','m_album.slug')
-                            ->where('t_photocard.user_id','=',$userid)
-                            ->where('m_photocard.group_id','=',$group->id)
-                            ->groupBy('m_album.id','m_album.album','m_album.slug')
-                            ->get();
-                # code...
-                $sideMenu[$key]=[
-                    "group"=>$group,
-                    "channel"=>$albums,
-                ];
-            }
-            $members = MMember::where('group_id','=',$group->id)->get();
+            # code...
+            $sideMenu[$key]=[
+                "group"=>$group,
+                "channel"=>$albums,
+            ];
+
         }
-        return view('dreamcard.tphotocard',compact('hastag','namagroup','albums','members','group','cart','sideMenu','tipe','cartalbum','totgroup','totalbum','totmd','totphotocard'));
+        return view('dreamcard.tphotocard',compact('hastag','namagroup','albums','cart','sideMenu','tipe','totgroup','totalbum','totmd','totphotocard','view','vipotalbum'));
     }
 
 

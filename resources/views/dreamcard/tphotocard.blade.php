@@ -47,9 +47,9 @@
                         <li class="nav-item pcoded-hasmenu  pcoded-trigger">
                                 <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext"> {{@$item['group']->group_name}}</span></a>
                                 <ul class="pcoded-submenu">
-                                    <li><a href="{{config('app.url')}}/temp/cart/{{@$item['group']->slug}}">All {{@$item['group']->group_name}}</a></li>
+                                    <li><a href="{{config('app.url')}}/temp/cart/{{@$item['group']->slug}}?viewas=1">All {{@$item['group']->group_name}}</a></li>
                                     @foreach($item['channel'] as $album)
-                                        <li><a href="{{config('app.url')}}/temp/cart/{{@$item['group']->slug}}/{{$album->slug}}">{{$album->album}}</a></li>
+                                        <li><a href="{{config('app.url')}}/temp/cart/{{@$item['group']->slug}}/{{$album->slug}}?viewas=1">{{$album->album}}</a></li>
                                     @endforeach
                                 </ul>
                         </li>
@@ -199,14 +199,19 @@
 				<div class="card">
 					<div class="card-header">
                         <a href="javascript:window.history.go(-1);" type="button" class="btn btn-dark"><i class="fa fa-arrow-left"></i>&nbsp; Back&nbsp;</a>
-                        <a href="#" type="button" class="btn btn-warning"><i class="fa fa-arrow"></i>&nbsp; View As Photocard&nbsp;</a>
+                        {{-- <a href="#" type="button" class="btn btn-warning"><i class="fa fa-arrow"></i>&nbsp; View As Photocard&nbsp;</a> --}}
+                        @if ($view==1)
+                            <a href="{{config('app.url')}}/temp/cart?viewas=0" class="btn btn-primary"><i class="feather mr-2 icon-file"></i>View As Album</a>
+                        @else
+                            <a href="{{config('app.url')}}/temp/cart?viewas=1" class="btn btn-primary"><i class="feather mr-2 icon-smartphone"></i>View As Photocard</a>
+                        @endif
                         <div class="float-right">
                             <button  onClick="Data.clear()" class="btn btn-info"><i class="feather mr-2 icon-trash"></i>Clear Data All </button>
                             <button  id="btn-Convert-Html2Image"  class="btn btn-danger"><i class="feather mr-2 icon-camera"></i>Download Template</button>
                             <button  id="btn-Convert-Html2Image-without" class="btn btn-success"><i class="feather mr-2 icon-camera"></i>Download Without Background </button>
                         </div>
                     </div>
-                    @if ($tipe==1)
+                    @if ($view==1)
                         <div class="card-body" id="html-content-holder">
                             <div class="row d-flex justify-content-center">
                                 <div class="col-md-12">
@@ -257,14 +262,29 @@
                                             <div class="text-center mt-3">
                                                 <div class="card-body">
                                                     <h1><b>My Collection</b></h1>
+                                                    <h5 class="mt-2 mb-0">&nbsp;</h5>
+                                                    @if($hastag)
+                                                        <span class="badge badge-primary">{{$hastag['tipealbum']}}</span>&nbsp;
+                                                        <span class="badge badge-secondary">{{$hastag['photo']}}</span>&nbsp;
+                                                        @foreach($hastag['group'] as $id => $groups)
+                                                            <span class="badge badge-success">{{$groups['group']}}</span>
+                                                        @endforeach
+                                                        @foreach($hastag['member'] as $id => $members)
+                                                            <span class="badge badge-danger">{{$members['member']}}</span>
+                                                        @endforeach
+                                                        @foreach($hastag['album'] as $id => $albums)
+                                                            <span class="badge badge-info">{{$albums['album']}}</span>
+                                                        @endforeach
+                                                        <h5 class="mt-2 mb-0">&nbsp;</h5>
+                                                    @endif
                                                     <hr>
                                                 </div>
                                                 <div class="row">
-                                                    @foreach($cartalbum as $details)
+                                                    @foreach($vipotalbum as $details)
                                                         <div class="col-sm-2 containerx">
-                                                            <h5 style="padding-top: 10px" class="float-right">{{$details->total}}/100</h5>
-                                                            <img class="img-fluid card-img-top cover" src="{{config('app.url')}}/{{config('app.str')}}/{{ $details->photo }}" alt="Card image cap" style="height: 250;width: auto; -o-object-fit: contain;">
-                                                            <h5 style="padding-top: 10px">({{ $details->album }})</h5>
+                                                            <h5 style="padding-top: 10px" class="float-right">{{$details['album']->total}}/{{$details['total']}}</h5>
+                                                            <img class="img-fluid card-img-top cover" src="{{config('app.url')}}/{{config('app.str')}}/{{ $details['album']->photo }}" alt="Card image cap" style="height: 250;width: auto; -o-object-fit: contain;">
+                                                            <h5 style="padding-top: 10px">({{ $details['album']->album }})</h5>
                                                         </div>
                                                     @endforeach
                                                 </div>
@@ -325,7 +345,21 @@
                     });
                 }
             }
+            // ,
+            // "viewphoto" : function(){
+            //    $.ajax({
+            //             url: '{{config('app.url')}}/temp/cart',
+            //             method: "GET",
+            //             data: {
+            //                 viewas: '1'
+            //             },
+            //             success: function (response) {
+            //                 //window.location.reload();
+            //             }
+            //     });
+            // }
         };
+
         $(document).ready(function() {
             // Global variable
             var element = $("#html-content-holder");
