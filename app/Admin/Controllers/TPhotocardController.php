@@ -86,11 +86,11 @@ class TPhotocardController extends AdminController
     {
         $member_id = $request->get('q');
         $member = MMember::where("id",'=',$member_id)->first();
-        return MAlbum::where('group_id', $member->group_id)->get(['id', DB::raw('album as text')]);
+        return MAlbum::where('group_id', $member->group_id)->orderBy('id','desc')->get(['id', DB::raw('album as text')]);
     }
     public function channel(Request $request)
     {
         $album_id = $request->get('q');
-        return MChannel::where('album_id', $album_id)->get(['id', DB::raw('channel as text')]);
+        return MChannel::where('album_id', $album_id)->orderBy('id','desc')->get(['id', DB::raw('channel as text')]);
     }
 }
