@@ -193,7 +193,10 @@
                                     <a href="{{config('app.url')}}/app/{{$group->slug}}/{{$albs->slug}}/0/0"><img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$albs->photo}}" alt="Card image cap"></a>
                                     <div class="card-body">
                                         <h5 class="card-title">{{$albs->album}}</h5>
-										<p class="card-text">{{$albs->tahun}}</p>
+                                        <div id="textbox" style="clear: both;">
+                                            <p style="float: left">{{$albs->tahun}}</p>
+                                            <p style="float: right;"><b>{{$albs->jumlah_phoca}}</b><small>pcs</small></p>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
@@ -215,7 +218,10 @@
                                     <a href="{{config('app.url')}}/app/{{$group->slug}}/{{$MdThum->slug}}"><img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$MdThum->photo}}" alt="Card image cap"></a>
                                     <div class="card-body">
                                         <h5 class="card-title">{{$MdThum->album}}</h5>
-										<p class="card-text">{{$MdThum->tahun}}</p>
+										<div id="textbox" style="clear: both;">
+                                            <p style="float: left">{{$MdThum->tahun}}</p>
+                                            <p style="float: right;"><b>{{$MdThum->jumlah_phoca}}</b><small>pcs</small></p>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach

@@ -30,8 +30,20 @@ class DreamController extends Controller
         if($group!=null){
             $members = MMember::where('group_id','=',$group->id)->get();
             $albums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
-            $albumsThum = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
-            $MdThums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',1)->orderBy('order','desc')->get();
+            $albumsThum = MAlbum::join('m_photocard','m_photocard.album_id','=','m_album.id')
+                            ->select('m_album.id','m_album.slug','m_album.photo','m_album.album','m_album.tahun',DB::raw('COUNT(m_photocard.id) as jumlah_phoca'))
+                            ->where('m_album.group_id','=',$group->id)
+                            ->where('m_album.tipe','=',0)
+                            ->groupBy('m_album.id','m_album.slug','m_album.photo','m_album.album','m_album.tahun')
+                            ->orderBy('m_album.order','desc')
+                            ->get();
+            $MdThums = MAlbum::join('m_photocard','m_photocard.album_id','=','m_album.id')
+                            ->select('m_album.id','m_album.slug','m_album.photo','m_album.album','m_album.tahun',DB::raw('COUNT(m_photocard.id) as jumlah_phoca'))
+                            ->where('m_album.group_id','=',$group->id)
+                            ->where('m_album.tipe','=',1)
+                            ->groupBy('m_album.id','m_album.slug','m_album.photo','m_album.album','m_album.tahun')
+                            ->orderBy('m_album.order','desc')
+                            ->get();
         }else{
             return view('dreamcard.notfound');
         }
