@@ -177,6 +177,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Biscolab\ReCaptcha\ReCaptchaServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Ejarnutowski\LaravelApiKey\Providers\ApiKeyServiceProvider::class,
     ],
 
     /*

@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2.5|^8.0",
         "biscolab/laravel-recaptcha": "^5.4",
+        "ejarnutowski/laravel-api-key": "^1.0",
         "encore/laravel-admin": "dev-master",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
@@ -17,6 +18,7 @@
         "intervention/image": "^2.7",
         "jenssegers/imagehash": "^0.8.0",
         "laravel/framework": "^7.29",
+        "laravel/sanctum": "^2.15",
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.5"
     },

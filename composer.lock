@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0887d9e4a4ff0e160e05211899e44be2",
+    "content-hash": "a5b241528f8bf3dbbd38fc752e56fbc8",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -749,6 +749,60 @@
                 "validator"
             ],
             "time": "2020-12-29T14:50:06+00:00"
+        },
+        {
+            "name": "ejarnutowski/laravel-api-key",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ejarnutowski/laravel-api-key.git",
+                "reference": "81ac0a4732d1a6b515f2d8ea6f4419aed7451393"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ejarnutowski/laravel-api-key/zipball/81ac0a4732d1a6b515f2d8ea6f4419aed7451393",
+                "reference": "81ac0a4732d1a6b515f2d8ea6f4419aed7451393",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "dont-discover": [
+                        "ejarnutowski/laravel-api-key"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ejarnutowski\\LaravelApiKey\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Elliott Jarnutowski",
+                    "email": "e@jarno.co"
+                }
+            ],
+            "description": "Authorize requests to your Laravel application with API keys",
+            "keywords": [
+                "Api Key",
+                "Authentication",
+                "api",
+                "authorization",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/ejarnutowski/laravel-api-key/issues",
+                "source": "https://github.com/ejarnutowski/laravel-api-key/tree/master"
+            },
+            "time": "2019-09-16T20:19:02+00:00"
         },
         {
             "name": "encore/laravel-admin",
@@ -1503,6 +1557,71 @@
                 "laravel"
             ],
             "time": "2021-12-07T14:56:47+00:00"
+        },
+        {
+            "name": "laravel/sanctum",
+            "version": "v2.15.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/sanctum.git",
+                "reference": "31fbe6f85aee080c4dc2f9b03dc6dd5d0ee72473"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/sanctum/zipball/31fbe6f85aee080c4dc2f9b03dc6dd5d0ee72473",
+                "reference": "31fbe6f85aee080c4dc2f9b03dc6dd5d0ee72473",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/console": "^6.9|^7.0|^8.0|^9.0",
+                "illuminate/contracts": "^6.9|^7.0|^8.0|^9.0",
+                "illuminate/database": "^6.9|^7.0|^8.0|^9.0",
+                "illuminate/support": "^6.9|^7.0|^8.0|^9.0",
+                "php": "^7.2|^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench": "^4.0|^5.0|^6.0|^7.0",
+                "phpunit/phpunit": "^8.0|^9.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Sanctum\\SanctumServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Sanctum\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Laravel Sanctum provides a featherweight authentication system for SPAs and simple APIs.",
+            "keywords": [
+                "auth",
+                "laravel",
+                "sanctum"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/sanctum/issues",
+                "source": "https://github.com/laravel/sanctum"
+            },
+            "time": "2022-04-08T13:39:49+00:00"
         },
         {
             "name": "laravel/socialite",
@@ -6807,5 +6926,6 @@
     "platform": {
         "php": "^7.2.5|^8.0"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
 }
