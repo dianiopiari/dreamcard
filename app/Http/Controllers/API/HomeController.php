@@ -17,7 +17,6 @@ class HomeController extends Controller
     public function index()
     {
 
-        DB::beginTransaction();
         try {
 
             $groups = MGroup::all();
@@ -27,7 +26,7 @@ class HomeController extends Controller
                 'status'    => 'success',
                 'message'   => 'The request was successful',
                 'code'      => 200,
-                'data'      => [
+                'result'    => [
                     'group'      => $groups,
                 ]
             ];

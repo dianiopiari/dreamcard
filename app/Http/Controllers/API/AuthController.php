@@ -43,7 +43,7 @@ class AuthController extends Controller
                 'status'    => 'success',
                 'message'   => 'The request was successful',
                 'code'      => 200,
-                'data'      => [
+                'result'    => [
                     'access_token'  => $tokenResult,
                     'token_type'    => 'Bearer',
                     'users'         => $user,
