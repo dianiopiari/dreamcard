@@ -49,7 +49,7 @@ class DreamController extends Controller
                     'message'   => 'The request was successful',
                     'code'      => 200,
                     'result'    => [
-                        'group'         => $group,
+                        'groupDetail'   => $group,
                         'members'       => $members,
                         'albums'        => $albums,
                         'albumsThum'    => $albumsThum,
