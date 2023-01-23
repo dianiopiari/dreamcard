@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\HomeController;
 use App\Http\Controllers\API\TestController;
+use App\Http\Controllers\API\DreamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,7 @@ Route::group([
 ], 
 function (Router $router) { 
     $router->get('home', [HomeController::class, 'index'])->name('home.index');
+    $router->get('group/{slug}', [DreamController::class, 'listPerGroup'])->name('group.detail');
     $router->post('logout', [AuthController::class, 'logout'])->name('auth.logout');
 });
 
