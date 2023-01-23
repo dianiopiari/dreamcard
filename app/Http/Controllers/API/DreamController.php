@@ -26,7 +26,6 @@ class DreamController extends Controller
 
             $group= MGroup::where('slug','=',$slug)->first();
             if($group!=null){
-                $logo = $group->logo;
                 $members = MMember::where('group_id','=',$group->id)->get();
                 $albums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
                 $albumsThum = MAlbum::join('m_photocard','m_photocard.album_id','=','m_album.id')
@@ -50,7 +49,7 @@ class DreamController extends Controller
                     'message'   => 'The request was successful',
                     'code'      => 200,
                     'result'    => [
-                        'logo'          => $logo,
+                        'group'         => $group,
                         'members'       => $members,
                         'albums'        => $albums,
                         'albumsThum'    => $albumsThum,
