@@ -93,7 +93,14 @@ class DreamController extends Controller
                             ->orderBy('order','desc')
                             ->distinct()
                             ->get();
-
+                foreach ($allalbums as $key => $album) {
+                    $photocards = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
+                                ->select("m_photocard.*")
+                                ->where('m_photocard.group_id','=',$group->id)
+                                ->where('m_photocard.album_id','=',$album->id)
+                                ->where('m_photocard.member_id','=',$member->id)->count();
+                    $allalbums['count'] = $photocards;
+                }
                 //cek dengan koleksi
                 // $myphotocards=array();
                 // if(@auth('web')->user()->id!=0){
