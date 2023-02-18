@@ -61,6 +61,7 @@ Route::group([
 function (Router $router) { 
     $router->get('home', [HomeController::class, 'index'])->name('home.index');
     $router->get('group/{slug}', [DreamController::class, 'listPerGroup'])->name('group.detail');
+    $router->get('member/{group_slug}/{vmember}/{cek?}',[DreamController::class, 'listMember'])->name('member.album');
     $router->post('logout', [AuthController::class, 'logout'])->name('auth.logout');
 });
 
