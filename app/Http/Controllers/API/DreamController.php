@@ -99,7 +99,7 @@ class DreamController extends Controller
                                 ->where('m_photocard.group_id','=',$group->id)
                                 ->where('m_photocard.album_id','=',$album->id)
                                 ->where('m_photocard.member_id','=',$member->id)->count();
-                    $allalbums['count'] = $photocards;
+                    $allalbums[$key]['count'] = $photocards;
                 }
                 //cek dengan koleksi
                 // $myphotocards=array();
