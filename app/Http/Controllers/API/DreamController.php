@@ -150,7 +150,7 @@ class DreamController extends Controller
 
             $groupByChannel= MGroup::where('slug','=',$group_slug)->first();
             $memberByChannel = MMember::where('slug','=',$slug)->first();
-            if($group!=null){
+            if($groupByChannel!=null){
             $channels = MChannel::where('m_channel.album_id','=',$album_id)
                         ->where('m_photocard.member_id','=',$member->id)
                         ->select('kategori_id',DB::raw('if(kategori_id=0,"Album Inclusions",if(kategori_id=1,"Fansign/POB","Other Photocard")) as channel'))
