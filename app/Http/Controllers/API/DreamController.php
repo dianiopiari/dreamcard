@@ -148,8 +148,8 @@ class DreamController extends Controller
     {
         try {
 
-            $group= MGroup::where('slug','=',$group_slug)->first();
-            $member = MMember::where('slug','=',$slug)->first();
+            $groupByChannel= MGroup::where('slug','=',$group_slug)->first();
+            $memberByChannel = MMember::where('slug','=',$slug)->first();
             if($group!=null){
             $channels = MChannel::where('m_channel.album_id','=',$album_id)
                         ->where('m_photocard.member_id','=',$member->id)
