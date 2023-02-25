@@ -59,9 +59,10 @@ Route::group([
     'middleware' => ['auth.apikey', 'auth:sanctum']
 ], 
 function (Router $router) { 
-    $router->get('home', [HomeController::class, 'index'])->name('home.index');
-    $router->get('group/{slug}', [DreamController::class, 'listPerGroup'])->name('group.detail');
-    $router->get('member/{group_slug}/{vmember}/{cek?}',[DreamController::class, 'listMember'])->name('member.album');
+    $router->get('home', [HomeController::class, 'index']);
+    $router->get('group/{slug}', [DreamController::class, 'listPerGroup']);
+    $router->get('member/{group_slug}/{vmember}/{cek?}',[DreamController::class, 'listMember']);
+    $router->get('channel/{group_slug}/{vmember}/{album_id}',[DreamController::class, 'listAlbumChannel']);
     $router->post('logout', [AuthController::class, 'logout'])->name('auth.logout');
 });
 
