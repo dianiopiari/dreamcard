@@ -189,4 +189,38 @@ class DreamController extends Controller
 
         return response()->json($response);
     }
+
+    public function listPhotocardChannel($group_id, $album_id, $kategori_id, $member_id)
+    {
+        try {
+
+            $photocards = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
+                            ->select("m_photocard.*")
+                            ->where('m_photocard.group_id','=',$group_id)
+                            ->where('m_photocard.album_id','=',$album_id)
+                            ->where('m_channel.kategori_id','=',$kategori_id)
+                            ->where('m_photocard.member_id','=',$member_id)
+                            ->get();
+                
+                $response   = [
+                    'success'   => true,
+                    'status'    => 'success',
+                    'message'   => 'The request was successful',
+                    'code'      => 200,
+                    'result'    => [
+                        'photocardByChannel'   => $photocards,
+                    ]
+                ];
+            
+        } catch (Exception $e) {
+            $response = [
+                'success'  => false,
+                'status'    => 'error',
+                'message'   => $e->getMessage(),
+                'code'      => 500
+            ]; 
+        }
+
+        return response()->json($response);
+    }
 }

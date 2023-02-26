@@ -63,6 +63,7 @@ function (Router $router) {
     $router->get('group/{slug}', [DreamController::class, 'listPerGroup']);
     $router->get('member/{group_slug}/{vmember}/{cek?}',[DreamController::class, 'listMember']);
     $router->get('channel/{group_slug}/{vmember}/{album_id}',[DreamController::class, 'listAlbumChannel']);
+    $router->get('channel/photocard/{group_id}/{album_id}/{kategori_id}/{member_id}',[DreamController::class, 'listPhotocardChannel']);
     $router->post('logout', [AuthController::class, 'logout'])->name('auth.logout');
 });
 
