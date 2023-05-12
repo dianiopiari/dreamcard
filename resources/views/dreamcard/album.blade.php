@@ -192,7 +192,10 @@
 					<div class="card">
 						<div class="card-header">
 							<h5>{{$item['channel']}}</h5>
-						</div>
+                            <div class="float-right">
+                                <a href="#"  onclick="Data.addAlbumPhotocard('{{$item['id_channel']}}')" type="button" class="btn btn-secondary"><i class="fa fa-icon-briefcase" aria-hidden="true"></i>&nbsp; Add All to My Photocard &nbsp; <span class="badge badge-pill badge-danger"></span></a>
+                            </div>
+                        </div>
 						<div class="card-body" style="padding-top: 20px;
                         padding-left: 40px;
                         padding-right: 4-;
@@ -286,7 +289,26 @@
                         }
                     }
                 })
-            }
+            },
+            "addAlbumPhotocard" : function(channel_id){
+                //alert("hello "+channel_id);
+                $.ajax({
+                    url:"{{config('app.url')}}/tmp/add-all-to-cart" + '/' + channel_id,
+                    type:  'get',
+                    dataType: "json",
+                    beforeSend: function() {
+                        $("#loading-image").show();
+                    },
+                    success: function(response) {
+                        $('span#countphoto').html(response.countphoto);
+                        if(response.exist==1){
+                            swal("Opps!", "Photocard already save on your data!", "warning");
+                        }else{
+                            swal("Good job!", "Photocard add to your data!", "success");
+                        }
+                    }
+                })
+            },
         };
     </script>
 </body>

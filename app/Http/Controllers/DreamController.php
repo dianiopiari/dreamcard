@@ -336,6 +336,7 @@ class DreamController extends Controller
 
                 $vipot_columns[$key] = [
                     'channel'=> $channel->channel,
+                    'id_channel'=> $channel->id,
                     'photo'=>$photocards
                 ];
             }
@@ -450,7 +451,36 @@ class DreamController extends Controller
             "countphoto"=>$countphoto,
             "exist"=>$exist
         ]);
-     }
+    }
+
+
+    public function addAllChannelToCart($id)
+    {
+        $channelSelect = MChannel::findOrFail($id);
+        $userid = auth('web')->user()->id;
+        $exist=1;
+        if($userid!=0){
+            $photocards = MPhotocard::where('channel_id','=',$channelSelect->id)->get();
+            foreach ($photocards as $key => $photocard) {
+                $isExist = TPhotocard::where('photocard_id', '=', $photocard->id)
+                        ->where('user_id','=',$userid)
+                        ->first();
+                if ($isExist === null) {
+                    $tphotocard = new TPhotocard();
+                    $tphotocard->photocard_id = $photocard->id;
+                    $tphotocard->user_id = auth('web')->user()->id;
+                    $tphotocard->save();
+                    $exist=0;
+                }
+            }
+        }
+
+        $countphoto = TPhotocard::where('user_id','=',auth('web')->user()->id)->count();
+        return response()->json([
+            "countphoto"=>$countphoto,
+            "exist"=>$exist
+        ]);
+    }
 
     public function remove(Request $request)
     {
