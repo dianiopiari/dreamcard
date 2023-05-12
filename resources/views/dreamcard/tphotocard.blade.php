@@ -45,11 +45,21 @@
 					</li>
                     @foreach ($sideMenu as $item)
                         <li class="nav-item pcoded-hasmenu  pcoded-trigger">
-                                <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext"> {{@$item['group']->group_name}}</span></a>
+                                <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext"> Album {{@$item['group']->group_name}}</span></a>
                                 <ul class="pcoded-submenu">
                                     <li><a href="{{config('app.url')}}/temp/cart/{{@$item['group']->slug}}?viewas=1">All {{@$item['group']->group_name}}</a></li>
                                     @foreach($item['channel'] as $album)
                                         <li><a href="{{config('app.url')}}/temp/cart/{{@$item['group']->slug}}/{{$album->slug}}?viewas=1">{{$album->album}}</a></li>
+                                    @endforeach
+                                </ul>
+                        </li>
+                    @endforeach
+                    @foreach ($sideMenuMember as $item)
+                        <li class="nav-item pcoded-hasmenu  pcoded-trigger">
+                                <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext"> Member {{@$item['group']->group_name}}</span></a>
+                                <ul class="pcoded-submenu">
+                                    @foreach($item['member'] as $member)
+                                        <li><a href="{{config('app.url')}}/temp/cart/{{@$item['group']->slug}}/{{$member->slug}}?viewas=2">{{$member->member_name}}</a></li>
                                     @endforeach
                                 </ul>
                         </li>
@@ -200,7 +210,7 @@
 					<div class="card-header">
                         <a href="javascript:window.history.go(-1);" type="button" class="btn btn-dark"><i class="fa fa-arrow-left"></i>&nbsp; Back&nbsp;</a>
                         {{-- <a href="#" type="button" class="btn btn-warning"><i class="fa fa-arrow"></i>&nbsp; View As Photocard&nbsp;</a> --}}
-                        @if ($view==1)
+                        @if ($view>=1)
                             <a href="{{config('app.url')}}/temp/cart?viewas=0" class="btn btn-primary"><i class="feather mr-2 icon-file"></i>View As Album</a>
                         @else
                             <a href="{{config('app.url')}}/temp/cart?viewas=1" class="btn btn-primary"><i class="feather mr-2 icon-smartphone"></i>View As Photocard</a>
@@ -211,7 +221,7 @@
                             <button  id="btn-Convert-Html2Image-without" class="btn btn-success"><i class="feather mr-2 icon-camera"></i>Download Without Background </button>
                         </div>
                     </div>
-                    @if ($view==1)
+                    @if ($view>=1)
                         <div class="card-body" id="html-content-holder">
                             <div class="row d-flex justify-content-center">
                                 <div class="col-md-12">
