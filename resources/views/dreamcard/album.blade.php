@@ -193,7 +193,11 @@
 						<div class="card-header">
 							<h5>{{$item['channel']}}</h5>
                             <div class="float-right">
-                                <a href="#"  onclick="Data.addAlbumPhotocard('{{$item['id_channel']}}')" type="button" class="btn btn-secondary"><i class="fa fa-icon-briefcase" aria-hidden="true"></i>&nbsp; Add All to My Photocard &nbsp; <span class="badge badge-pill badge-danger"></span></a>
+                                @auth
+                                    <a href="#"  onclick="Data.addAlbumPhotocard('{{$item['id_channel']}}','{{ auth('web')->user()->id }}')" type="button" class="btn btn-secondary"><i class="fa fa-icon-briefcase" aria-hidden="true"></i>&nbsp; Add All to My Photocard &nbsp; <span class="badge badge-pill badge-danger"></span></a>
+                                @else
+                                    <a href="#"  onclick="Data.addAlbumPhotocard('{{$item['id_channel']}}','0')" type="button" class="btn btn-secondary"><i class="fa fa-icon-briefcase" aria-hidden="true"></i>&nbsp; Add All to My Photocard &nbsp; <span class="badge badge-pill badge-danger"></span></a>
+                                @endauth
                             </div>
                         </div>
 						<div class="card-body" style="padding-top: 20px;
@@ -290,24 +294,33 @@
                     }
                 })
             },
-            "addAlbumPhotocard" : function(channel_id){
-                //alert("hello "+channel_id);
-                $.ajax({
-                    url:"{{config('app.url')}}/tmp/add-all-to-cart" + '/' + channel_id,
-                    type:  'get',
-                    dataType: "json",
-                    beforeSend: function() {
-                        $("#loading-image").show();
-                    },
-                    success: function(response) {
-                        $('span#countphoto').html(response.countphoto);
-                        if(response.exist==1){
-                            swal("Opps!", "Photocard already save on your data!", "warning");
-                        }else{
-                            swal("Good job!", "Photocard add to your data!", "success");
+            "addAlbumPhotocard" : function(channel_id,user_id){
+                if(user_id==0){
+                    swal({
+                        title: "Login with Google Account for Enhanced Features",
+                        text: "Unlock a world of enhanced features and personalized experiences by logging in with your Google account.",
+                        type: "Info"
+                    }).then(function() {
+                        window.location = "{{ route('login') }}";
+                    });
+                }else{
+                    $.ajax({
+                        url:"{{config('app.url')}}/tmp/add-all-to-cart" + '/' + channel_id,
+                        type:  'get',
+                        dataType: "json",
+                        beforeSend: function() {
+                            $("#loading-image").show();
+                        },
+                        success: function(response) {
+                            $('span#countphoto').html(response.countphoto);
+                            if(response.exist==1){
+                                swal("Opps!", "Photocard already save on your data!", "warning");
+                            }else{
+                                swal("Good job!", "Photocard add to your data!", "success");
+                            }
                         }
-                    }
-                })
+                    })
+                }
             },
         };
     </script>
