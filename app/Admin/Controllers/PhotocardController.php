@@ -121,7 +121,7 @@ class PhotocardController extends AdminController
         $form->image('pic_front', __('Image Depan'));
         $form->image('pic_hd', __('Image Depan HD'));
         $form->image('pic_back', __('Image Belakang'));
-        $form->ckeditor('credit', __('Info'));
+        $form->ckeditor('credit', __('Info Credit'));
 
         $form->saved(function (Form $form){
             //...

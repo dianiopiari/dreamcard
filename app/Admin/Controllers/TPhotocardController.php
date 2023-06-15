@@ -93,4 +93,10 @@ class TPhotocardController extends AdminController
         $album_id = $request->get('q');
         return MChannel::where('album_id', $album_id)->orderBy('id','desc')->get(['id', DB::raw('channel as text')]);
     }
+
+    public function albumbyGroup(Request $request)
+    {
+        $group_id = $request->get('q');
+        return MAlbum::where('group_id', $group_id)->orderBy('id','desc')->get(['id', DB::raw('album as text')]);
+    }
 }

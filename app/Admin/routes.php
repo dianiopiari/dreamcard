@@ -22,7 +22,10 @@ Route::group([
     $router->get('/ajax/member', "TPhotocardController@member");
     $router->get('/ajax/album', "TPhotocardController@album");
     $router->get('/ajax/channel', "TPhotocardController@channel");
+    $router->get('/ajax/albumbygroup', "TPhotocardController@albumbyGroup");
 
     $router->resource('proses-hash-photo', ProsesPhotoController::class);
     $router->get('/proses', "ProsesPhotoController@proses");
+
+    $router->resource('m-master-photocards', PhotocardMasterController::class);
 });

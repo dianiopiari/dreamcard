@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2.5|^8.0",
         "biscolab/laravel-recaptcha": "^5.4",
+        "doctrine/dbal": "^2.0",
         "ejarnutowski/laravel-api-key": "^1.0",
         "encore/laravel-admin": "dev-master",
         "fideloper/proxy": "^4.4",

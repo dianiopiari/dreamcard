@@ -20,7 +20,8 @@ class MPhotocard extends Model
           'hash_img',
           'credit',
           'created_at',
-          'updated_at'
+          'updated_at',
+          'master_id'
       ];
 
       public function groupp()
