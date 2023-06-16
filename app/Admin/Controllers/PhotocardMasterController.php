@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Helpers\Common;
+use App\Helpers\Counter;
 use App\Models\MAlbum;
 use App\Models\MChannel;
 use App\Models\MGroup;
@@ -32,15 +33,21 @@ class PhotocardMasterController extends AdminControllerCustome
     protected function grid()
     {
         $grid = new Grid(new MMasterPhotocard());
-
-        $grid->column('id', __('Id'));
-        $grid->column('group_id', __('Group id'));
-        $grid->column('album_id', __('Album id'));
-        $grid->column('member_id', __('Member id'));
-        $grid->column('channel_id', __('Channel id'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
-
+        $grid->disableRowSelector();
+        $grid->disableExport();
+        $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $actions->disableView();
+        });
+        $counter = new Counter();
+        $grid->tools(function ($tools) {
+            $tools->disableRefreshButton();
+        });
+        $grid->id('No', __('No'))->display(function() use ($counter) {
+            return $counter->plus();
+        });
+        $grid->column('mgroup.group_name', __('Group'));
+        $grid->column('malbump.album', __('Album'));
+        $grid->column('mchannel.channel', __('Channel'));
         return $grid;
     }
 
@@ -68,26 +75,19 @@ class PhotocardMasterController extends AdminControllerCustome
     private function script($per_active)
     {
         return <<<EOT
-        var generateTahuns = function(){
-            var per = {$per_active};
-            var tpl = $('template.photocards-tpl');
-            var target = $('.has-many-photocards-forms');
-            if (target.children().length == 0) {
-                $.each(per, function(i, v){
-                    var template = tpl.html().replace(/__LA_KEY__/g, i);
-                    target.append(template);
-               });
-            }
-        };
-        generateTahuns();
-        $('#has-many-photocards').on('click', '.add', function(e) {
-            let count_tw = $("tbody.has-many-photocards-forms > tr").length;
-            if (count_tw >= 1) {
-                e.stopImmediatePropagation();
-                swal("Can't Add Member", "OK", "warning");
-            }
-        });
-EOT;
+            var generateTahuns = function(){
+                var per = {$per_active};
+                var tpl = $('template.photocards-tpl');
+                var target = $('.has-many-photocards-forms');
+                if (target.children().length == 0) {
+                    $.each(per, function(i, v){
+                        var template = tpl.html().replace(/__LA_KEY__/g, i);
+                        target.append(template);
+                    });
+                }
+            };
+            generateTahuns();
+        EOT;
     }
     /**
      * Make a form builder.
@@ -98,6 +98,7 @@ EOT;
     {
         $form = new Form(new MMasterPhotocard());
         $common = new Common;
+        $form->setWidth(9,1);
         $form->tab('Basic info', function ($form) {
             $form->select('group_id', 'Group')->options(
                 MGroup::select('id', 'group_name')->get()->pluck('group_name','id')->toArray()
@@ -133,14 +134,30 @@ EOT;
         $form->saved(function (Form $form) {
             $id = $form->model()->id;
             if( $id != 0){
-               MPhotocard::where('master_id', $id)->update(
-                    [
-                        'group_id' => $form->model()->group_id,
-                        'album_id' => $form->model()->album_id,
-                        'channel_id'=> $form->model()->channel_id,
-                        'credit'=> $form->model()->credit
-                    ]
-                );
+                //disini tambahkan pengecekan, kalau kosong insert otomatis
+                $idphoto = MPhotocard::where('master_id', $id)->count();
+                if($idphoto!=0){
+                    MPhotocard::where('master_id', $id)->update(
+                        [
+                            'group_id' => $form->model()->group_id,
+                            'album_id' => $form->model()->album_id,
+                            'channel_id'=> $form->model()->channel_id,
+                            'credit'=> $form->model()->credit
+                        ]
+                    );
+                }else{
+                    //insert otmatis sebanyak jumlah member
+                    $listMembers = MMember::where('group_id','=',$form->model()->group_id)->where('tipe','=',0)->get();
+                    foreach ($listMembers  as $listMember) {
+                        $photocard = new MPhotocard();
+                        $photocard->master_id = $id;
+                        $photocard->group_id = $form->model()->group_id;
+                        $photocard->album_id=$form->model()->album_id;
+                        $photocard->channel_id=$form->model()->channel_id;
+                        $photocard->member_id=$listMember->id;
+                        $photocard->save();
+                    }
+                }
             }
             admin_toastr(__('Berhasil'));
             return redirect("/admin/m-master-photocards/$id/edit");

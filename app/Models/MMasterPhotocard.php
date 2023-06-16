@@ -22,4 +22,19 @@ class MMasterPhotocard extends Model
         {
             return $this->hasMany(MPhotocard::class, 'master_id');
         }
+
+        public function mgroup()
+        {
+            return $this->hasOne(MGroup::class, 'id', 'group_id');
+        }
+
+        public function mchannel()
+        {
+            return $this->hasOne(MChannel::class, 'id', 'channel_id');
+        }
+
+        public function malbump()
+        {
+            return $this->hasOne(MAlbum::class, 'id', 'album_id');
+        }
 }
