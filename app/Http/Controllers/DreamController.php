@@ -308,7 +308,8 @@ class DreamController extends Controller
             if($limit==1){
                 $channels = $channels->limit('3');
             }
-            $channels = $channels->get();
+            $channels = $channels->select('m_channel.*');
+            $channels = $channels->distinct()->get();
 
             //melakukan pengecekan dengann koleksi user
             $myphotocards=array();
