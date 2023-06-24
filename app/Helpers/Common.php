@@ -11,8 +11,8 @@ class Common
     {
         if($id!=0){
             $master = MMasterPhotocard::find($id);
-            $first = MMember::where('group_id','=',$master->group_id)->orderBy('id','asc')->first();
-            $last = MMember::where('group_id','=',$master->group_id)->orderBy('id','desc')->first();
+            $first = MMember::where('group_id','=',$master->group_id)->where('tipe',0)->orderBy('id','asc')->first();
+            $last = MMember::where('group_id','=',$master->group_id)->where('tipe',0)->orderBy('id','desc')->first();
             $range = range($first->id, $last->id);
         }else{
             $range = range(0,0);
