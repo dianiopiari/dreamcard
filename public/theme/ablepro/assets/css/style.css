@@ -24276,3 +24276,11 @@ div.dtk-focus-alt table.dataTable tbody th.focus {
     font-size: 16px;
     padding: 16px 32px;
   }
+
+  .col-sm-3:hover .image {
+    opacity: 0.3;
+  }
+
+  .col-sm-3:hover .middle {
+    opacity: 1;
+  }

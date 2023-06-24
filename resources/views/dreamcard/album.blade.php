@@ -207,12 +207,13 @@
 							<div class="row" >
                                 @php
                                     $stylecol="col-sm-1";
+                                    $count=0;
                                 @endphp
 								@foreach($item['photo'] as $kb)
                                     {{-- cek bisakah ditambahkan break per jumlah member --}}
                                    @php
                                        if ($memberscount==4) {
-                                            $stylecol="col-sm-1";
+                                            $stylecol="col-sm-3";
                                        }
                                    @endphp
                                     <div class="{{$stylecol}}">
