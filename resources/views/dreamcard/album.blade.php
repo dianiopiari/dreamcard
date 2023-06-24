@@ -212,7 +212,7 @@
                                     {{-- cek bisakah ditambahkan break per jumlah member --}}
                                    @php
                                        if ($memberscount==4) {
-                                            $stylecol="col-sm-3";
+                                            $stylecol="col-sm-1";
                                        }
                                    @endphp
                                     <div class="{{$stylecol}}">
