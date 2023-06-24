@@ -50,154 +50,6 @@ class DreamController extends Controller
         return view('dreamcard.group',compact('members','albums','group','slug','albumsThum','MdThums'));
     }
 
-    // public function listAlbumCategori($group_slug,$slug,$cat=null)
-    // {
-    //     $group= MGroup::where('slug','=',$group_slug)->first();
-    //     $album= MAlbum::where('slug','=',$slug)->first();
-    //     $categori_id=-1;
-    //     $limit=1;
-    //     $style1="";
-    //     $style2="";
-    //     $style3="";
-    //     $style4="";
-    //     $style5="";
-    //     $style6="";
-    //     $default=0;
-    //     switch ($cat) {
-    //         case 'other':
-    //             # code...
-    //             $categori_id=2;
-    //             $style6="1";
-    //             $limit=0;
-    //             break;
-    //         case 'fansign':
-    //             # code...
-    //             $categori_id=1;
-    //             $style5="1";
-    //             $limit=0;
-    //             break;
-    //         case 'album':
-    //                 # code...
-    //                 $categori_id=0;
-    //                 $style4="1";
-    //                 $limit=0;
-    //                 break;
-    //         case 'all':
-    //             # code...
-    //             $categori_id=-1;
-    //             $style3="1";
-    //             $limit=0;
-    //             break;
-    //         default:
-    //             # code...
-    //             $default=1;
-    //             $categori_id=0;
-    //             $style4="1";
-    //             $limit=0;
-    //             break;
-    //     }
-    //     $active="";
-    //     $activemd="";
-    //     $isExistAlbum=0;
-    //     $isExistPob=0;
-    //     $isExistOther=0;
-    //     if($group!=null){
-    //         $isExistAlbum = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
-    //                         ->where('m_photocard.album_id', '=', $album->id)
-    //                         ->where('m_channel.kategori_id','=',0)
-    //                         ->first();
-    //         $isExistPob = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
-    //                         ->where('m_photocard.album_id', '=', $album->id)
-    //                         ->where('m_channel.kategori_id','=',1)
-    //                         ->first();
-    //         $isExistOther = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
-    //                         ->where('m_photocard.album_id', '=', $album->id)
-    //                         ->where('m_channel.kategori_id','=',2)
-    //                         ->first();
-    //         if($album->tipe==0){
-    //             $active="active";
-    //             $activemd="";
-    //         }else{
-    //             if($isExistAlbum != null){
-    //                 if($default==1){
-    //                     $active="";
-    //                     $activemd="active";
-    //                     $categori_id=0;
-    //                     $style4="1";
-    //                     $limit=0;
-    //                 }
-    //             }else if($isExistPob != null){
-    //                 if($default==1){
-    //                     $active="";
-    //                     $activemd="active";
-    //                     $categori_id=1;
-    //                     $style5="1";
-    //                     $limit=0;
-    //                 }
-    //             }else{
-    //                 if($default==1){
-    //                     $active="";
-    //                     $activemd="active";
-    //                     $categori_id=2;
-    //                     $style6="1";
-    //                     $limit=0;
-    //                 }
-    //             }
-    //         }
-    //         $albums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',0)->orderBy('order','desc')->get();
-    //         $MdThums = MAlbum::where('group_id','=',$group->id)->where('tipe','=',1)->orderBy('order','desc')->get();
-    //         $members = MMember::where('group_id','=',$group->id)->get();
-    //         $arrphoto=array();
-    //         $channels = MChannel::where('album_id','=',$album->id);
-    //         if($categori_id!=-1){
-    //             $channels = $channels->where('kategori_id','=',$categori_id);
-    //         }
-    //         if($limit==1){
-    //             $channels = $channels->limit('3');
-    //         }
-    //         $channels = $channels->get();
-    //         $photocards = MPhotocard::where('group_id','=',$group->id)
-    //                                 ->where('album_id','=',$album->id);
-    //         //cek my photocard
-    //         $myphotocards=array();
-    //         if(@auth('web')->user()->id!=0){
-    //             $myphotocard = TPhotocard::join('m_photocard','m_photocard.id','=','t_photocard.photocard_id')
-    //                                     ->join('m_channel','m_photocard.channel_id','=','m_channel.id')
-    //                                     ->join('m_album','m_photocard.album_id','=','m_album.id')
-    //                                     ->join('m_member','m_photocard.member_id','=','m_member.id')
-    //                                     ->join('m_group','m_photocard.group_id','=','m_group.id')
-    //                                             ->select('m_photocard.id')
-    //                                             ->where('t_photocard.user_id','=',@auth('web')->user()->id)->get();
-    //             foreach ($myphotocard as $key => $value) {
-    //                 $myphotocards[]= $value->id;
-    //             }
-    //         }
-    //         //dd($myphotocards);
-    //         $vipot_columns=[];
-    //         foreach ($channels as $key => $channel) {
-    //             $photocards = MPhotocard::where('group_id','=',$group->id)
-    //                         ->where('album_id','=',$album->id)
-    //                         ->where('channel_id','=',$channel->id)->get();
-    //                 if(!$photocards->isEmpty()){
-    //                     $vipot_columns[$key] = [
-    //                         'channel'=> $channel->channel,
-    //                         'photo'=>$photocards,
-    //                     ];
-    //                 }
-    //         }
-    //     }else{
-    //         return view('dreamcard.notfound');
-    //     }
-    //     $countphoto=0;
-    //     $countphotowhistlist=0;
-    //     if(@auth('web')->user()->id!=0){
-    //         $countphoto = TPhotocard::where('user_id','=',auth('web')->user()->id)->count();
-    //         $countphotowhistlist = TphotocardWishlist::where('user_id','=',auth('web')->user()->id)->count();
-    //     }
-
-    //     return view('dreamcard.album',compact('vipot_columns','albums','group','slug','album','style1','style2','style3','style4','style5','style6','limit','members','MdThums','active','activemd','countphoto','countphotowhistlist','isExistAlbum','isExistPob','isExistOther','myphotocards'));
-    // }
-
     public function listAlbum($group_slug,$slug,$channelid=null,$cat=null,$cek=null)
     {
         $group= MGroup::where('slug','=',$group_slug)->first();
@@ -346,11 +198,12 @@ class DreamController extends Controller
         }
         $countphoto=0;
         $countphotowhistlist=0;
+        $memberscount = MMember::where('group_id','=',$group->id)->where('tipe',0)->count();
         if(@auth('web')->user()->id!=0){
             $countphoto = TPhotocard::where('user_id','=',auth('web')->user()->id)->count();
             $countphotowhistlist = TphotocardWishlist::where('user_id','=',auth('web')->user()->id)->count();
         }
-        return view('dreamcard.album',compact('vipot_columns','albums','group','slug','album','style1','style2','style3','style4','style5','style6','limit','members','MdThums','active','activemd','countphoto','countphotowhistlist','isExistAlbum','isExistPob','isExistOther','myphotocards','cek'));
+        return view('dreamcard.album',compact('vipot_columns','albums','group','slug','album','style1','style2','style3','style4','style5','style6','limit','members','MdThums','active','activemd','countphoto','countphotowhistlist','isExistAlbum','isExistPob','isExistOther','myphotocards','cek','memberscount'));
 
     }
 

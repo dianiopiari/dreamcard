@@ -205,8 +205,17 @@
                         padding-right: 4-;
                         padding-right: 40px;">
 							<div class="row" >
+                                @php
+                                    $stylecol="col-sm-1";
+                                @endphp
 								@foreach($item['photo'] as $kb)
-                                    <div class="col-sm-1">
+                                    {{-- cek bisakah ditambahkan break per jumlah member --}}
+                                   @php
+                                       if ($memberscount==4) {
+                                            $stylecol="col-sm-3";
+                                       }
+                                   @endphp
+                                    <div class="{{$stylecol}}">
                                         @if ($cek==null)
                                             <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%;">
                                         @else
