@@ -24284,3 +24284,11 @@ div.dtk-focus-alt table.dataTable tbody th.focus {
   .col-sm-3:hover .middle {
     opacity: 1;
   }
+
+  .col-sm-2:hover .image {
+    opacity: 0.3;
+  }
+
+  .col-sm-2:hover .middle {
+    opacity: 1;
+  }
