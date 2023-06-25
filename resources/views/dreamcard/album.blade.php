@@ -215,6 +215,9 @@
                                        if ($memberscount==4) {
                                             $stylecol="col-sm-3";
                                        }
+                                       if ($memberscount==6) {
+                                            $stylecol="col-sm-2";
+                                       }
                                    @endphp
                                     <div class="{{$stylecol}}">
                                         @if ($cek==null)
