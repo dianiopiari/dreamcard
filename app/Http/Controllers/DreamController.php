@@ -102,7 +102,7 @@ class DreamController extends Controller
         $isExistPob=0;
         $isExistOther=0;
         //daftar member aktif dalam album
-        //$memberscount = MAlbum::where('group_id','=',$group->id)->where('tipe',0)->count();
+        $memberscount = MAlbum::where('group_id','=',$group->id)->where('tipe',0)->count();
         if($group!=null){
             $isExistAlbum = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
                             ->where('m_photocard.album_id', '=', $album->id)
