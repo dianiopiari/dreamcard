@@ -19,7 +19,8 @@ class MAlbum extends Model
           'slug',
           'tipe',
           'created_at',
-          'updated_at'
+          'updated_at',
+          'member'
       ];
 
       public function groupk()

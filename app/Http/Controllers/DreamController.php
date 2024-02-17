@@ -101,7 +101,8 @@ class DreamController extends Controller
         $isExistAlbum=0;
         $isExistPob=0;
         $isExistOther=0;
-        $memberscount = MMember::where('group_id','=',$group->id)->where('tipe',0)->count();
+        //daftar member aktif dalam album
+        //$memberscount = MAlbum::where('group_id','=',$group->id)->where('tipe',0)->count();
         if($group!=null){
             $isExistAlbum = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
                             ->where('m_photocard.album_id', '=', $album->id)
@@ -187,7 +188,7 @@ class DreamController extends Controller
                 $photocards = MPhotocard::where('group_id','=',$group->id)
                             ->where('album_id','=',$album->id)
                             ->where('channel_id','=',$channel->id)->get();
-                $groupedPhotocards = $photocards->chunk($memberscount);
+                $groupedPhotocards = $photocards->chunk($album->member);
                 $vipot_columns[$key] = [
                     'channel'=> $channel->channel,
                     'id_channel'=> $channel->id,
@@ -837,6 +838,7 @@ class DreamController extends Controller
         $pic_back="";
         $url="/photocard/".$group."/".$album."/".$photocard_id;
         $page_id=$photocard_id;
+        $album= MAlbum::where('slug','=',$album)->first();
         if($tipe=0){
             //balik ke member
         }else{
@@ -857,9 +859,8 @@ class DreamController extends Controller
             }else{
                 $pic_back=config('app.url')."/".config('app.str')."/images/default_back.jpg";
             }
-
             $chunkedOtherPhotocard = MPhotocard::where('channel_id','=',$photocard->channel_id)->get();
-            $otherPhotocard = $chunkedOtherPhotocard->chunk($memberCount);
+            $otherPhotocard = $chunkedOtherPhotocard->chunk($album->member);
         }
         $albums=[];
         $members=[];
