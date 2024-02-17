@@ -211,14 +211,14 @@
                                 @endphp
 								@foreach($item['photo'] as $chunk)
                                     {{-- cek bisakah ditambahkan break per jumlah member --}}
-                                   @php
+                                   {{-- @php
                                        if ($memberscount==4) {
                                             $stylecol="col-sm-3";
                                        }
                                        if ($memberscount==6 || $memberscount==5) {
                                             $stylecol="col-sm-2";
                                        }
-                                   @endphp
+                                   @endphp --}}
                                    <div class="row" >
                                         @foreach ($chunk as $kb)
                                             <div class="{{$stylecol}}">
