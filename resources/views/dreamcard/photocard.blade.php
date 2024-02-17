@@ -296,16 +296,18 @@
                     padding-left: 40px;
                     padding-right: 4-;
                     padding-right: 40px;">
-                        <div class="row" >
-                            @foreach($otherPhotocard as $kb)
-                                <div class="col-sm-1">
-                                    <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%;">
-                                    <div class="middle">
-                                        <a href="{{config('app.url')}}/photocard/{{@$kb->groupp->slug}}/{{@$kb->albump->slug}}/{{$kb->id}}"  type="button" class="btn btn-warning textadd"><i class="feather mr-2 icon-search"></i>Detail &nbsp;</a>
+                            @foreach($otherPhotocard as $chunk)
+                                <div class="row" >
+                                    @foreach ($chunk as $kb)
+                                    <div class="col-sm-1">
+                                        <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%;">
+                                        <div class="middle">
+                                            <a href="{{config('app.url')}}/photocard/{{@$kb->groupp->slug}}/{{@$kb->albump->slug}}/{{$kb->id}}"  type="button" class="btn btn-warning textadd"><i class="feather mr-2 icon-search"></i>Detail &nbsp;</a>
+                                        </div>
                                     </div>
+                                    @endforeach
                                 </div>
                             @endforeach
-                        </div>
                     </div>
                 </div>
             </div>

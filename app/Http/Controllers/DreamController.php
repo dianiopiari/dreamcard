@@ -101,6 +101,7 @@ class DreamController extends Controller
         $isExistAlbum=0;
         $isExistPob=0;
         $isExistOther=0;
+        $memberscount = MMember::where('group_id','=',$group->id)->where('tipe',0)->count();
         if($group!=null){
             $isExistAlbum = MPhotocard::join('m_channel','m_channel.id','=','m_photocard.channel_id')
                             ->where('m_photocard.album_id', '=', $album->id)
@@ -186,11 +187,11 @@ class DreamController extends Controller
                 $photocards = MPhotocard::where('group_id','=',$group->id)
                             ->where('album_id','=',$album->id)
                             ->where('channel_id','=',$channel->id)->get();
-
+                $groupedPhotocards = $photocards->chunk($memberscount);
                 $vipot_columns[$key] = [
                     'channel'=> $channel->channel,
                     'id_channel'=> $channel->id,
-                    'photo'=>$photocards
+                    'photo'=>$groupedPhotocards
                 ];
             }
         }else{
@@ -198,7 +199,7 @@ class DreamController extends Controller
         }
         $countphoto=0;
         $countphotowhistlist=0;
-        $memberscount = MMember::where('group_id','=',$group->id)->where('tipe',0)->count();
+
         if(@auth('web')->user()->id!=0){
             $countphoto = TPhotocard::where('user_id','=',auth('web')->user()->id)->count();
             $countphotowhistlist = TphotocardWishlist::where('user_id','=',auth('web')->user()->id)->count();
@@ -845,6 +846,7 @@ class DreamController extends Controller
         if($photocard_id!=null){
             $photocard = MPhotocard::findOrFail($photocard_id);
             $group_id = $photocard->group_id;
+            $memberCount = MMember::where('group_id', '=', $group_id)->count();
             if($photocard->pic_hd!=null){
                 $pic_front=config('app.url')."/".config('app.str')."/".$photocard->pic_hd;
             }else{
@@ -856,7 +858,8 @@ class DreamController extends Controller
                 $pic_back=config('app.url')."/".config('app.str')."/images/default_back.jpg";
             }
 
-            $otherPhotocard = MPhotocard::where('channel_id','=',$photocard->channel_id)->get();
+            $chunkedOtherPhotocard = MPhotocard::where('channel_id','=',$photocard->channel_id)->get();
+            $otherPhotocard = $chunkedOtherPhotocard->chunk($memberCount);
         }
         $albums=[];
         $members=[];

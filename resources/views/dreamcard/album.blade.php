@@ -204,43 +204,46 @@
                         padding-left: 40px;
                         padding-right: 4-;
                         padding-right: 40px;">
-							<div class="row" >
+
                                 @php
                                     $stylecol="col-sm-1";
                                     $count=0;
                                 @endphp
-								@foreach($item['photo'] as $kb)
+								@foreach($item['photo'] as $chunk)
                                     {{-- cek bisakah ditambahkan break per jumlah member --}}
-                                   @php
+                                   {{-- @php
                                        if ($memberscount==4) {
                                             $stylecol="col-sm-3";
                                        }
                                        if ($memberscount==6) {
                                             $stylecol="col-sm-2";
                                        }
-                                   @endphp
-                                    <div class="{{$stylecol}}">
-                                        @if ($cek==null)
-                                            <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%;">
-                                        @else
-                                            @if (in_array($kb->id, $myphotocards))
-                                                <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%;">
-                                            @else
-                                                <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%; filter:grayscale(100%)">
+                                   @endphp --}}
+                                   <div class="row" >
+                                        @foreach ($chunk as $kb)
+                                            <div class="{{$stylecol}}">
+                                                @if ($cek==null)
+                                                    <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%;">
+                                                @else
+                                                    @if (in_array($kb->id, $myphotocards))
+                                                        <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%;">
+                                                    @else
+                                                        <img class="img-fluid card-img-top" src="{{config('app.url')}}/{{config('app.str')}}/{{$kb->pic_front}}" alt="Card image cap" style="height: 100%; filter:grayscale(100%)">
+                                                    @endif
                                             @endif
-                                       @endif
-										<div class="middle">
-                                            @auth
-                                                <a href="{{config('app.url')}}/photocard/{{$group->slug}}/{{$album->slug}}/{{$kb->id}}"  type="button" class="btn btn-warning text"><i class="feather mr-2 icon-search"></i></a>
-                                                <button onClick="Data.addPhotocard('{{$kb->id}}')" class="btn btn-info text"><i class="feather mr-2 icon-briefcase" aria-hidden="true"></i></button>
-                                                <button onClick="Data.addPhotocardwtb('{{$kb->id}}')" class="btn btn-danger text"><i class="feather mr-2 icon-heart" aria-hidden="true"></i></button>
-                                            @else
-                                            <a href="{{config('app.url')}}/photocard/{{$group->slug}}/{{$album->slug}}/{{$kb->id}}"  type="button" class="btn btn-warning textadd"><i class="feather mr-2 icon-search"></i>Detail &nbsp;</a>
-                                            @endauth
-                                        </div>
-									</div>
+                                                <div class="middle">
+                                                    @auth
+                                                        <a href="{{config('app.url')}}/photocard/{{$group->slug}}/{{$album->slug}}/{{$kb->id}}"  type="button" class="btn btn-warning text"><i class="feather mr-2 icon-search"></i></a>
+                                                        <button onClick="Data.addPhotocard('{{$kb->id}}')" class="btn btn-info text"><i class="feather mr-2 icon-briefcase" aria-hidden="true"></i></button>
+                                                        <button onClick="Data.addPhotocardwtb('{{$kb->id}}')" class="btn btn-danger text"><i class="feather mr-2 icon-heart" aria-hidden="true"></i></button>
+                                                    @else
+                                                    <a href="{{config('app.url')}}/photocard/{{$group->slug}}/{{$album->slug}}/{{$kb->id}}"  type="button" class="btn btn-warning textadd"><i class="feather mr-2 icon-search"></i>Detail &nbsp;</a>
+                                                    @endauth
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
 								@endforeach
-							</div>
 						</div>
 					</div>
 				</div>
